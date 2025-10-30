@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -19,7 +18,7 @@
         }
         
         .container {
-            max-width: 900px; /* Aumentado de 800px para 900px */
+            max-width: 900px;
             margin: 0 auto;
         }
         
@@ -28,13 +27,13 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            margin-bottom: 10px; /* Espaçamento entre cabeçalho e questões */
-            color: white; /* Texto branco */
+            margin-bottom: 10px;
+            color: white;
         }
         
         .school-name {
             text-align: center;
-            font-size: 20px; /* Ligeiramente maior */
+            font-size: 20px;
             font-weight: bold;
             margin-bottom: 15px;
             color: white;
@@ -50,23 +49,26 @@
         .info-group {
             display: flex;
             align-items: center;
+            flex: 1 1 200px; /* Flexível para responsividade */
         }
         
         .info-label {
             margin-right: 5px;
             font-weight: bold;
             color: white;
+            white-space: nowrap; /* Evita quebra de linha */
         }
         
         .info-input {
-            padding: 6px 8px; /* Aumentado ligeiramente o padding */
+            padding: 6px 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
             background-color: white;
+            width: 100%; /* Ocupa toda a largura disponível */
         }
         
         #studentName {
-            width: 350px; /* Aumentado de 250px para 350px */
+            min-width: 100px; /* Largura mínima */
         }
         
         #studentNumber {
@@ -78,12 +80,12 @@
         }
         
         #activityDate {
-            width: 140px; /* Aumentado de 120px para 140px */
+            width: 140px;
         }
         
         .activity-title {
             text-align: center;
-            font-size: 22px; /* Ligeiramente maior */
+            font-size: 22px;
             font-weight: bold;
             margin: 15px 0;
             color: white;
@@ -91,12 +93,12 @@
         
         .question-container {
             background-color: #E6F2FF; /* Azul claro */
-            padding: 18px; /* Aumentado de 15px para 18px */
+            padding: 18px;
             border-radius: 8px;
-            margin-bottom: 10px; /* Espaçamento entre questões */
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08); /* Sombras para efeito de alto relevo */
-            border: 1px solid #d0d0d0; /* Borda sutil para destacar */
-            position: relative; /* Para efeitos de profundidade */
+            margin-bottom: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
+            border: 1px solid #d0d0d0;
+            position: relative;
         }
         
         .question-container::before {
@@ -107,7 +109,7 @@
             right: 0;
             bottom: 0;
             border-radius: 8px;
-            box-shadow: inset 0 1px 3px rgba(255,255,255,0.8); /* Efeito de iluminação interna */
+            box-shadow: inset 0 1px 3px rgba(255,255,255,0.8);
             pointer-events: none;
         }
         
@@ -118,6 +120,7 @@
         .question-text {
             font-weight: bold;
             margin-bottom: 10px;
+            line-height: 1.4; /* Melhor legibilidade */
         }
         
         .question-image {
@@ -132,7 +135,7 @@
         }
         
         .options {
-            margin-left: 20px;
+            margin-left: 0; /* Removido para melhor responsividade */
         }
         
         .option {
@@ -144,12 +147,19 @@
         .option input {
             margin-right: 10px;
             margin-top: 3px;
+            flex-shrink: 0; /* Impede que o radio button encolha */
+        }
+        
+        .option label {
+            line-height: 1.4; /* Melhor legibilidade em telas pequenas */
         }
         
         .buttons {
             display: flex;
             justify-content: space-between;
             margin-top: 20px;
+            flex-wrap: wrap; /* Permite quebra em telas pequenas */
+            gap: 10px; /* Espaçamento entre botões quando quebram */
         }
         
         button {
@@ -158,7 +168,9 @@
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Sombra nos botões */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            flex: 1; /* Botões ocupam espaço igual */
+            min-width: 140px; /* Largura mínima para botões */
         }
         
         #submitBtn {
@@ -189,6 +201,80 @@
             background-color: #f8d7da;
             color: #721c24;
             border: 1px solid #f5c6cb;
+        }
+        
+        /* Media Queries para responsividade */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 15px;
+            }
+            
+            .school-name {
+                font-size: 18px;
+            }
+            
+            .student-info {
+                gap: 10px;
+            }
+            
+            .info-group {
+                flex: 1 1 100%; /* Ocupa toda a largura em telas menores */
+            }
+            
+            .activity-title {
+                font-size: 18px;
+            }
+            
+            .question-container {
+                padding: 15px;
+            }
+            
+            .question-text {
+                font-size: 16px;
+            }
+            
+            .option {
+                align-items: flex-start;
+            }
+            
+            .option label {
+                font-size: 15px;
+            }
+            
+            button {
+                padding: 12px 15px;
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .school-name {
+                font-size: 16px;
+            }
+            
+            .activity-title {
+                font-size: 16px;
+            }
+            
+            .question-text {
+                font-size: 15px;
+            }
+            
+            .option label {
+                font-size: 14px;
+            }
+            
+            .buttons {
+                flex-direction: column; /* Botões empilhados verticalmente */
+            }
+            
+            button {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -367,8 +453,8 @@
         <div class="question-container">
             <div class="question">
                 <div class="question-text">4. Analisando a imagem que representa o experimento com ímãs e limalhas de ferro, qual das alternativas explica corretamente o fenômeno observado?</div>
-                <center></center><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiTuRPTXh4eAMewEJWYXe6-tsXvLGVBdBjBTFQVIKPpaOb0nK7IbfhHRX0JB399acUyro7b8pSksKRAr1jEie7poqZPg89Kb7Bny9Z8scbTmf-JGT_ELlVPbQ16n0a7o4Tc1WbGsHQoSJ9htULelr-JA3_2bStKGCSmtBWSg3sLBaIdD495KlE63RmeptZQ/s673/Capturar.PNG" class="question-image">
-                <div class="options"></center>
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiTuRPTXh4eAMewEJWYXe6-tsXvLGVBdBjBTFQVIKPpaOb0nK7IbfhHRX0JB399acUyro7b8pSksKRAr1jEie7poqZPg89Kb7Bny9Z8scbTmf-JGT_ELlVPbQ16n0a7o4Tc1WbGsHQoSJ9htULelr-JA3_2bStKGCSmtBWSg3sLBaIdD495KlE63RmeptZQ/s673/Capturar.PNG" class="question-image">
+                <div class="options">
                     <div class="option">
                         <input type="radio" name="q4" id="q4a" value="a">
                         <label for="q4a">As limalhas de ferro são atraídas apenas pelos polos norte dos ímãs.</label>
@@ -393,8 +479,8 @@
         <div class="question-container">
             <div class="question">
                 <div class="question-text">5. Observando a imagem que representa a matriz energética brasileira, qual das alternativas descreve corretamente uma característica importante dessa matriz?</div>
-                <center></center><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh4l5CrG1A5B80k6UXLbBaD2TNBXD0aN6td635qJARhivotpOM9oecGhacFBFEFqD7EsKJX2ERCWk_LPNSqADi7_dquRMLtPu22q5InW6sR-mNxraQguqrK7UuUPq7TPlcT0AhRcNmXmh5rcmD_b2ZbJGoUUN-PGiJTohcr18qhS1D3KTRGVw6UBmhc4ZR2/s699/Capturar.PNG" class="question-image">
-                <div class="options"></center><br>
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh4l5CrG1A5B80k6UXLbBaD2TNBXD0aN6td635qJARhivotpOM9oecGhacFBFEFqD7EsKJX2ERCWk_LPNSqADi7_dquRMLtPu22q5InW6sR-mNxraQguqrK7UuUPq7TPlcT0AhRcNmXmh5rcmD_b2ZbJGoUUN-PGiJTohcr18qhS1D3KTRGVw6UBmhc4ZR2/s699/Capturar.PNG" class="question-image">
+                <div class="options"><br>
                     <div class="option">
                         <input type="radio" name="q5" id="q5a" value="a">
                         <label for="q5a">A matriz energética brasileira é composta majoritariamente por fontes não renováveis, especialmente petróleo e carvão.</label>
@@ -419,11 +505,12 @@
         <div class="question-container">
             <div class="question">
                 <div class="question-text">6. Analisando a imagem que mostra diferentes tipos de energia no cotidiano, qual das alternativas descreve corretamente a transformação de energia que ocorre quando uma pessoa anda de bicicleta?</div>
-                <iframe src="https://phet.colorado.edu/sims/html/energy-forms-and-changes/latest/energy-forms-and-changes_pt_BR.html"
-        width="800"
-        height="600"
-        allowfullscreen>
-</iframe><br><br>
+                <div style="width: 100%; overflow: hidden; position: relative; padding-bottom: 75%;">
+                    <iframe src="https://phet.colorado.edu/sims/html/energy-forms-and-changes/latest/energy-forms-and-changes_pt_BR.html"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                            allowfullscreen>
+                    </iframe>
+                </div><br>
                 <div class="options">
                     <div class="option">
                         <input type="radio" name="q6" id="q6a" value="a">
@@ -449,8 +536,8 @@
         <div class="question-container">
             <div class="question">
                 <div class="question-text">7. Observando a imagem que ilustra diferentes fontes de energia renovável, qual das alternativas apresenta corretamente uma vantagem das energias renováveis em relação às não renováveis?</div>
-                <center></center><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh71TM7osOxQBEnTE_MSy-pRZ41ehCP_lXfljwYf6DlrojH65KBNrIZk5YQZicS2NSB5PSwO17ypuLQuNGg421uoDMdAJBM5ebLRUdKDLriOatxn6cCjzR3D9Bq3xiOmCHUF58upwVfbLlP5LvpKAQAc0EQZRaIfgUG2yvTpgRTFwlfZRiP6aqQW9uVKLrn/s719/Capturar.PNG" class="question-image">
-                <div class="options"></center>
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh71TM7osOxQBEnTE_MSy-pRZ41ehCP_lXfljwYf6DlrojH65KBNrIZk5YQZicS2NSB5PSwO17ypuLQuNGg421uoDMdAJBM5ebLRUdKDLriOatxn6cCjzR3D9Bq3xiOmCHUF58upwVfbLlP5LvpKAQAc0EQZRaIfgUG2yvTpgRTFwlfZRiP6aqQW9uVKLrn/s719/Capturar.PNG" class="question-image">
+                <div class="options">
                     <div class="option">
                         <input type="radio" name="q7" id="q7a" value="a">
                         <label for="q7a">As energias renováveis são mais poluentes que as não renováveis.</label>
@@ -501,9 +588,9 @@
         <div class="question-container">
             <div class="question">
                 <div class="question-text">9. Observando a imagem que representa o Objetivo de Desenvolvimento Sustentável 7 (ODS 7) da ONU, qual das alternativas descreve corretamente a meta principal desse objetivo?</div>
-                <center></center><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi31lFF9MdfKEIgFwtYuNFfgm5TnT5t-reiWAwuqDhkAveB228rcBTEIBBv9Cs-FmNMyOSyla6tFnvTV_ftCWMpY6Lj3nc7Qn9CuDQpTIwCiTQhlit6s0Zw4iUfwgmDgdiyKFVX05zDLh1h1FDEAaormzq6PZs3VlMzFMUv1mwgwVM5YpKqtbMQp58FEERi/s1164/Capturar.PNG" class="question-image">
-                <div class="options"></center>
-                    <div class="option"><br>
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi31lFF9MdfKEIgFwtYuNFfgm5TnT5t-reiWAwuqDhkAveB228rcBTEIBBv9Cs-FmNMyOSyla6tFnvTV_ftCWMpY6Lj3nc7Qn9CuDQpTIwCiTQhlit6s0Zw4iUfwgmDgdiyKFVX05zDLh1h1FDEAaormzq6PZs3VlMzFMUv1mwgwVM5YpKqtbMQp58FEERi/s1164/Capturar.PNG" class="question-image">
+                <div class="options"><br>
+                    <div class="option">
                         <input type="radio" name="q9" id="q9a" value="a">
                         <label for="q9a">Garantir o acesso a fontes de energia não renováveis para todos os países.</label>
                     </div>
@@ -772,17 +859,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
