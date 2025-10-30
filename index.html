@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade de Ciências - 4º Bimestre</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #8A9A5B; /* Verde musgo */
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 10px; /* Espaçamento entre cabeçalho e questões */
+        }
+        
+        .school-name {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .student-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .info-group {
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-label {
+            margin-right: 5px;
+            font-weight: bold;
+        }
+        
+        .info-input {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        
+        #studentName {
+            width: 250px;
+        }
+        
+        #studentNumber {
+            width: 60px;
+        }
+        
+        #studentClass {
+            width: 80px;
+        }
+        
+        #activityDate {
+            width: 120px;
+        }
+        
+        .activity-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        
+        .question-container {
+            background-color: #E6F2FF; /* Azul claro */
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px; /* Espaçamento entre questões */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .question {
+            margin-bottom: 15px;
+        }
+        
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .question-image {
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .options {
+            margin-left: 20px;
+        }
+        
+        .option {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .option input {
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        #submitBtn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        #clearBtn {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="school-name">E.E. PROFª WANDA MASCAGNI DE SÁ</div>
+            <div class="student-info">
+                <div class="info-group">
+                    <span class="info-label">NOME:</span>
+                    <select id="studentName" class="info-input">
+                        <option value="">Selecione seu nome</option>
+                        <!-- Alunos 8ºA -->
+                        <option value="ANA BEATRIZ RODRIGUES OLIVEIRA">ANA BEATRIZ RODRIGUES OLIVEIRA</option>
+                        <option value="ANA CLARA SOUSA DA COSTA">ANA CLARA SOUSA DA COSTA</option>
+                        <option value="ANA VICTORIA RAGACINI DE OLIVEIRA">ANA VICTORIA RAGACINI DE OLIVEIRA</option>
+                        <option value="ARTHUR DAVI DE SOUZA FERNANDES">ARTHUR DAVI DE SOUZA FERNANDES</option>
+                        <option value="EDUARDA ALVES DE SOUZA">EDUARDA ALVES DE SOUZA</option>
+                        <option value="EMANUEL ALVES OLIVEIRA">EMANUEL ALVES OLIVEIRA</option>
+                        <option value="ESTHER CRISTINE SILVA RIBEIRO">ESTHER CRISTINE SILVA RIBEIRO</option>
+                        <option value="EVELLYN YASMIN TAVARES SILVA">EVELLYN YASMIN TAVARES SILVA</option>
+                        <option value="FELIPE DE SOUZA RODRIGUES">FELIPE DE SOUZA RODRIGUES</option>
+                        <option value="FERNANDA POLACHINI MAYER GOMES MARQUES">FERNANDA POLACHINI MAYER GOMES MARQUES</option>
+                        <option value="GEOVANNA VITORIA ROCHA ABDALA">GEOVANNA VITORIA ROCHA ABDALA</option>
+                        <option value="GUSTAVO AUGUSTO TOMBOLO REIS">GUSTAVO AUGUSTO TOMBOLO REIS</option>
+                        <option value="IGOR MARTINS PEREIRA">IGOR MARTINS PEREIRA</option>
+                        <option value="IZABELLY VITORIA DE CARVALHO RODRIGUES SETH">IZABELLY VITORIA DE CARVALHO RODRIGUES SETH</option>
+                        <option value="KAROLAYNE DOS SANTOS BISSORNIA">KAROLAYNE DOS SANTOS BISSORNIA</option>
+                        <option value="KAUANNY APARECIDA MALAQUIAS LIMA">KAUANNY APARECIDA MALAQUIAS LIMA</option>
+                        <option value="KÉTHILY NAYARA DA SILVA">KÉTHILY NAYARA DA SILVA</option>
+                        <option value="LAVINIA PEREIRA DE SOUZA">LAVINIA PEREIRA DE SOUZA</option>
+                        <option value="LIVIA PEREIRA DE SOUZA">LIVIA PEREIRA DE SOUZA</option>
+                        <option value="LOHRAN ROMUALDO MENDES DA SILVA">LOHRAN ROMUALDO MENDES DA SILVA</option>
+                        <option value="LUIS MIGUEL GONCALVES DA SILVA">LUIS MIGUEL GONCALVES DA SILVA</option>
+                        <option value="MARCELA ROBERTO DE OLIVEIRA">MARCELA ROBERTO DE OLIVEIRA</option>
+                        <option value="MATHEUS TURCHETTO">MATHEUS TURCHETTO</option>
+                        <option value="OMRAN RASEKH">OMRAN RASEKH</option>
+                        <option value="PRISCILLA VITORIA MENDES DE OLIVEIRA">PRISCILLA VITORIA MENDES DE OLIVEIRA</option>
+                        <option value="SARAH VITORIA ALVES OLIVEIRA">SARAH VITORIA ALVES OLIVEIRA</option>
+                        <option value="YURI GABRIEL DE MORAES PONGOLINO">YURI GABRIEL DE MORAES PONGOLINO</option>
+                        <option value="ZAYN AL ABIDIN RASULI">ZAYN AL ABIDIN RASULI</option>
+                        <option value="ARTHUR COHEN BARRETO">ARTHUR COHEN BARRETO</option>
+                        <option value="ISABELLA DOS SANTOS SALDANHA">ISABELLA DOS SANTOS SALDANHA</option>
+                        <option value="MIGUEL MARTINS DE ASSIS">MIGUEL MARTINS DE ASSIS</option>
+                        <option value="ALICE CARVALHO">ALICE CARVALHO</option>
+                        <option value="AMANDA PASSOS DE ALMEIDA">AMANDA PASSOS DE ALMEIDA</option>
+                        <option value="ANA JULIA MENEZES DA SILVA">ANA JULIA MENEZES DA SILVA</option>
+                        <option value="HENRIQUE ROCHA CARVALHAL">HENRIQUE ROCHA CARVALHAL</option>
+                        <!-- Alunos 8ºB -->
+                        <option value="ANA CLARA GONCALVES TORRES LOYOLA">ANA CLARA GONCALVES TORRES LOYOLA</option>
+                        <option value="ANNA BEATRIZ SANTIAGO DA SILVA">ANNA BEATRIZ SANTIAGO DA SILVA</option>
+                        <option value="ELIAS SILVA DE LIMA">ELIAS SILVA DE LIMA</option>
+                        <option value="EVERTON HENRIQUE CARMO RODRIGUES">EVERTON HENRIQUE CARMO RODRIGUES</option>
+                        <option value="GABRIELA VITORIA SEVERA LINS">GABRIELA VITORIA SEVERA LINS</option>
+                        <option value="JULIO CESAR ALVES DOS SANTOS">JULIO CESAR ALVES DOS SANTOS</option>
+                        <option value="LUAN VENITES BALBINO">LUAN VENITES BALBINO</option>
+                        <option value="MARIA EDUARDA FELIX DA SILVA">MARIA EDUARDA FELIX DA SILVA</option>
+                        <option value="MONIQUE RIJO COSTA">MONIQUE RIJO COSTA</option>
+                        <option value="MUNIQUE CRISTINA LUCAS">MUNIQUE CRISTINA LUCAS</option>
+                        <option value="NICOLAS PENTEADO">NICOLAS PENTEADO</option>
+                        <option value="PAULO CELSO DA COSTA JUNIOR">PAULO CELSO DA COSTA JUNIOR</option>
+                        <option value="PEDRO HENRIQUE CARLOS LIMA">PEDRO HENRIQUE CARLOS LIMA</option>
+                        <option value="PEDRO HENRIQUE MORAIS AMORIM">PEDRO HENRIQUE MORAIS AMORIM</option>
+                        <option value="PIETRO RODRIGUES MIRANDA">PIETRO RODRIGUES MIRANDA</option>
+                        <option value="RAPHAELLY APARECIDA MARINHO DE OLIVEIRA">RAPHAELLY APARECIDA MARINHO DE OLIVEIRA</option>
+                        <option value="RENAN LEANDRO RODRIGUES VICENTE">RENAN LEANDRO RODRIGUES VICENTE</option>
+                        <option value="WENDELL RAFAEL DE JESUS LESSA">WENDELL RAFAEL DE JESUS LESSA</option>
+                        <option value="WILHAN KENJI ANTONIO">WILHAN KENJI ANTONIO</option>
+                        <option value="JENNYFER VITORIA BASILIO GOMES">JENNYFER VITORIA BASILIO GOMES</option>
+                        <option value="THAYNA SEABRA DE OLIVEIRA DO NASCIMENTO">THAYNA SEABRA DE OLIVEIRA DO NASCIMENTO</option>
+                        <option value="SOPHIA MENEZES DE ARAUJO">SOPHIA MENEZES DE ARAUJO</option>
+                        <option value="VITORIA MENEZES BRANDAO">VITORIA MENEZES BRANDAO</option>
+                        <option value="LORENA ALEXANDRE SANTOS DA SILVA">LORENA ALEXANDRE SANTOS DA SILVA</option>
+                        <option value="MANUELLA DE MORAES SOUZA">MANUELLA DE MORAES SOUZA</option>
+                        <option value="VITORIA JOLIE RODRIGUES RAPOSO">VITORIA JOLIE RODRIGUES RAPOSO</option>
+                        <option value="RAQUEL BARGAS TAVARES DOS SANTOS">RAQUEL BARGAS TAVARES DOS SANTOS</option>
+                        <option value="RODOLFO RAFAEL GOLZENLEUCHTER MORENO JUNIOR">RODOLFO RAFAEL GOLZENLEUCHTER MORENO JUNIOR</option>
+                        <option value="ANTONIO CARLOS CAMPOS NETO">ANTONIO CARLOS CAMPOS NETO</option>
+                    </select>
+                </div>
+                <div class="info-group">
+                    <span class="info-label">Nº:</span>
+                    <input type="text" id="studentNumber" class="info-input" readonly>
+                </div>
+                <div class="info-group">
+                    <span class="info-label">SÉRIE:</span>
+                    <input type="text" id="studentClass" class="info-input" readonly>
+                </div>
+                <div class="info-group">
+                    <span class="info-label">DATA:</span>
+                    <input type="date" id="activityDate" class="info-input">
+                </div>
+            </div>
+            <div class="activity-title">ATIVIDADE DE CIÊNCIAS (4ºBIMESTRE)</div>
+        </div>
+        
+        <!-- Questão 1 -->
+        <div class="question-container">
+            <div class="question">
+                <div class="question-text">1. Em uma aula sobre transformação de energia, o professor apresentou o exemplo de uma montanha-russa. Analisando a imagem abaixo, que mostra as transformações de energia em uma montanha-russa, qual das alternativas descreve corretamente o que acontece com a energia potencial e cinética durante o percurso?</div>
+                <img src="https://via.placeholder.com/600x300?text=Imagem+da+Montanha-Russa" alt="Montanha-russa mostrando transformações de energia" class="question-image">
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1a" value="a">
+                        <label for="q1a">A energia potencial aumenta à medida que o carrinho desce, enquanto a energia cinética diminui.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1b" value="b">
+                        <label for="q1b">A energia potencial se transforma em energia cinética durante a descida, e vice-versa durante a subida, mantendo a energia total constante.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1c" value="c">
+                        <label for="q1c">Tanto a energia potencial quanto a cinética aumentam durante a descida do carrinho.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1d" value="d">
+                        <label for="q1d">A energia total do sistema diminui à medida que o carrinho percorre o trajeto devido ao atrito.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Questão 2 -->
+        <div class="question-container">
+            <div class="question">
+                <div class="question-text">2. Analisando a imagem que representa diferentes formas de energia no cotidiano, identifique qual das alternativas abaixo descreve corretamente a transformação de energia que ocorre quando uma pessoa utiliza um aparelho celular:</div>
+                <img src="https://via.placeholder.com/600x300?text=Imagem+de+Energia+no+Cotidiano" alt="Diferentes formas de energia no cotidiano" class="question-image">
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2a" value="a">
+                        <label for="q2a">Energia química da bateria se transforma em energia elétrica, que é convertida em energia luminosa, sonora e térmica.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2b" value="b">
+                        <label for="q2b">Energia nuclear se transforma diretamente em energia luminosa e sonora.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2c" value="c">
+                        <label for="q2c">Energia mecânica do toque na tela se transforma em energia elétrica.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2d" value="d">
+                        <label for="q2d">Energia térmica do ambiente é convertida em energia elétrica pelo aparelho.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Questão 3 -->
+        <div class="question-container">
+            <div class="question">
+                <div class="question-text">3. Observando a imagem que mostra diferentes fontes de energia renováveis, qual das alternativas abaixo apresenta corretamente uma característica comum a todas essas fontes?</div>
+                <img src="https://via.placeholder.com/600x300?text=Imagem+de+Fontes+Renováveis" alt="Diferentes fontes de energia renováveis" class="question-image">
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3a" value="a">
+                        <label for="q3a">São fontes de energia que se esgotam rapidamente com o uso intensivo.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3b" value="b">
+                        <label for="q3b">São fontes que dependem de recursos naturais que se renovam continuamente.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3c" value="c">
+                        <label for="q3c">São fontes de energia que produzem grandes quantidades de poluentes atmosféricos.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3d" value="d">
+                        <label for="q3d">São fontes de energia que apresentam custos de instalação muito baixos.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Questão 4 -->
+        <div class="question-container">
+            <div class="question">
+                <div class="question-text">4. Analisando a imagem que representa o experimento com ímãs e limalhas de ferro, qual das alternativas explica corretamente o fenômeno observado?</div>
+                <img src="https://via.placeholder.com/600x300?text=Imagem+de+Campo+Magnético" alt="Campo magnético representado por limalhas de ferro" class="question-image">
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4a" value="a">
+                        <label for="q4a">As limalhas de ferro são atraídas apenas pelos polos norte dos ímãs.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4b" value="b">
+                        <label for="q4b">As limalhas se alinham seguindo as linhas do campo magnético, que saem do polo norte e entram no polo sul.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4c" value="c">
+                        <label for="q4c">As limalhas se concentram apenas nas extremidades dos ímãs, ignorando o espaço entre eles.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4d" value="d">
+                        <label for="q4d">As limalhas formam padrões aleatórios que não representam nenhum fenômeno físico.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Questão 5 -->
+        <div class="question-container">
+            <div class="question">
+                <div class="question-text">5. Observando a imagem que representa a matriz energética brasileira, qual das alternativas descreve corretamente uma característica importante dessa matriz?</div>
+                <img src="https://via.placeholder.com/600x300?text=Imagem+da+Matriz+Energética+Brasileira" alt="Matriz energética brasileira" class="question-image">
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5a" value="a">
+                        <label for="q5a">A matriz energética brasileira é composta majoritariamente por fontes não renováveis, especialmente petróleo e carvão.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5b" value="b">
+                        <label for="q5b">O Brasil possui uma das matrizes energéticas mais renováveis do mundo, com destaque para a energia hidrelétrica e biocombustíveis.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5c" value="c">
+                        <label for="q5c">A matriz energética brasileira não inclui fontes renováveis, dependendo exclusivamente de combustíveis fósseis.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5d" value="d">
+                        <label for="q5d">A energia nuclear representa a maior parte da matriz energética brasileira.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Questão 6 -->
+        <div class="question-container">
+            <div class="question">
+                <div class="question-text">6. Analisando a imagem que mostra diferentes tipos de energia no cotidiano, qual das alternativas descreve corretamente a transformação de energia que ocorre quando uma pessoa anda de bicicleta?</div>
+                <img src="https://via.placeholder.com/600x300?text=Imagem+de+Transformação+de+Energia" alt="Transformação de energia no cotidiano" class="question-image">
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6a" value="a">
+                        <label for="q6a">Energia nuclear dos alimentos é convertida diretamente em energia mecânica.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6b" value="b">
+                        <label for="q6b">Energia química dos alimentos é transformada em energia mecânica (movimento) e energia térmica (calor corporal).</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6c" value="c">
+                        <label for="q6c">Energia elétrica do corpo é convertida em energia cinética.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6d" value="d">
+                        <label for="q6d">Energia potencial gravitacional é transformada em energia sonora.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Questão 7 -->
+        <div class="question-container">
+            <div class="question">
+                <div class="question-text">7. Observando a imagem que ilustra diferentes fontes de energia renovável, qual das alternativas apresenta corretamente uma vantagem das energias renováveis em relação às não renováveis?</div>
+                <img src="https://via.placeholder.com/600x300?text=Imagem+de+Energias+Renováveis" alt="Diferentes fontes de energia renovável" class="question-image">
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7a" value="a">
+                        <label for="q7a">As energias renováveis são mais poluentes que as não renováveis.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7b" value="b">
+                        <label for="q7b">As energias renováveis são fontes inesgotáveis que não se esgotam com o uso.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7c" value="c">
+                        <label for="q7c">As energias renováveis têm custos de instalação sempre mais baixos que as não renováveis.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7d" value="d">
+                        <label for="q7d">As energias renováveis não dependem de condições climáticas para funcionar.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Questão 8 -->
+        <div class="question-container">
+            <div class="question">
+                <div class="question-text">8. Analisando a imagem que mostra a interação entre dois ímãs, qual das alternativas descreve corretamente o que acontece quando aproximamos os polos iguais de dois ímãs?</div>
+                <img src="https://via.placeholder.com/600x300?text=Imagem+de+Interação+entre+Ímãs" alt="Interação entre ímãs" class="question-image">
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8a" value="a">
+                        <label for="q8a">Ocorre atração entre os ímãs, independentemente dos polos que estão se aproximando.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8b" value="b">
+                        <label for="q8b">Ocorre repulsão entre os ímãs quando polos iguais (norte-norte ou sul-sul) se aproximam.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8c" value="c">
+                        <label for="q8c">Os ímãs não interagem quando polos iguais se aproximam.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8d" value="d">
+                        <label for="q8d">Os ímãs se fundem formando um único ímã mais forte.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Questão 9 -->
+        <div class="question-container">
+            <div class="question">
+                <div class="question-text">9. Observando a imagem que representa o Objetivo de Desenvolvimento Sustentável 7 (ODS 7) da ONU, qual das alternativas descreve corretamente a meta principal desse objetivo?</div>
+                <img src="https://via.placeholder.com/600x300?text=Imagem+do+ODS+7" alt="Objetivo de Desenvolvimento Sustentável 7" class="question-image">
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9a" value="a">
+                        <label for="q9a">Garantir o acesso a fontes de energia não renováveis para todos os países.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9b" value="b">
+                        <label for="q9b">Garantir o acesso universal a energia acessível, confiável, sustentável e moderna para todos.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9c" value="c">
+                        <label for="q9c">Reduzir o consumo global de energia para preservar os recursos naturais.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9d" value="d">
+                        <label for="q9d">Aumentar a produção de energia nuclear em todo o mundo.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Questão 10 -->
+        <div class="question-container">
+            <div class="question">
+                <div class="question-text">10. Analisando a imagem que mostra diferentes aplicações do magnetismo no cotidiano, qual das alternativas apresenta corretamente uma aplicação dos ímãs na tecnologia moderna?</div>
+                <img src="https://via.placeholder.com/600x300?text=Imagem+de+Aplicações+do+Magnetismo" alt="Aplicações do magnetismo no cotidiano" class="question-image">
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10a" value="a">
+                        <label for="q10a">Os ímãs são usados apenas em brinquedos infantis e decoração.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10b" value="b">
+                        <label for="q10b">Os ímãs são utilizados em motores elétricos, geradores, discos rígidos e equipamentos médicos.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10c" value="c">
+                        <label for="q10c">Os ímãs não têm aplicações práticas na tecnologia moderna.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10d" value="d">
+                        <label for="q10d">Os ímãs são utilizados apenas em bússolas para navegação.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <button id="submitBtn">Enviar Respostas</button>
+            <button id="clearBtn">Limpar Respostas</button>
+        </div>
+        
+        <div id="result" class="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        // Respostas corretas
+        const correctAnswers = {
+            q1: 'b',
+            q2: 'a',
+            q3: 'b',
+            q4: 'b',
+            q5: 'b',
+            q6: 'b',
+            q7: 'b',
+            q8: 'b',
+            q9: 'b',
+            q10: 'b'
+        };
+        
+        // Mapeamento de alunos para número e série
+        const students = {
+            // 8ºA
+            "ANA BEATRIZ RODRIGUES OLIVEIRA": { number: "2", class: "8ºA" },
+            "ANA CLARA SOUSA DA COSTA": { number: "3", class: "8ºA" },
+            "ANA VICTORIA RAGACINI DE OLIVEIRA": { number: "4", class: "8ºA" },
+            "ARTHUR DAVI DE SOUZA FERNANDES": { number: "5", class: "8ºA" },
+            "EDUARDA ALVES DE SOUZA": { number: "6", class: "8ºA" },
+            "EMANUEL ALVES OLIVEIRA": { number: "7", class: "8ºA" },
+            "ESTHER CRISTINE SILVA RIBEIRO": { number: "8", class: "8ºA" },
+            "EVELLYN YASMIN TAVARES SILVA": { number: "9", class: "8ºA" },
+            "FELIPE DE SOUZA RODRIGUES": { number: "10", class: "8ºA" },
+            "FERNANDA POLACHINI MAYER GOMES MARQUES": { number: "11", class: "8ºA" },
+            "GEOVANNA VITORIA ROCHA ABDALA": { number: "12", class: "8ºA" },
+            "GUSTAVO AUGUSTO TOMBOLO REIS": { number: "15", class: "8ºA" },
+            "IGOR MARTINS PEREIRA": { number: "17", class: "8ºA" },
+            "IZABELLY VITORIA DE CARVALHO RODRIGUES SETH": { number: "18", class: "8ºA" },
+            "KAROLAYNE DOS SANTOS BISSORNIA": { number: "21", class: "8ºA" },
+            "KAUANNY APARECIDA MALAQUIAS LIMA": { number: "22", class: "8ºA" },
+            "KÉTHILY NAYARA DA SILVA": { number: "23", class: "8ºA" },
+            "LAVINIA PEREIRA DE SOUZA": { number: "25", class: "8ºA" },
+            "LIVIA PEREIRA DE SOUZA": { number: "26", class: "8ºA" },
+            "LOHRAN ROMUALDO MENDES DA SILVA": { number: "27", class: "8ºA" },
+            "LUIS MIGUEL GONCALVES DA SILVA": { number: "28", class: "8ºA" },
+            "MARCELA ROBERTO DE OLIVEIRA": { number: "29", class: "8ºA" },
+            "MATHEUS TURCHETTO": { number: "31", class: "8ºA" },
+            "OMRAN RASEKH": { number: "32", class: "8ºA" },
+            "PRISCILLA VITORIA MENDES DE OLIVEIRA": { number: "33", class: "8ºA" },
+            "SARAH VITORIA ALVES OLIVEIRA": { number: "36", class: "8ºA" },
+            "YURI GABRIEL DE MORAES PONGOLINO": { number: "37", class: "8ºA" },
+            "ZAYN AL ABIDIN RASULI": { number: "38", class: "8ºA" },
+            "ARTHUR COHEN BARRETO": { number: "39", class: "8ºA" },
+            "ISABELLA DOS SANTOS SALDANHA": { number: "40", class: "8ºA" },
+            "MIGUEL MARTINS DE ASSIS": { number: "41", class: "8ºA" },
+            "ALICE CARVALHO": { number: "42", class: "8ºA" },
+            "AMANDA PASSOS DE ALMEIDA": { number: "43", class: "8ºA" },
+            "ANA JULIA MENEZES DA SILVA": { number: "44", class: "8ºA" },
+            "HENRIQUE ROCHA CARVALHAL": { number: "45", class: "8ºA" },
+            
+            // 8ºB
+            "ANA CLARA GONCALVES TORRES LOYOLA": { number: "2", class: "8ºB" },
+            "ANNA BEATRIZ SANTIAGO DA SILVA": { number: "3", class: "8ºB" },
+            "ELIAS SILVA DE LIMA": { number: "6", class: "8ºB" },
+            "EVERTON HENRIQUE CARMO RODRIGUES": { number: "7", class: "8ºB" },
+            "GABRIELA VITORIA SEVERA LINS": { number: "9", class: "8ºB" },
+            "JULIO CESAR ALVES DOS SANTOS": { number: "12", class: "8ºB" },
+            "LUAN VENITES BALBINO": { number: "14", class: "8ºB" },
+            "MARIA EDUARDA FELIX DA SILVA": { number: "17", class: "8ºB" },
+            "MONIQUE RIJO COSTA": { number: "18", class: "8ºB" },
+            "MUNIQUE CRISTINA LUCAS": { number: "19", class: "8ºB" },
+            "NICOLAS PENTEADO": { number: "20", class: "8ºB" },
+            "PAULO CELSO DA COSTA JUNIOR": { number: "23", class: "8ºB" },
+            "PEDRO HENRIQUE CARLOS LIMA": { number: "24", class: "8ºB" },
+            "PEDRO HENRIQUE MORAIS AMORIM": { number: "25", class: "8ºB" },
+            "PIETRO RODRIGUES MIRANDA": { number: "27", class: "8ºB" },
+            "RAPHAELLY APARECIDA MARINHO DE OLIVEIRA": { number: "28", class: "8ºB" },
+            "RENAN LEANDRO RODRIGUES VICENTE": { number: "29", class: "8ºB" },
+            "WENDELL RAFAEL DE JESUS LESSA": { number: "33", class: "8ºB" },
+            "WILHAN KENJI ANTONIO": { number: "34", class: "8ºB" },
+            "JENNYFER VITORIA BASILIO GOMES": { number: "40", class: "8ºB" },
+            "THAYNA SEABRA DE OLIVEIRA DO NASCIMENTO": { number: "41", class: "8ºB" },
+            "SOPHIA MENEZES DE ARAUJO": { number: "46", class: "8ºB" },
+            "VITORIA MENEZES BRANDAO": { number: "47", class: "8ºB" },
+            "LORENA ALEXANDRE SANTOS DA SILVA": { number: "49", class: "8ºB" },
+            "MANUELLA DE MORAES SOUZA": { number: "50", class: "8ºB" },
+            "VITORIA JOLIE RODRIGUES RAPOSO": { number: "51", class: "8ºB" },
+            "RAQUEL BARGAS TAVARES DOS SANTOS": { number: "52", class: "8ºB" },
+            "RODOLFO RAFAEL GOLZENLEUCHTER MORENO JUNIOR": { number: "53", class: "8ºB" },
+            "ANTONIO CARLOS CAMPOS NETO": { number: "54", class: "8ºB" }
+        };
+        
+        // Elementos DOM
+        const studentNameSelect = document.getElementById('studentName');
+        const studentNumberInput = document.getElementById('studentNumber');
+        const studentClassInput = document.getElementById('studentClass');
+        const activityDateInput = document.getElementById('activityDate');
+        const submitBtn = document.getElementById('submitBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const resultDiv = document.getElementById('result');
+        
+        // Definir data atual como padrão
+        const today = new Date();
+        activityDateInput.value = today.toISOString().split('T')[0];
+        
+        // Evento para preencher número e série ao selecionar aluno
+        studentNameSelect.addEventListener('change', function() {
+            const selectedStudent = this.value;
+            if (selectedStudent && students[selectedStudent]) {
+                studentNumberInput.value = students[selectedStudent].number;
+                studentClassInput.value = students[selectedStudent].class;
+            } else {
+                studentNumberInput.value = '';
+                studentClassInput.value = '';
+            }
+        });
+        
+        // Evento para enviar respostas
+        submitBtn.addEventListener('click', function() {
+            // Verificar se o aluno foi selecionado
+            if (!studentNameSelect.value) {
+                alert('Por favor, selecione seu nome na lista.');
+                return;
+            }
+            
+            // Verificar se a data foi preenchida
+            if (!activityDateInput.value) {
+                alert('Por favor, preencha a data.');
+                return;
+            }
+            
+            // Verificar se todas as questões foram respondidas
+            let allAnswered = true;
+            for (let i = 1; i <= 10; i++) {
+                const questionName = 'q' + i;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                if (!selectedOption) {
+                    allAnswered = false;
+                    break;
+                }
+            }
+            
+            if (!allAnswered) {
+                alert('Por favor, responda todas as questões antes de enviar.');
+                return;
+            }
+            
+            // Calcular pontuação
+            let score = 0;
+            for (let i = 1; i <= 10; i++) {
+                const questionName = 'q' + i;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                if (selectedOption && selectedOption.value === correctAnswers[questionName]) {
+                    score++;
+                }
+            }
+            
+            // Exibir resultado
+            resultDiv.textContent = `Você acertou ${score} de 10 questões.`;
+            resultDiv.className = 'result success';
+            resultDiv.style.display = 'block';
+            
+            // Enviar para Google Sheets (simulação)
+            sendToGoogleSheets(score);
+        });
+        
+        // Evento para limpar respostas
+        clearBtn.addEventListener('click', function() {
+            if (confirm('Tem certeza que deseja limpar todas as respostas?')) {
+                // Limpar todas as seleções de rádio
+                const radioButtons = document.querySelectorAll('input[type="radio"]');
+                radioButtons.forEach(radio => {
+                    radio.checked = false;
+                });
+                
+                // Limpar resultado
+                resultDiv.style.display = 'none';
+            }
+        });
+        
+        // Função para enviar dados para o Google Sheets
+        function sendToGoogleSheets(score) {
+            const studentName = studentNameSelect.value;
+            const studentNumber = studentNumberInput.value;
+            const studentClass = studentClassInput.value;
+            const activityDate = activityDateInput.value;
+            
+            // Dados a serem enviados
+            const data = {
+                studentName: studentName,
+                studentNumber: studentNumber,
+                studentClass: studentClass,
+                activityDate: activityDate,
+                score: score
+            };
+            
+            // URL do Google Apps Script (substitua pelo seu)
+            const scriptURL = 'https://script.google.com/macros/s/11hMwiMdyiXkDENceYawPjjVxqTHc0iyMUwcbuob6KNg/exec';
+            
+            // Enviar dados via fetch
+            fetch(scriptURL, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Dados enviados com sucesso para o Google Sheets');
+                } else {
+                    console.error('Erro ao enviar dados para o Google Sheets');
+                }
+            })
+            .catch(error => {
+                console.error('Erro na requisição:', error);
+            });
+        }
+    </script>
+</body>
+</html>
