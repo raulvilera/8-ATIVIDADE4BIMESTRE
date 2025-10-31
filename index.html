@@ -49,7 +49,7 @@
         .info-group {
             display: flex;
             align-items: center;
-            flex: 1 1 200px; /* Flexível para responsividade */
+            flex: 1 1 auto; /* Ajustado para comportamento mais flexível */
         }
         
         .info-label {
@@ -64,23 +64,24 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             background-color: white;
-            width: 100%; /* Ocupa toda a largura disponível */
         }
         
+        /* Ajustes específicos para cada campo */
         #studentName {
-            min-width: 100px; /* Largura mínima */
+            width: 350px; /* Aumentado significativamente para nomes longos */
+            min-width: 250px; /* Largura mínima aumentada */
         }
         
         #studentNumber {
-            width: 60px;
+            width: 80px; /* Aumentado para 80px */
         }
         
         #studentClass {
-            width: 80px;
+            width: 100px; /* Mantido em 100px */
         }
         
         #activityDate {
-            width: 140px;
+            width: 150px; /* Aumentado para 150px */
         }
         
         .activity-title {
@@ -259,6 +260,10 @@
             
             .info-group {
                 flex: 1 1 100%; /* Ocupa toda a largura em telas menores */
+            }
+            
+            #studentName, #studentNumber, #studentClass, #activityDate {
+                width: 100%; /* Campos ocupam toda a largura em mobile */
             }
             
             .activity-title {
@@ -874,7 +879,7 @@
             };
             
             // URL do Google Apps Script (substitua pelo seu)
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxZHnwsAPhC7djuWVNn55f6NvxKZ-yMnxx_ox2EqMaJSw3HtmhIx3fmOJvtzPx4wO4/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxZHnwsAPhC7djuWVNn55f6NvxKZ-yMnxx_ox2EqMaJSw3HtmhIx3fmOJvtzPx4wO4/exe';
             
             // Enviar dados via fetch
             fetch(scriptURL, {
@@ -898,5 +903,3 @@
     </script>
 </body>
 </html>
-
-
