@@ -156,31 +156,67 @@
         
         .buttons {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             margin-top: 20px;
             flex-wrap: wrap; /* Permite quebra em telas pequenas */
-            gap: 10px; /* Espaçamento entre botões quando quebram */
+            gap: 15px; /* Espaçamento entre botões quando quebram */
         }
         
         button {
-            padding: 10px 20px;
+            padding: 10px 25px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            flex: 1; /* Botões ocupam espaço igual */
-            min-width: 140px; /* Largura mínima para botões */
+            font-size: 16px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2), 
+                        0 2px 4px rgba(0,0,0,0.1),
+                        inset 0 1px 0 rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+            width: 180px; /* Largura reduzida */
+        }
+        
+        button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 8px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2), 
+                        inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        button:active::after {
+            opacity: 1;
         }
         
         #submitBtn {
-            background-color: #4CAF50;
+            background: linear-gradient(to bottom, #4CAF50, #3d8b40);
             color: white;
         }
         
+        #submitBtn:hover {
+            background: linear-gradient(to bottom, #45a049, #367c39);
+        }
+        
         #clearBtn {
-            background-color: #f44336;
+            background: linear-gradient(to bottom, #f44336, #d32f2f);
             color: white;
+        }
+        
+        #clearBtn:hover {
+            background: linear-gradient(to bottom, #e53935, #c62828);
         }
         
         .result {
@@ -246,8 +282,9 @@
             }
             
             button {
-                padding: 12px 15px;
+                padding: 12px 20px;
                 font-size: 16px;
+                width: 160px; /* Largura reduzida para mobile */
             }
         }
         
@@ -270,10 +307,12 @@
             
             .buttons {
                 flex-direction: column; /* Botões empilhados verticalmente */
+                align-items: center;
             }
             
             button {
                 width: 100%;
+                max-width: 200px;
             }
         }
     </style>
@@ -835,7 +874,7 @@
             };
             
             // URL do Google Apps Script (substitua pelo seu)
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxaJhbmJpzvUg8vHZAHfOBfg8FDy_qJyGFlVqLkaH0E7FJ_MWAdC1NMnB0ZzYV_7A/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxqV1YMYFI33dIkG5WuxNLXTqUg3GTGbbCMZaQx-63nUYL2FuMfQ05ZKGDwOTnT5ag/exec';
             
             // Enviar dados via fetch
             fetch(scriptURL, {
@@ -859,10 +898,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
