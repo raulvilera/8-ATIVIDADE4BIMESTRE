@@ -687,7 +687,7 @@
         
         <div id="result" class="result" style="display: none;"></div>
     </div>
-
+<script>
 // ======================================================
 // 🎯 CONFIGURAÇÃO DE RESPOSTAS CORRETAS
 // ======================================================
@@ -862,7 +862,7 @@ clearBtn.addEventListener('click', () => {
 async function enviarNotaParaPlanilha(nomeAluno, nota) {
   // ✅ SUBSTITUA PELO SEU NOVO LINK DO APPS SCRIPT PUBLICADO (termina com /exec)
   // Certifique-se de que o Apps Script foi REIMPLANTADO após as correções.
-  const scriptURL = "https://script.google.com/macros/s/AKfycbxoJTHi-wGcy8s0syXKBs2VYjh4AseiQd7wtmA4KXjUOmyunfF-ZTGahF0wPVFA2w/exec";
+  const scriptURL = "https://script.google.com/macros/s/AKfycby5_dXbrnPqf817Yby0EK-okgjjWrfTISOiVJ-S-Xi8-ORWlEfvwfOLsjzlbF-nFZA/exec";
   const data = { nome: nomeAluno, nota };
 
   try {
@@ -873,10 +873,6 @@ async function enviarNotaParaPlanilha(nomeAluno, nota) {
       body: JSON.stringify(data)
     });
 
-    // CORREÇÃO: O Apps Script, quando usado como Web App, sempre retorna status 200,
-    // mesmo em caso de erro. A verificação de response.ok é mantida, mas a lógica
-    // principal de erro deve vir do corpo JSON.
-    
     // Se a requisição falhar a nível de rede (ex: CORS, DNS, etc.), o erro será capturado no catch.
     if (!response.ok) {
         // Tenta ler o corpo para obter mais detalhes, mas lança um erro genérico se falhar
@@ -884,7 +880,7 @@ async function enviarNotaParaPlanilha(nomeAluno, nota) {
         throw new Error(`Erro de rede: O servidor retornou o status ${response.status}. Detalhes: ${errorText.substring(0, 100)}...`);
     }
 
-    // CORREÇÃO: Garante que a resposta é JSON antes de tentar analisá-la.
+    // Garante que a resposta é JSON antes de tentar analisá-la.
     const contentType = response.headers.get("content-type");
     if (!contentType || !contentType.includes("application/json")) {
         const rawText = await response.text();
@@ -907,16 +903,12 @@ async function enviarNotaParaPlanilha(nomeAluno, nota) {
     console.error("Erro ao enviar nota:", error);
     // Exibe a mensagem de erro detalhada
     alert("⚠️ Erro ao enviar a nota. " + error.message);
-    // O erro original era: "Erro ao enviar a nota. Verifique o console ou tente novamente mais tarde."
-    // A nova mensagem é mais informativa.
   }
 }
-
-
-
-
+</script>
 </body>
 </html>
+
 
 
 
