@@ -819,14 +819,14 @@ submitBtn.addEventListener('click', async () => {
     if (!activityDateInput.value) throw new Error("Preencha a data da atividade.");
 
     for (let i = 1; i <= 10; i++) {
-      if (!document.querySelector(`input[name="q${i}"]:checked`)) {
+      if (!document.querySelector(`input[name='q${i}']:checked`)) {
         throw new Error("Responda todas as questões antes de enviar.");
       }
     }
 
     let score = 0;
     for (let i = 1; i <= 10; i++) {
-      const selected = document.querySelector(`input[name="q${i}"]:checked`);
+      const selected = document.querySelector(`input[name='q${i}']:checked`);
       if (selected.value === correctAnswers[`q${i}`]) score++;
     }
 
@@ -855,7 +855,7 @@ clearBtn.addEventListener('click', () => {
 // 📤 ENVIO PARA PLANILHA (CORS + ERROS TRATADOS)
 // ======================================================
 async function enviarNotaParaPlanilha(nomeAluno, nota) {
-  // ✅ Coloque aqui o link final do Apps Script (termina com /exec)
+  // ✅ Substitua pelo link do seu Apps Script publicado (termina com /exec)
   const scriptURL = "https://script.google.com/macros/s/AKfycby5_dXbrnPqf817Yby0EK-okgjjWrfTISOiVJ-S-Xi8-ORWlEfvwfOLsjzlbF-nFZA/exec";
   const data = { nome: nomeAluno, nota };
 
@@ -872,7 +872,7 @@ async function enviarNotaParaPlanilha(nomeAluno, nota) {
     console.log("📬 Resposta do servidor:", json);
 
     if (json.status === "success") {
-      alert(json.message);
+      alert("✅ " + json.message);
     } else if (json.error) {
       throw new Error(json.error);
     } else {
@@ -888,8 +888,10 @@ async function enviarNotaParaPlanilha(nomeAluno, nota) {
 
 
 
+
 </body>
 </html>
+
 
 
 
