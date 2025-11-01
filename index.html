@@ -689,139 +689,192 @@
     </div>
 
 <script>
-    // ===============================
-    // RESPOSTAS CORRETAS
-    // ===============================
-    const correctAnswers = {
-        q1: 'b', q2: 'a', q3: 'b', q4: 'b', q5: 'b',
-        q6: 'b', q7: 'b', q8: 'b', q9: 'b', q10: 'b'
-    };
+// ===============================
+// RESPOSTAS CORRETAS
+// ===============================
+const correctAnswers = {
+  q1: 'b', q2: 'a', q3: 'b', q4: 'b', q5: 'b',
+  q6: 'b', q7: 'b', q8: 'b', q9: 'b', q10: 'b'
+};
 
-    // ===============================
-    // Mapeamento de alunos para número e série const students = { // 8ºA "ANA BEATRIZ RODRIGUES OLIVEIRA": { number: "2", class: "8ºA" }, "ANA CLARA SOUSA DA COSTA": { number: "3", class: "8ºA" }, "ANA VICTORIA RAGACINI DE OLIVEIRA": { number: "4", class: "8ºA" }, "ARTHUR DAVI DE SOUZA FERNANDES": { number: "5", class: "8ºA" }, "EDUARDA ALVES DE SOUZA": { number: "6", class: "8ºA" }, "EMANUEL ALVES OLIVEIRA": { number: "7", class: "8ºA" }, "ESTHER CRISTINE SILVA RIBEIRO": { number: "8", class: "8ºA" }, "EVELLYN YASMIN TAVARES SILVA": { number: "9", class: "8ºA" }, "FELIPE DE SOUZA RODRIGUES": { number: "10", class: "8ºA" }, "FERNANDA POLACHINI MAYER GOMES MARQUES": { number: "11", class: "8ºA" }, "GEOVANNA VITORIA ROCHA ABDALA": { number: "12", class: "8ºA" }, "GUSTAVO AUGUSTO TOMBOLO REIS": { number: "15", class: "8ºA" }, "IGOR MARTINS PEREIRA": { number: "17", class: "8ºA" }, "IZABELLY VITORIA DE CARVALHO RODRIGUES SETH": { number: "18", class: "8ºA" }, "KAROLAYNE DOS SANTOS BISSORNIA": { number: "21", class: "8ºA" }, "KAUANNY APARECIDA MALAQUIAS LIMA": { number: "22", class: "8ºA" }, "KÉTHILY NAYARA DA SILVA": { number: "23", class: "8ºA" }, "LAVINIA PEREIRA DE SOUZA": { number: "25", class: "8ºA" }, "LIVIA PEREIRA DE SOUZA": { number: "26", class: "8ºA" }, "LOHRAN ROMUALDO MENDES DA SILVA": { number: "27", class: "8ºA" }, "LUIS MIGUEL GONCALVES DA SILVA": { number: "28", class: "8ºA" }, "MARCELA ROBERTO DE OLIVEIRA": { number: "29", class: "8ºA" }, "MATHEUS TURCHETTO": { number: "31", class: "8ºA" }, "OMRAN RASEKH": { number: "32", class: "8ºA" }, "PRISCILLA VITORIA MENDES DE OLIVEIRA": { number: "33", class: "8ºA" }, "SARAH VITORIA ALVES OLIVEIRA": { number: "36", class: "8ºA" }, "YURI GABRIEL DE MORAES PONGOLINO": { number: "37", class: "8ºA" }, "ZAYN AL ABIDIN RASULI": { number: "38", class: "8ºA" }, "ARTHUR COHEN BARRETO": { number: "39", class: "8ºA" }, "ISABELLA DOS SANTOS SALDANHA": { number: "40", class: "8ºA" }, "MIGUEL MARTINS DE ASSIS": { number: "41", class: "8ºA" }, "ALICE CARVALHO": { number: "42", class: "8ºA" }, "AMANDA PASSOS DE ALMEIDA": { number: "43", class: "8ºA" }, "ANA JULIA MENEZES DA SILVA": { number: "44", class: "8ºA" }, "HENRIQUE ROCHA CARVALHAL": { number: "45", class: "8ºA" }, // 8ºB "ANA CLARA GONCALVES TORRES LOYOLA": { number: "2", class: "8ºB" }, "ANNA BEATRIZ SANTIAGO DA SILVA": { number: "3", class: "8ºB" }, "ELIAS SILVA DE LIMA": { number: "6", class: "8ºB" }, "EVERTON HENRIQUE CARMO RODRIGUES": { number: "7", class: "8ºB" }, "GABRIELA VITORIA SEVERA LINS": { number: "9", class: "8ºB" }, "JULIO CESAR ALVES DOS SANTOS": { number: "12", class: "8ºB" }, "LUAN VENITES BALBINO": { number: "14", class: "8ºB" }, "MARIA EDUARDA FELIX DA SILVA": { number: "17", class: "8ºB" }, "MONIQUE RIJO COSTA": { number: "18", class: "8ºB" }, "MUNIQUE CRISTINA LUCAS": { number: "19", class: "8ºB" }, "NICOLAS PENTEADO": { number: "20", class: "8ºB" }, "PAULO CELSO DA COSTA JUNIOR": { number: "23", class: "8ºB" }, "PEDRO HENRIQUE CARLOS LIMA": { number: "24", class: "8ºB" }, "PEDRO HENRIQUE MORAIS AMORIM": { number: "25", class: "8ºB" }, "PIETRO RODRIGUES MIRANDA": { number: "27", class: "8ºB" }, "RAPHAELLY APARECIDA MARINHO DE OLIVEIRA": { number: "28", class: "8ºB" }, "RENAN LEANDRO RODRIGUES VICENTE": { number: "29", class: "8ºB" }, "WENDELL RAFAEL DE JESUS LESSA": { number: "33", class: "8ºB" }, "WILHAN KENJI ANTONIO": { number: "34", class: "8ºB" }, "JENNYFER VITORIA BASILIO GOMES": { number: "40", class: "8ºB" }, "THAYNA SEABRA DE OLIVEIRA DO NASCIMENTO": { number: "41", class: "8ºB" }, "SOPHIA MENEZES DE ARAUJO": { number: "46", class: "8ºB" }, "VITORIA MENEZES BRANDAO": { number: "47", class: "8ºB" }, "LORENA ALEXANDRE SANTOS DA SILVA": { number: "49", class: "8ºB" }, "MANUELLA DE MORAES SOUZA": { number: "50", class: "8ºB" }, "VITORIA JOLIE RODRIGUES RAPOSO": { number: "51", class: "8ºB" }, "RAQUEL BARGAS TAVARES DOS SANTOS": { number: "52", class: "8ºB" }, "RODOLFO RAFAEL GOLZENLEUCHTER MORENO JUNIOR": { number: "53", class: "8ºB" }, "ANTONIO CARLOS CAMPOS NETO": { number: "54", class: "8ºB" } };
+// ===============================
+// MAPEAMENTO DE ALUNOS (8ºA e 8ºB)
+// ===============================
+const students = {
+  // 8ºANO A
+  "ANA BEATRIZ RODRIGUES OLIVEIRA": { number: "2", class: "8ºA" },
+  "ANA CLARA SOUSA DA COSTA": { number: "3", class: "8ºA" },
+  "ANA VICTORIA RAGACINI DE OLIVEIRA": { number: "4", class: "8ºA" },
+  "ARTHUR DAVI DE SOUZA FERNANDES": { number: "5", class: "8ºA" },
+  "EDUARDA ALVES DE SOUZA": { number: "6", class: "8ºA" },
+  "EMANUEL ALVES OLIVEIRA": { number: "7", class: "8ºA" },
+  "ESTHER CRISTINE SILVA RIBEIRO": { number: "8", class: "8ºA" },
+  "EVELLYN YASMIN TAVARES SILVA": { number: "9", class: "8ºA" },
+  "FELIPE DE SOUZA RODRIGUES": { number: "10", class: "8ºA" },
+  "FERNANDA POLACHINI MAYER GOMES MARQUES": { number: "11", class: "8ºA" },
+  "GEOVANNA VITORIA ROCHA ABDALA": { number: "12", class: "8ºA" },
+  "GUSTAVO AUGUSTO TOMBOLO REIS": { number: "15", class: "8ºA" },
+  "IGOR MARTINS PEREIRA": { number: "17", class: "8ºA" },
+  "IZABELLY VITORIA DE CARVALHO RODRIGUES SETH": { number: "18", class: "8ºA" },
+  "KAROLAYNE DOS SANTOS BISSORNIA": { number: "21", class: "8ºA" },
+  "KAUANNY APARECIDA MALAQUIAS LIMA": { number: "22", class: "8ºA" },
+  "KÉTHILY NAYARA DA SILVA": { number: "23", class: "8ºA" },
+  "LAVINIA PEREIRA DE SOUZA": { number: "25", class: "8ºA" },
+  "LIVIA PEREIRA DE SOUZA": { number: "26", class: "8ºA" },
+  "LOHRAN ROMUALDO MENDES DA SILVA": { number: "27", class: "8ºA" },
+  "LUIS MIGUEL GONCALVES DA SILVA": { number: "28", class: "8ºA" },
+  "MARCELA ROBERTO DE OLIVEIRA": { number: "29", class: "8ºA" },
+  "MATHEUS TURCHETTO": { number: "31", class: "8ºA" },
+  "OMRAN RASEKH": { number: "32", class: "8ºA" },
+  "PRISCILLA VITORIA MENDES DE OLIVEIRA": { number: "33", class: "8ºA" },
+  "SARAH VITORIA ALVES OLIVEIRA": { number: "36", class: "8ºA" },
+  "YURI GABRIEL DE MORAES PONGOLINO": { number: "37", class: "8ºA" },
+  "ZAYN AL ABIDIN RASULI": { number: "38", class: "8ºA" },
+  "ARTHUR COHEN BARRETO": { number: "39", class: "8ºA" },
+  "ISABELLA DOS SANTOS SALDANHA": { number: "40", class: "8ºA" },
+  "MIGUEL MARTINS DE ASSIS": { number: "41", class: "8ºA" },
+  "ALICE CARVALHO": { number: "42", class: "8ºA" },
+  "AMANDA PASSOS DE ALMEIDA": { number: "43", class: "8ºA" },
+  "ANA JULIA MENEZES DA SILVA": { number: "44", class: "8ºA" },
+  "HENRIQUE ROCHA CARVALHAL": { number: "45", class: "8ºA" },
 
-    // ===============================
-    // ELEMENTOS DOM
-    // ===============================
-    const studentNameSelect = document.getElementById('studentName');
-    const studentNumberInput = document.getElementById('studentNumber');
-    const studentClassInput = document.getElementById('studentClass');
-    const activityDateInput = document.getElementById('activityDate');
-    const submitBtn = document.getElementById('submitBtn');
-    const clearBtn = document.getElementById('clearBtn');
-    const resultDiv = document.getElementById('result');
+  // 8ºANO B
+  "ANA CLARA GONCALVES TORRES LOYOLA": { number: "2", class: "8ºB" },
+  "ANNA BEATRIZ SANTIAGO DA SILVA": { number: "3", class: "8ºB" },
+  "ELIAS SILVA DE LIMA": { number: "6", class: "8ºB" },
+  "EVERTON HENRIQUE CARMO RODRIGUES": { number: "7", class: "8ºB" },
+  "GABRIELA VITORIA SEVERA LINS": { number: "9", class: "8ºB" },
+  "JULIO CESAR ALVES DOS SANTOS": { number: "12", class: "8ºB" },
+  "LUAN VENITES BALBINO": { number: "14", class: "8ºB" },
+  "MARIA EDUARDA FELIX DA SILVA": { number: "17", class: "8ºB" },
+  "MONIQUE RIJO COSTA": { number: "18", class: "8ºB" },
+  "MUNIQUE CRISTINA LUCAS": { number: "19", class: "8ºB" },
+  "NICOLAS PENTEADO": { number: "20", class: "8ºB" },
+  "PAULO CELSO DA COSTA JUNIOR": { number: "23", class: "8ºB" },
+  "PEDRO HENRIQUE CARLOS LIMA": { number: "24", class: "8ºB" },
+  "PEDRO HENRIQUE MORAIS AMORIM": { number: "25", class: "8ºB" },
+  "PIETRO RODRIGUES MIRANDA": { number: "27", class: "8ºB" },
+  "RAPHAELLY APARECIDA MARINHO DE OLIVEIRA": { number: "28", class: "8ºB" },
+  "RENAN LEANDRO RODRIGUES VICENTE": { number: "29", class: "8ºB" },
+  "WENDELL RAFAEL DE JESUS LESSA": { number: "33", class: "8ºB" },
+  "WILHAN KENJI ANTONIO": { number: "34", class: "8ºB" },
+  "JENNYFER VITORIA BASILIO GOMES": { number: "40", class: "8ºB" },
+  "THAYNA SEABRA DE OLIVEIRA DO NASCIMENTO": { number: "41", class: "8ºB" },
+  "SOPHIA MENEZES DE ARAUJO": { number: "46", class: "8ºB" },
+  "VITORIA MENEZES BRANDAO": { number: "47", class: "8ºB" },
+  "LORENA ALEXANDRE SANTOS DA SILVA": { number: "49", class: "8ºB" },
+  "MANUELLA DE MORAES SOUZA": { number: "50", class: "8ºB" },
+  "VITORIA JOLIE RODRIGUES RAPOSO": { number: "51", class: "8ºB" },
+  "RAQUEL BARGAS TAVARES DOS SANTOS": { number: "52", class: "8ºB" },
+  "RODOLFO RAFAEL GOLZENLEUCHTER MORENO JUNIOR": { number: "53", class: "8ºB" },
+  "ANTONIO CARLOS CAMPOS NETO": { number: "54", class: "8ºB" }
+};
 
-    // ===============================
-    // DEFINIR DATA ATUAL COMO PADRÃO
-    // ===============================
-    const today = new Date();
-    activityDateInput.value = today.toISOString().split('T')[0];
+// ===============================
+// ELEMENTOS DOM
+// ===============================
+const studentNameSelect = document.getElementById('studentName');
+const studentNumberInput = document.getElementById('studentNumber');
+const studentClassInput = document.getElementById('studentClass');
+const activityDateInput = document.getElementById('activityDate');
+const submitBtn = document.getElementById('submitBtn');
+const clearBtn = document.getElementById('clearBtn');
+const resultDiv = document.getElementById('result');
 
-    // ===============================
-    // PREENCHER NÚMERO E SÉRIE AO SELECIONAR ALUNO
-    // ===============================
-    studentNameSelect.addEventListener('change', function() {
-        const selectedStudent = this.value;
-        if (selectedStudent && students[selectedStudent]) {
-            studentNumberInput.value = students[selectedStudent].number;
-            studentClassInput.value = students[selectedStudent].class;
-        } else {
-            studentNumberInput.value = '';
-            studentClassInput.value = '';
-        }
-    });
+// ===============================
+// DATA ATUAL COMO PADRÃO
+// ===============================
+const today = new Date();
+activityDateInput.value = today.toISOString().split('T')[0];
 
-    // ===============================
-    // EVENTO PARA ENVIAR RESPOSTAS
-    // ===============================
-    submitBtn.addEventListener('click', function() {
-        // Verificações básicas
-        if (!studentNameSelect.value) {
-            alert('Por favor, selecione seu nome na lista.');
-            return;
-        }
-        if (!activityDateInput.value) {
-            alert('Por favor, preencha a data.');
-            return;
-        }
+// ===============================
+// AUTO-PREENCHER NÚMERO E SÉRIE
+// ===============================
+studentNameSelect.addEventListener('change', function() {
+  const selectedStudent = this.value;
+  if (selectedStudent && students[selectedStudent]) {
+    studentNumberInput.value = students[selectedStudent].number;
+    studentClassInput.value = students[selectedStudent].class;
+  } else {
+    studentNumberInput.value = '';
+    studentClassInput.value = '';
+  }
+});
 
-        // Verificar se todas as questões foram respondidas
-        let allAnswered = true;
-        for (let i = 1; i <= 10; i++) {
-            const questionName = 'q' + i;
-            const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
-            if (!selectedOption) {
-                allAnswered = false;
-                break;
-            }
-        }
-        if (!allAnswered) {
-            alert('Por favor, responda todas as questões antes de enviar.');
-            return;
-        }
+// ===============================
+// ENVIAR RESPOSTAS
+// ===============================
+submitBtn.addEventListener('click', function() {
+  if (!studentNameSelect.value) return alert('Selecione seu nome.');
+  if (!activityDateInput.value) return alert('Preencha a data.');
 
-        // Calcular pontuação
-        let score = 0;
-        for (let i = 1; i <= 10; i++) {
-            const questionName = 'q' + i;
-            const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
-            if (selectedOption && selectedOption.value === correctAnswers[questionName]) {
-                score++;
-            }
-        }
-
-        // Exibir resultado
-        resultDiv.textContent = `Você acertou ${score} de 10 questões.`;
-        resultDiv.className = 'result success';
-        resultDiv.style.display = 'block';
-
-        // Enviar nota para o Google Sheets
-        enviarNotaParaPlanilha(studentNameSelect.value, score);
-    });
-
-    // ===============================
-    // LIMPAR RESPOSTAS
-    // ===============================
-    clearBtn.addEventListener('click', function() {
-        if (confirm('Tem certeza que deseja limpar todas as respostas?')) {
-            const radioButtons = document.querySelectorAll('input[type="radio"]');
-            radioButtons.forEach(radio => radio.checked = false);
-            resultDiv.style.display = 'none';
-        }
-    });
-
-    // ===============================
-    // ENVIO PARA GOOGLE SHEETS
-    // ===============================
-    async function enviarNotaParaPlanilha(nomeAluno, nota) {
-        // URL do seu Web App publicado do Google Apps Script
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxg0FGFxBEIzALAGj1MexfurVTktX4ChblkNmdpB1Qbn8ss3OiJOkZNtylK0NI65I4/exec';
-        
-        // Dados a serem enviados ao Apps Script
-        const data = {
-            nome: nomeAluno,
-            nota: nota
-        };
-
-        try {
-            const response = await fetch(scriptURL, {
-                method: "POST",
-                body: JSON.stringify(data),
-                headers: { "Content-Type": "application/json" },
-            });
-
-            const text = await response.text();
-            console.log("Resposta do servidor:", text);
-            alert(text);
-        } catch (error) {
-            console.error("Erro ao enviar dados:", error);
-            alert("Erro ao enviar a nota para a planilha.");
-        }
+  // Verifica se todas foram respondidas
+  for (let i = 1; i <= 10; i++) {
+    if (!document.querySelector(`input[name="q${i}"]:checked`)) {
+      alert('Responda todas as questões antes de enviar.');
+      return;
     }
+  }
+
+  // Calcula nota
+  let score = 0;
+  for (let i = 1; i <= 10; i++) {
+    const selected = document.querySelector(`input[name="q${i}"]:checked`);
+    if (selected.value === correctAnswers[`q${i}`]) score++;
+  }
+
+  resultDiv.textContent = `Você acertou ${score} de 10 questões.`;
+  resultDiv.className = 'result success';
+  resultDiv.style.display = 'block';
+
+  enviarNotaParaPlanilha(studentNameSelect.value, score);
+});
+
+// ===============================
+// LIMPAR RESPOSTAS
+// ===============================
+clearBtn.addEventListener('click', function() {
+  if (confirm('Tem certeza que deseja limpar todas as respostas?')) {
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    resultDiv.style.display = 'none';
+  }
+});
+
+// ===============================
+// ENVIO PARA GOOGLE SHEETS
+// ===============================
+async function enviarNotaParaPlanilha(nomeAluno, nota) {
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxg0FGFxBEIzALAGj1MexfurVTktX4ChblkNmdpB1Qbn8ss3OiJOkZNtylK0NI65I4/exec';
+  const data = { nome: nomeAluno, nota: nota };
+
+  try {
+    const response = await fetch(scriptURL, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const json = await response.json();
+    console.log("Resposta do servidor:", json);
+
+    if (json.message) {
+      alert(json.message);
+    } else if (json.error) {
+      alert("Erro: " + json.error);
+    } else {
+      alert("Resposta inesperada do servidor.");
+    }
+
+  } catch (error) {
+    console.error("Erro ao enviar:", error);
+    alert("Erro ao enviar a nota para a planilha. Verifique o console.");
+  }
+}
 </script>
 
 </body>
 </html>
+
 
 
 
