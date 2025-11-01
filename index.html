@@ -690,7 +690,7 @@
 
 <script>
 // ===============================
-// RESPOSTAS CORRETAS
+// CONFIGURAÇÃO DE RESPOSTAS CORRETAS
 // ===============================
 const correctAnswers = {
   q1: 'b', q2: 'a', q3: 'b', q4: 'b', q5: 'b',
@@ -698,10 +698,9 @@ const correctAnswers = {
 };
 
 // ===============================
-// MAPEAMENTO DE ALUNOS (8ºA e 8ºB)
+// LISTA DE ALUNOS (8ºA e 8ºB)
 // ===============================
 const students = {
-  // 8ºANO A
   "ANA BEATRIZ RODRIGUES OLIVEIRA": { number: "2", class: "8ºA" },
   "ANA CLARA SOUSA DA COSTA": { number: "3", class: "8ºA" },
   "ANA VICTORIA RAGACINI DE OLIVEIRA": { number: "4", class: "8ºA" },
@@ -737,8 +736,6 @@ const students = {
   "AMANDA PASSOS DE ALMEIDA": { number: "43", class: "8ºA" },
   "ANA JULIA MENEZES DA SILVA": { number: "44", class: "8ºA" },
   "HENRIQUE ROCHA CARVALHAL": { number: "45", class: "8ºA" },
-
-  // 8ºANO B
   "ANA CLARA GONCALVES TORRES LOYOLA": { number: "2", class: "8ºB" },
   "ANNA BEATRIZ SANTIAGO DA SILVA": { number: "3", class: "8ºB" },
   "ELIAS SILVA DE LIMA": { number: "6", class: "8ºB" },
@@ -782,19 +779,33 @@ const clearBtn = document.getElementById('clearBtn');
 const resultDiv = document.getElementById('result');
 
 // ===============================
+// POPULAR DROPDOWN COM NOMES
+// ===============================
+function carregarNomes() {
+  const sortedNames = Object.keys(students).sort();
+  studentNameSelect.innerHTML = '<option value="">Selecione seu nome</option>';
+  sortedNames.forEach(nome => {
+    const opt = document.createElement("option");
+    opt.value = nome;
+    opt.textContent = nome;
+    studentNameSelect.appendChild(opt);
+  });
+}
+carregarNomes();
+
+// ===============================
 // DATA ATUAL COMO PADRÃO
 // ===============================
-const today = new Date();
-activityDateInput.value = today.toISOString().split('T')[0];
+activityDateInput.value = new Date().toISOString().split('T')[0];
 
 // ===============================
 // AUTO-PREENCHER NÚMERO E SÉRIE
 // ===============================
 studentNameSelect.addEventListener('change', function() {
-  const selectedStudent = this.value;
-  if (selectedStudent && students[selectedStudent]) {
-    studentNumberInput.value = students[selectedStudent].number;
-    studentClassInput.value = students[selectedStudent].class;
+  const aluno = students[this.value];
+  if (aluno) {
+    studentNumberInput.value = aluno.number;
+    studentClassInput.value = aluno.class;
   } else {
     studentNumberInput.value = '';
     studentClassInput.value = '';
@@ -802,78 +813,87 @@ studentNameSelect.addEventListener('change', function() {
 });
 
 // ===============================
-// ENVIAR RESPOSTAS
+// BOTÃO ENVIAR
 // ===============================
-submitBtn.addEventListener('click', function() {
-  if (!studentNameSelect.value) return alert('Selecione seu nome.');
-  if (!activityDateInput.value) return alert('Preencha a data.');
+submitBtn.addEventListener('click', async () => {
+  try {
+    if (!studentNameSelect.value) throw new Error("Selecione seu nome.");
+    if (!activityDateInput.value) throw new Error("Preencha a data da atividade.");
 
-  // Verifica se todas foram respondidas
-  for (let i = 1; i <= 10; i++) {
-    if (!document.querySelector(`input[name="q${i}"]:checked`)) {
-      alert('Responda todas as questões antes de enviar.');
-      return;
+    for (let i = 1; i <= 10; i++) {
+      if (!document.querySelector(`input[name="q${i}"]:checked`)) {
+        throw new Error("Responda todas as questões antes de enviar.");
+      }
     }
+
+    let score = 0;
+    for (let i = 1; i <= 10; i++) {
+      const selected = document.querySelector(`input[name="q${i}"]:checked`);
+      if (selected.value === correctAnswers[`q${i}`]) score++;
+    }
+
+    resultDiv.textContent = `Você acertou ${score} de 10 questões.`;
+    resultDiv.className = 'result success';
+    resultDiv.style.display = 'block';
+
+    await enviarNotaParaPlanilha(studentNameSelect.value, score);
+
+  } catch (err) {
+    alert(err.message);
   }
-
-  // Calcula nota
-  let score = 0;
-  for (let i = 1; i <= 10; i++) {
-    const selected = document.querySelector(`input[name="q${i}"]:checked`);
-    if (selected.value === correctAnswers[`q${i}`]) score++;
-  }
-
-  resultDiv.textContent = `Você acertou ${score} de 10 questões.`;
-  resultDiv.className = 'result success';
-  resultDiv.style.display = 'block';
-
-  enviarNotaParaPlanilha(studentNameSelect.value, score);
 });
 
 // ===============================
-// LIMPAR RESPOSTAS
+// BOTÃO LIMPAR
 // ===============================
 clearBtn.addEventListener('click', function() {
-  if (confirm('Tem certeza que deseja limpar todas as respostas?')) {
+  if (confirm("Tem certeza que deseja limpar todas as respostas?")) {
     document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
     resultDiv.style.display = 'none';
   }
 });
 
 // ===============================
-// ENVIO PARA GOOGLE SHEETS
+// ENVIO PARA PLANILHA (COM TRATAMENTO DE ERROS)
 // ===============================
 async function enviarNotaParaPlanilha(nomeAluno, nota) {
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbzVpLoIHIfGbA_4aho2o8-CmjQzqlTq3MJhPxkeUBO9hg8-P_exfDm9ryJChyGysIU/exec';
-  const data = { nome: nomeAluno, nota: nota };
+  const scriptURL = "https://script.google.com/macros/s/AKfycbzVpLoIHIfGbA_4aho2o8-CmjQzqlTq3MJhPxkeUBO9hg8-P_exfDm9ryJChyGysIU/exec";
+  const data = { nome: nomeAluno, nota };
 
   try {
     const response = await fetch(scriptURL, {
       method: "POST",
-      body: JSON.stringify(data),
+      mode: "cors",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
     });
+
+    if (!response.ok) {
+      throw new Error(`Erro HTTP ${response.status} ao enviar dados.`);
+    }
 
     const json = await response.json();
     console.log("Resposta do servidor:", json);
 
-    if (json.message) {
+    if (json.status === "success") {
       alert(json.message);
     } else if (json.error) {
-      alert("Erro: " + json.error);
+      throw new Error(json.error);
     } else {
       alert("Resposta inesperada do servidor.");
     }
 
   } catch (error) {
-    console.error("Erro ao enviar:", error);
-    alert("Erro ao enviar a nota para a planilha. Verifique o console.");
+    console.error("Erro ao enviar nota:", error);
+    alert("⚠️ Erro ao enviar a nota. Verifique o console ou tente novamente mais tarde.");
   }
 }
 </script>
 
+
 </body>
 </html>
+
 
 
 
