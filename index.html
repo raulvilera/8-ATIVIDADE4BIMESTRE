@@ -698,7 +698,6 @@ const correctAnswers = {
 
 // ======================================================
 // 👩‍🎓 LISTA DE ALUNOS (8ºA e 8ºB)
-// (Mantida exatamente como no original)
 // ======================================================
 const students = {
   // --- 8º ANO A ---
@@ -852,51 +851,43 @@ clearBtn.addEventListener('click', () => {
 });
 
 // ======================================================
-// 📤 ENVIO PARA PLANILHA (CORRIGIDO + CORS SAFE)
+// 📤 ENVIO PARA PLANILHA (CORRIGIDO + CORS LIBERADO)
 // ======================================================
 async function enviarNotaParaPlanilha(nomeAluno, nota) {
-  const scriptURL = "https://script.google.com/macros/s/AKfycbw4tlReUEjEtxkQ4wS3cVjYtdgFSbDscFhlrVVFOSPwzBDDGVBkI1UvEZ9nCkiYllM/exec"; // 🔗 substitua pelo seu link publicado
+  const scriptURL = "https://script.google.com/macros/s/AKfycbw4tlReUEjEtxkQ4wS3cVjYtdgFSbDscFhlrVVFOSPwzBDDGVBkI1UvEZ9nCkiYllM/exec"; // Substitua pelo seu link publicado
   const data = { nome: nomeAluno, nota };
 
   try {
     const response = await fetch(scriptURL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      mode: "cors",           // 🔥 habilita resposta entre domínios
-      cache: "no-cache",
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
+      mode: "cors",
       body: JSON.stringify(data)
     });
 
     if (!response.ok) {
       const text = await response.text();
-      throw new Error(`Erro HTTP ${response.status}: ${text.substring(0, 100)}...`);
-    }
-
-    const contentType = response.headers.get("content-type") || "";
-    if (!contentType.includes("application/json")) {
-      const raw = await response.text();
-      throw new Error("Resposta inesperada do servidor: " + raw.substring(0, 100) + "...");
+      throw new Error(`Erro HTTP ${response.status}: ${text}`);
     }
 
     const json = await response.json();
     console.log("📬 Resposta do servidor:", json);
 
     if (json.status === "success") {
-      alert("✅ Nota enviada com sucesso! " + json.message);
+      alert(`✅ Nota enviada com sucesso!\n${json.message}`);
     } else {
       throw new Error(json.error || "Erro desconhecido no servidor.");
     }
 
   } catch (error) {
     console.error("❌ Erro ao enviar nota:", error);
-    alert("⚠️ Erro ao enviar a nota. " + error.message);
+    alert("⚠️ Erro ao enviar a nota.\n" + error.message);
   }
 }
 </script>
 </body>
 </html>
+
 
 
 
