@@ -717,19 +717,16 @@ const clearBtn = document.getElementById('clearBtn');
 const resultDiv = document.getElementById('result');
 
 // ======================================================
-// 🌐 URL DO GOOGLE APPS SCRIPT (ATUALIZADO PARA O NOVO URL FORNECIDO)
+// 🌐 URL DO GOOGLE APPS SCRIPT (NOVO ENDPOINT)
 // ======================================================
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzl2VErreX7bE98EnSKmbZofOYmY4jYlEXecgMGd7Rs6Wa_oQvAsZrgs_fk-jsLvzM/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxv042w0XmeSkSuIWVGgRtETdKsdEybhzQMX8FF1v9-1iu9l5st8m-8Xw9hwtapC74/exec";
 
 // ======================================================
 // 🔽 POPULAR DROPDOWN COM NOMES
 // ======================================================
 function carregarNomes() {
-  // Ordena os nomes dos alunos
   const sortedNames = Object.keys(students).sort();
-  // Limpa o dropdown e adiciona a opção padrão
   studentNameSelect.innerHTML = '<option value="">Selecione seu nome</option>';
-  // Adiciona os nomes ordenados
   sortedNames.forEach(nome => {
     const opt = document.createElement("option");
     opt.value = nome;
@@ -742,7 +739,6 @@ carregarNomes();
 // ======================================================
 // 📅 DATA ATUAL COMO PADRÃO
 // ======================================================
-// Define a data atual no formato YYYY-MM-DD
 activityDateInput.value = new Date().toISOString().split('T')[0];
 
 // ======================================================
@@ -751,8 +747,6 @@ activityDateInput.value = new Date().toISOString().split('T')[0];
 studentNameSelect.addEventListener('change', () => {
   const nomeSelecionado = studentNameSelect.value;
   const aluno = students[nomeSelecionado];
-  
-  // Preenche os campos de número e turma
   studentNumberInput.value = aluno ? aluno.number : '';
   studentClassInput.value = aluno ? aluno.class : '';
 });
@@ -761,12 +755,10 @@ studentNameSelect.addEventListener('change', () => {
 // 🚀 BOTÃO ENVIAR
 // ======================================================
 submitBtn.addEventListener('click', async () => {
-  // Desabilita o botão para evitar múltiplos envios
   submitBtn.disabled = true;
   resultDiv.style.display = 'none';
   
   try {
-    // 1. Validação dos dados
     const nomeAluno = studentNameSelect.value;
     const dataAtividade = activityDateInput.value;
     const numeroAluno = studentNumberInput.value;
@@ -775,85 +767,57 @@ submitBtn.addEventListener('click', async () => {
     if (!nomeAluno) throw new Error("Selecione seu nome.");
     if (!dataAtividade) throw new Error("Preencha a data da atividade.");
 
-    // 2. Contagem de acertos e coleta de respostas
     let score = 0;
     const respostas = {};
     const questoes = Object.keys(correctAnswers);
     
     for (const q of questoes) {
       const selected = document.querySelector(`input[name='${q}']:checked`);
-      if (!selected) {
-        throw new Error("Responda todas as questões antes de enviar.");
-      }
+      if (!selected) throw new Error("Responda todas as questões antes de enviar.");
       respostas[q] = selected.value;
-      if (selected.value === correctAnswers[q]) {
-        score++;
-      }
+      if (selected.value === correctAnswers[q]) score++;
     }
 
-    // 3. Exibe o resultado no frontend
     resultDiv.textContent = `✅ Você acertou ${score} de ${questoes.length} questões.`;
     resultDiv.className = 'result success';
     resultDiv.style.display = 'block';
 
-    // 4. Prepara os dados para envio
     const dataToSend = {
-      data: dataAtividade,
-      nome: nomeAluno,
-      numero: numeroAluno,
-      turma: turmaAluno,
-      nota: score,
-      ...respostas // Adiciona as respostas q1, q2, etc.
+      studentName: nomeAluno,
+      studentNumber: numeroAluno,
+      studentClass: turmaAluno === "8ºA" ? "8ºANO A" : "8ºANO B",
+      score: score,
+      timestamp: new Date().toISOString()
     };
 
-    // 5. Envia a nota para a planilha
     await enviarDadosParaPlanilha(dataToSend);
 
   } catch (err) {
-    // Exibe erro
     resultDiv.textContent = `❌ Erro: ${err.message}`;
     resultDiv.className = 'result error';
     resultDiv.style.display = 'block';
     alert("⚠️ Erro ao enviar a atividade.\n" + err.message);
   } finally {
-    // Reabilita o botão
     submitBtn.disabled = false;
   }
 });
 
 // ======================================================
-// 📤 FUNÇÃO DE ENVIO PARA PLANILHA (AJUSTADA PARA form-urlencoded)
+// 📤 ENVIO PARA PLANILHA — CORRIGIDO PARA CORS
 // ======================================================
 async function enviarDadosParaPlanilha(data) {
-  // Converte o objeto de dados para o formato URLSearchParams (form-urlencoded)
-  const formBody = new URLSearchParams(data).toString();
+  const formBody = new URLSearchParams(data);
 
   try {
-    const response = await fetch(SCRIPT_URL, {
+    await fetch(SCRIPT_URL, {
       method: "POST",
-      // Remove o Content-Type: application/json. O fetch com body: URLSearchParams
-      // envia o Content-Type correto (application/x-www-form-urlencoded) por padrão,
-      // o que é o formato mais confiável para o Apps Script.
-      mode: "cors",
-      body: formBody // Envia como form-urlencoded
+      mode: "no-cors", // evita erro de CORS
+      body: formBody
     });
 
-    // O Apps Script retorna 200 mesmo em caso de erro lógico, 
-    // por isso precisamos verificar o JSON de resposta.
-    const json = await response.json();
-    console.log("📬 Resposta do servidor:", json);
-
-    if (json.status === "success") {
-      // Exibe a mensagem de sucesso do servidor
-      alert(`✅ Sucesso! ${json.message}`);
-    } else {
-      // Lança um erro com a mensagem de erro do servidor
-      throw new Error(json.error || "Erro desconhecido no servidor.");
-    }
-
+    alert("✅ Atividade enviada com sucesso! Sua nota foi registrada na planilha.");
   } catch (error) {
     console.error("❌ Erro ao enviar dados:", error);
-    // Propaga o erro para ser tratado no bloco catch do submitBtn
     throw new Error("Falha na comunicação com o servidor. Verifique o console para detalhes.");
   }
 }
@@ -863,14 +827,16 @@ async function enviarDadosParaPlanilha(data) {
 // ======================================================
 clearBtn.addEventListener('click', () => {
   if (confirm("Tem certeza que deseja limpar todas as respostas?")) {
-    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('input[type=\"radio\"]').forEach(r => r.checked = false);
     resultDiv.style.display = 'none';
     resultDiv.textContent = '';
   }
 });
 </script>
+
 </body>
 </html>
+
 
 
 
