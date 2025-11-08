@@ -826,7 +826,7 @@ submitBtn.addEventListener('click', async () => {
 // ======================================================
 async function enviarDadosParaPlanilha(data) {
   try {
-    const response = await fetch(SCRIPT_URL, {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbzipiRO7okTOveq0bQ9FOQJ4yGzI5WVmrJwL_LaBnGb4GM-nRAIt7cPDHkpSwbapB4/exec", {
       method: "POST",
       // O Google Apps Script espera o Content-Type 'application/x-www-form-urlencoded' 
       // ou 'text/plain' para processar e.postData.contents.
@@ -870,3 +870,4 @@ clearBtn.addEventListener('click', () => {
 </script>
 </body>
 </html>
+
