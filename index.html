@@ -698,7 +698,7 @@ const correctAnswers = {
 
 // ======================================================
 // 👩‍🎓 LISTA DE ALUNOS (8ºA e 8ºB)
-// (Mantida inalterada)
+// (Mantida exatamente como no original)
 // ======================================================
 const students = {
   // --- 8º ANO A ---
@@ -815,7 +815,6 @@ studentNameSelect.addEventListener('change', () => {
 // ======================================================
 submitBtn.addEventListener('click', async () => {
   try {
-    // 1. Validação do Formulário
     if (!studentNameSelect.value) throw new Error("Selecione seu nome.");
     if (!activityDateInput.value) throw new Error("Preencha a data da atividade.");
 
@@ -825,23 +824,19 @@ submitBtn.addEventListener('click', async () => {
       }
     }
 
-    // 2. Cálculo da Nota
     let score = 0;
     for (let i = 1; i <= 10; i++) {
       const selected = document.querySelector(`input[name='q${i}']:checked`);
       if (selected.value === correctAnswers[`q${i}`]) score++;
     }
 
-    // 3. Exibição da Nota
     resultDiv.textContent = `✅ Você acertou ${score} de 10 questões.`;
     resultDiv.className = 'result success';
     resultDiv.style.display = 'block';
 
-    // 4. Envio para o Apps Script
     await enviarNotaParaPlanilha(studentNameSelect.value, score);
 
   } catch (err) {
-    // Exibe o erro de validação ou erro de envio
     alert("⚠️ " + err.message);
   }
 });
@@ -857,34 +852,32 @@ clearBtn.addEventListener('click', () => {
 });
 
 // ======================================================
-// 📤 ENVIO PARA PLANILHA (CORRIGIDO)
+// 📤 ENVIO PARA PLANILHA (CORRIGIDO + CORS SAFE)
 // ======================================================
 async function enviarNotaParaPlanilha(nomeAluno, nota) {
-  // ✅ SUBSTITUA PELO SEU NOVO LINK DO APPS SCRIPT PUBLICADO (termina com /exec)
-  // Certifique-se de que o Apps Script foi REIMPLANTADO após as correções.
-  const scriptURL = "https://script.google.com/macros/s/AKfycbxGmG0Q6SH0PoDsDgGxubY0SPx2b8kYRevJ5KKy-H8wD94SG50snfoZoWW0uXMqQw/exec";
+  const scriptURL = "https://script.google.com/macros/s/AKfycbw4tlReUEjEtxkQ4wS3cVjYtdgFSbDscFhlrVVFOSPwzBDDGVBkI1UvEZ9nCkiYllM/exec"; // 🔗 substitua pelo seu link publicado
   const data = { nome: nomeAluno, nota };
 
   try {
     const response = await fetch(scriptURL, {
       method: "POST",
-      // O cabeçalho Content-Type é crucial para que o Apps Script receba o JSON corretamente
       headers: { "Content-Type": "application/json" },
+      mode: "cors",           // 🔥 habilita resposta entre domínios
+      cache: "no-cache",
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
       body: JSON.stringify(data)
     });
 
-    // Se a requisição falhar a nível de rede (ex: CORS, DNS, etc.), o erro será capturado no catch.
     if (!response.ok) {
-        // Tenta ler o corpo para obter mais detalhes, mas lança um erro genérico se falhar
-        const errorText = await response.text();
-        throw new Error(`Erro de rede: O servidor retornou o status ${response.status}. Detalhes: ${errorText.substring(0, 100)}...`);
+      const text = await response.text();
+      throw new Error(`Erro HTTP ${response.status}: ${text.substring(0, 100)}...`);
     }
 
-    // Garante que a resposta é JSON antes de tentar analisá-la.
-    const contentType = response.headers.get("content-type");
-    if (!contentType || !contentType.includes("application/json")) {
-        const rawText = await response.text();
-        throw new Error("Resposta inesperada do servidor. Não é JSON. Conteúdo: " + rawText.substring(0, 100) + "...");
+    const contentType = response.headers.get("content-type") || "";
+    if (!contentType.includes("application/json")) {
+      const raw = await response.text();
+      throw new Error("Resposta inesperada do servidor: " + raw.substring(0, 100) + "...");
     }
 
     const json = await response.json();
@@ -892,22 +885,19 @@ async function enviarNotaParaPlanilha(nomeAluno, nota) {
 
     if (json.status === "success") {
       alert("✅ Nota enviada com sucesso! " + json.message);
-    } else if (json.status === "error" && json.error) {
-      // Trata erros de validação ou de lógica do Apps Script (ex: aluno não encontrado)
-      throw new Error(json.error);
     } else {
-      alert("⚠️ Resposta inesperada do servidor. Verifique o console.");
+      throw new Error(json.error || "Erro desconhecido no servidor.");
     }
 
   } catch (error) {
-    console.error("Erro ao enviar nota:", error);
-    // Exibe a mensagem de erro detalhada
+    console.error("❌ Erro ao enviar nota:", error);
     alert("⚠️ Erro ao enviar a nota. " + error.message);
   }
 }
 </script>
 </body>
 </html>
+
 
 
 
