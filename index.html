@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atividade de Ciências - 4º Bimestre</title>
     <style>
+        /* Estilos CSS originais, reescritos para melhor organização e legibilidade */
         * {
             margin: 0;
             padding: 0;
@@ -49,14 +50,14 @@
         .info-group {
             display: flex;
             align-items: center;
-            flex: 1 1 auto; /* Ajustado para comportamento mais flexível */
+            flex: 1 1 auto;
         }
         
         .info-label {
             margin-right: 5px;
             font-weight: bold;
             color: white;
-            white-space: nowrap; /* Evita quebra de linha */
+            white-space: nowrap;
         }
         
         .info-input {
@@ -68,20 +69,20 @@
         
         /* Ajustes específicos para cada campo */
         #studentName {
-            width: 350px; /* Aumentado significativamente para nomes longos */
-            min-width: 250px; /* Largura mínima aumentada */
+            width: 350px;
+            min-width: 250px;
         }
         
         #studentNumber {
-            width: 80px; /* Aumentado para 80px */
+            width: 80px;
         }
         
         #studentClass {
-            width: 100px; /* Mantido em 100px */
+            width: 100px;
         }
         
         #activityDate {
-            width: 150px; /* Aumentado para 150px */
+            width: 150px;
         }
         
         .activity-title {
@@ -121,7 +122,7 @@
         .question-text {
             font-weight: bold;
             margin-bottom: 10px;
-            line-height: 1.4; /* Melhor legibilidade */
+            line-height: 1.4;
         }
         
         .question-image {
@@ -136,7 +137,7 @@
         }
         
         .options {
-            margin-left: 0; /* Removido para melhor responsividade */
+            margin-left: 0;
         }
         
         .option {
@@ -148,19 +149,19 @@
         .option input {
             margin-right: 10px;
             margin-top: 3px;
-            flex-shrink: 0; /* Impede que o radio button encolha */
+            flex-shrink: 0;
         }
         
         .option label {
-            line-height: 1.4; /* Melhor legibilidade em telas pequenas */
+            line-height: 1.4;
         }
         
         .buttons {
             display: flex;
             justify-content: center;
             margin-top: 20px;
-            flex-wrap: wrap; /* Permite quebra em telas pequenas */
-            gap: 15px; /* Espaçamento entre botões quando quebram */
+            flex-wrap: wrap;
+            gap: 15px;
         }
         
         button {
@@ -176,7 +177,7 @@
                         inset 0 1px 0 rgba(255,255,255,0.2);
             position: relative;
             overflow: hidden;
-            width: 180px; /* Largura reduzida */
+            width: 180px;
         }
         
         button::after {
@@ -259,11 +260,11 @@
             }
             
             .info-group {
-                flex: 1 1 100%; /* Ocupa toda a largura em telas menores */
+                flex: 1 1 100%;
             }
             
             #studentName, #studentNumber, #studentClass, #activityDate {
-                width: 100%; /* Campos ocupam toda a largura em mobile */
+                width: 100%;
             }
             
             .activity-title {
@@ -289,7 +290,7 @@
             button {
                 padding: 12px 20px;
                 font-size: 16px;
-                width: 160px; /* Largura reduzida para mobile */
+                width: 160px;
             }
         }
         
@@ -311,7 +312,7 @@
             }
             
             .buttons {
-                flex-direction: column; /* Botões empilhados verticalmente */
+                flex-direction: column;
                 align-items: center;
             }
             
@@ -329,74 +330,9 @@
             <div class="student-info">
                 <div class="info-group">
                     <span class="info-label">NOME:</span>
+                    <!-- O dropdown será populado via JavaScript para manter a lista de alunos em um só lugar -->
                     <select id="studentName" class="info-input">
                         <option value="">Selecione seu nome</option>
-                        <!-- Alunos 8ºA -->
-                        <option value="ANA BEATRIZ RODRIGUES OLIVEIRA">ANA BEATRIZ RODRIGUES OLIVEIRA</option>
-                        <option value="ANA CLARA SOUSA DA COSTA">ANA CLARA SOUSA DA COSTA</option>
-                        <option value="ANA VICTORIA RAGACINI DE OLIVEIRA">ANA VICTORIA RAGACINI DE OLIVEIRA</option>
-                        <option value="ARTHUR DAVI DE SOUZA FERNANDES">ARTHUR DAVI DE SOUZA FERNANDES</option>
-                        <option value="EDUARDA ALVES DE SOUZA">EDUARDA ALVES DE SOUZA</option>
-                        <option value="EMANUEL ALVES OLIVEIRA">EMANUEL ALVES OLIVEIRA</option>
-                        <option value="ESTHER CRISTINE SILVA RIBEIRO">ESTHER CRISTINE SILVA RIBEIRO</option>
-                        <option value="EVELLYN YASMIN TAVARES SILVA">EVELLYN YASMIN TAVARES SILVA</option>
-                        <option value="FELIPE DE SOUZA RODRIGUES">FELIPE DE SOUZA RODRIGUES</option>
-                        <option value="FERNANDA POLACHINI MAYER GOMES MARQUES">FERNANDA POLACHINI MAYER GOMES MARQUES</option>
-                        <option value="GEOVANNA VITORIA ROCHA ABDALA">GEOVANNA VITORIA ROCHA ABDALA</option>
-                        <option value="GUSTAVO AUGUSTO TOMBOLO REIS">GUSTAVO AUGUSTO TOMBOLO REIS</option>
-                        <option value="IGOR MARTINS PEREIRA">IGOR MARTINS PEREIRA</option>
-                        <option value="IZABELLY VITORIA DE CARVALHO RODRIGUES SETH">IZABELLY VITORIA DE CARVALHO RODRIGUES SETH</option>
-                        <option value="KAROLAYNE DOS SANTOS BISSORNIA">KAROLAYNE DOS SANTOS BISSORNIA</option>
-                        <option value="KAUANNY APARECIDA MALAQUIAS LIMA">KAUANNY APARECIDA MALAQUIAS LIMA</option>
-                        <option value="KÉTHILY NAYARA DA SILVA">KÉTHILY NAYARA DA SILVA</option>
-                        <option value="LAVINIA PEREIRA DE SOUZA">LAVINIA PEREIRA DE SOUZA</option>
-                        <option value="LIVIA PEREIRA DE SOUZA">LIVIA PEREIRA DE SOUZA</option>
-                        <option value="LOHRAN ROMUALDO MENDES DA SILVA">LOHRAN ROMUALDO MENDES DA SILVA</option>
-                        <option value="LUIS MIGUEL GONCALVES DA SILVA">LUIS MIGUEL GONCALVES DA SILVA</option>
-                        <option value="MARCELA ROBERTO DE OLIVEIRA">MARCELA ROBERTO DE OLIVEIRA</option>
-                        <option value="MATHEUS TURCHETTO">MATHEUS TURCHETTO</option>
-                        <option value="OMRAN RASEKH">OMRAN RASEKH</option>
-                        <option value="PRISCILLA VITORIA MENDES DE OLIVEIRA">PRISCILLA VITORIA MENDES DE OLIVEIRA</option>
-                        <option value="SARAH VITORIA ALVES OLIVEIRA">SARAH VITORIA ALVES OLIVEIRA</option>
-                        <option value="YURI GABRIEL DE MORAES PONGOLINO">YURI GABRIEL DE MORAES PONGOLINO</option>
-                        <option value="ZAYN AL ABIDIN RASULI">ZAYN AL ABIDIN RASULI</option>
-                        <option value="ARTHUR COHEN BARRETO">ARTHUR COHEN BARRETO</option>
-                        <option value="ISABELLA DOS SANTOS SALDANHA">ISABELLA DOS SANTOS SALDANHA</option>
-                        <option value="MIGUEL MARTINS DE ASSIS">MIGUEL MARTINS DE ASSIS</option>
-                        <option value="ALICE CARVALHO">ALICE CARVALHO</option>
-                        <option value="AMANDA PASSOS DE ALMEIDA">AMANDA PASSOS DE ALMEIDA</option>
-                        <option value="ANA JULIA MENEZES DA SILVA">ANA JULIA MENEZES DA SILVA</option>
-                        <option value="HENRIQUE ROCHA CARVALHAL">HENRIQUE ROCHA CARVALHAL</option>
-                        <!-- Alunos 8ºB -->
-                        <option value="ANA CLARA GONCALVES TORRES LOYOLA">ANA CLARA GONCALVES TORRES LOYOLA</option>
-                        <option value="ANNA BEATRIZ SANTIAGO DA SILVA">ANNA BEATRIZ SANTIAGO DA SILVA</option>
-                        <option value="ELIAS SILVA DE LIMA">ELIAS SILVA DE LIMA</option>
-                        <option value="EVERTON HENRIQUE CARMO RODRIGUES">EVERTON HENRIQUE CARMO RODRIGUES</option>
-                        <option value="GABRIELA VITORIA SEVERA LINS">GABRIELA VITORIA SEVERA LINS</option>
-                        <option value="JULIO CESAR ALVES DOS SANTOS">JULIO CESAR ALVES DOS SANTOS</option>
-                        <option value="LUAN VENITES BALBINO">LUAN VENITES BALBINO</option>
-                        <option value="MARIA EDUARDA FELIX DA SILVA">MARIA EDUARDA FELIX DA SILVA</option>
-                        <option value="MONIQUE RIJO COSTA">MONIQUE RIJO COSTA</option>
-                        <option value="MUNIQUE CRISTINA LUCAS">MUNIQUE CRISTINA LUCAS</option>
-                        <option value="NICOLAS PENTEADO">NICOLAS PENTEADO</option>
-                        <option value="PAULO CELSO DA COSTA JUNIOR">PAULO CELSO DA COSTA JUNIOR</option>
-                        <option value="PEDRO HENRIQUE CARLOS LIMA">PEDRO HENRIQUE CARLOS LIMA</option>
-                        <option value="PEDRO HENRIQUE MORAIS AMORIM">PEDRO HENRIQUE MORAIS AMORIM</option>
-                        <option value="PIETRO RODRIGUES MIRANDA">PIETRO RODRIGUES MIRANDA</option>
-                        <option value="RAPHAELLY APARECIDA MARINHO DE OLIVEIRA">RAPHAELLY APARECIDA MARINHO DE OLIVEIRA</option>
-                        <option value="RENAN LEANDRO RODRIGUES VICENTE">RENAN LEANDRO RODRIGUES VICENTE</option>
-                        <option value="WENDELL RAFAEL DE JESUS LESSA">WENDELL RAFAEL DE JESUS LESSA</option>
-                        <option value="WILHAN KENJI ANTONIO">WILHAN KENJI ANTONIO</option>
-                        <option value="JENNYFER VITORIA BASILIO GOMES">JENNYFER VITORIA BASILIO GOMES</option>
-                        <option value="THAYNA SEABRA DE OLIVEIRA DO NASCIMENTO">THAYNA SEABRA DE OLIVEIRA DO NASCIMENTO</option>
-                        <option value="SOPHIA MENEZES DE ARAUJO">SOPHIA MENEZES DE ARAUJO</option>
-                        <option value="VITORIA MENEZES BRANDAO">VITORIA MENEZES BRANDAO</option>
-                        <option value="LORENA ALEXANDRE SANTOS DA SILVA">LORENA ALEXANDRE SANTOS DA SILVA</option>
-                        <option value="MANUELLA DE MORAES SOUZA">MANUELLA DE MORAES SOUZA</option>
-                        <option value="VITORIA JOLIE RODRIGUES RAPOSO">VITORIA JOLIE RODRIGUES RAPOSO</option>
-                        <option value="RAQUEL BARGAS TAVARES DOS SANTOS">RAQUEL BARGAS TAVARES DOS SANTOS</option>
-                        <option value="RODOLFO RAFAEL GOLZENLEUCHTER MORENO JUNIOR">RODOLFO RAFAEL GOLZENLEUCHTER MORENO JUNIOR</option>
-                        <option value="ANTONIO CARLOS CAMPOS NETO">ANTONIO CARLOS CAMPOS NETO</option>
                     </select>
                 </div>
                 <div class="info-group">
@@ -445,7 +381,7 @@
         <div class="question-container">
             <div class="question">
                 <div class="question-text">2. Analisando a imagem que representa diferentes formas de energia no cotidiano, identifique qual das alternativas abaixo descreve corretamente a transformação de energia que ocorre quando uma pessoa utiliza um aparelho celular:</div>
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgcRUNuoPziqjAKyyKDbZK7EL4paSE4iLNsec98mdtfYAelbVL0ZI-_OyrgHWXkATMu2KtEXFD_zBjtUYW_cjRdJDOPubSI2nuP92fX2K04lBslPBPm2fR53pGbMNrd57bRtrn8VX6Q7E5wdR2bA_qmhbh25ey-NANZrasYwn8pabuw9-XnbZqlhlWnu-jG/s678/Transfroma%C3%A7%C3%A3o.PNG" class="question-image">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgcRUNuoPziqjAKyyKDbZK7EL4paSE4iLNsec98mdtfYAelbVL0ZI-_OyrgHWXkATMu2KtEXFD_zBjtjYW_cjRdJDOPubSI2nuP92fX2K04lBslPBPm2fR53pGbMNrd57bRtrn8VX6Q7E5wdR2bA_qmhbh25ey-NANZrasYwn8pabuw9-XnbZqlhlWnu-jG/s678/Transfroma%C3%A7%C3%A3o.PNG" class="question-image">
                 <div class="options">
                     <div class="option">
                         <input type="radio" name="q2" id="q2a" value="a">
@@ -631,7 +567,7 @@
         <!-- Questão 9 -->
         <div class="question-container">
             <div class="question">
-                <div class="question-text">9. Observando a imagem que representa o Objetivo de Desenvolvimento Sustentável 7 (ODS 7) da ONU, qual das alternativas descreve corretamente a meta principal desse objetivo?</div>
+                <div class="question-text">9. Analisando a imagem que representa o Objetivo de Desenvolvimento Sustentável (ODS) 7 da ONU, qual é o principal objetivo desse ODS?</div>
                 <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi31lFF9MdfKEIgFwtYuNFfgm5TnT5t-reiWAwuqDhkAveB228rcBTEIBBv9Cs-FmNMyOSyla6tFnvTV_ftCWMpY6Lj3nc7Qn9CuDQpTIwCiTQhlit6s0Zw4iUfwgmDgdiyKFVX05zDLh1h1FDEAaormzq6PZs3VlMzFMUv1mwgwVM5YpKqtbMQp58FEERi/s1164/Capturar.PNG" class="question-image">
                 <div class="options"><br>
                     <div class="option">
@@ -781,11 +717,19 @@ const clearBtn = document.getElementById('clearBtn');
 const resultDiv = document.getElementById('result');
 
 // ======================================================
+// 🌐 URL DO GOOGLE APPS SCRIPT (MANTIDO O ORIGINAL)
+// ======================================================
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzc41Y_fkxMOsv_OPk39O-k-GbHV5pxYrZMU1mrFsRgx05YLEc5yiNmhHB8_3KF6pM/exec";
+
+// ======================================================
 // 🔽 POPULAR DROPDOWN COM NOMES
 // ======================================================
 function carregarNomes() {
+  // Ordena os nomes dos alunos
   const sortedNames = Object.keys(students).sort();
+  // Limpa o dropdown e adiciona a opção padrão
   studentNameSelect.innerHTML = '<option value="">Selecione seu nome</option>';
+  // Adiciona os nomes ordenados
   sortedNames.forEach(nome => {
     const opt = document.createElement("option");
     opt.value = nome;
@@ -798,13 +742,17 @@ carregarNomes();
 // ======================================================
 // 📅 DATA ATUAL COMO PADRÃO
 // ======================================================
+// Define a data atual no formato YYYY-MM-DD
 activityDateInput.value = new Date().toISOString().split('T')[0];
 
 // ======================================================
 // 🧾 AUTO-PREENCHER NÚMERO E TURMA
 // ======================================================
 studentNameSelect.addEventListener('change', () => {
-  const aluno = students[studentNameSelect.value];
+  const nomeSelecionado = studentNameSelect.value;
+  const aluno = students[nomeSelecionado];
+  
+  // Preenche os campos de número e turma
   studentNumberInput.value = aluno ? aluno.number : '';
   studentClassInput.value = aluno ? aluno.class : '';
 });
@@ -813,32 +761,101 @@ studentNameSelect.addEventListener('change', () => {
 // 🚀 BOTÃO ENVIAR
 // ======================================================
 submitBtn.addEventListener('click', async () => {
+  // Desabilita o botão para evitar múltiplos envios
+  submitBtn.disabled = true;
+  resultDiv.style.display = 'none';
+  
   try {
-    if (!studentNameSelect.value) throw new Error("Selecione seu nome.");
-    if (!activityDateInput.value) throw new Error("Preencha a data da atividade.");
+    // 1. Validação dos dados
+    const nomeAluno = studentNameSelect.value;
+    const dataAtividade = activityDateInput.value;
+    const numeroAluno = studentNumberInput.value;
+    const turmaAluno = studentClassInput.value;
 
-    for (let i = 1; i <= 10; i++) {
-      if (!document.querySelector(`input[name='q${i}']:checked`)) {
+    if (!nomeAluno) throw new Error("Selecione seu nome.");
+    if (!dataAtividade) throw new Error("Preencha a data da atividade.");
+
+    // 2. Contagem de acertos e coleta de respostas
+    let score = 0;
+    const respostas = {};
+    const questoes = Object.keys(correctAnswers);
+    
+    for (const q of questoes) {
+      const selected = document.querySelector(`input[name='${q}']:checked`);
+      if (!selected) {
         throw new Error("Responda todas as questões antes de enviar.");
+      }
+      respostas[q] = selected.value;
+      if (selected.value === correctAnswers[q]) {
+        score++;
       }
     }
 
-    let score = 0;
-    for (let i = 1; i <= 10; i++) {
-      const selected = document.querySelector(`input[name='q${i}']:checked`);
-      if (selected.value === correctAnswers[`q${i}`]) score++;
-    }
-
-    resultDiv.textContent = `✅ Você acertou ${score} de 10 questões.`;
+    // 3. Exibe o resultado no frontend
+    resultDiv.textContent = `✅ Você acertou ${score} de ${questoes.length} questões.`;
     resultDiv.className = 'result success';
     resultDiv.style.display = 'block';
 
-    await enviarNotaParaPlanilha(studentNameSelect.value, score);
+    // 4. Prepara os dados para envio
+    const dataToSend = {
+      nome: nomeAluno,
+      numero: numeroAluno,
+      turma: turmaAluno,
+      data: dataAtividade,
+      nota: score,
+      ...respostas // Adiciona as respostas q1, q2, etc.
+    };
+
+    // 5. Envia a nota para a planilha
+    await enviarDadosParaPlanilha(dataToSend);
 
   } catch (err) {
-    alert("⚠️ " + err.message);
+    // Exibe erro
+    resultDiv.textContent = `❌ Erro: ${err.message}`;
+    resultDiv.className = 'result error';
+    resultDiv.style.display = 'block';
+    alert("⚠️ Erro ao enviar a atividade.\n" + err.message);
+  } finally {
+    // Reabilita o botão
+    submitBtn.disabled = false;
   }
 });
+
+// ======================================================
+// 📤 FUNÇÃO DE ENVIO PARA PLANILHA (AJUSTADA PARA ROBUSTEZ)
+// ======================================================
+async function enviarDadosParaPlanilha(data) {
+  try {
+    const response = await fetch(SCRIPT_URL, {
+      method: "POST",
+      // O Google Apps Script espera o Content-Type 'application/x-www-form-urlencoded' 
+      // ou 'text/plain' para processar e.postData.contents.
+      // Como estamos enviando JSON, o Apps Script original está configurado para JSON.
+      // Vamos manter o JSON, mas garantir que o Apps Script também seja corrigido.
+      headers: { "Content-Type": "application/json" },
+      mode: "cors",
+      body: JSON.stringify(data)
+    });
+
+    // O Apps Script retorna 200 mesmo em caso de erro lógico, 
+    // por isso precisamos verificar o JSON de resposta.
+    const json = await response.json();
+    console.log("📬 Resposta do servidor:", json);
+
+    if (json.status === "success") {
+      // Exibe a mensagem de sucesso do servidor
+      alert(`✅ Sucesso! ${json.message}`);
+    } else {
+      // Lança um erro com a mensagem de erro do servidor
+      throw new Error(json.error || "Erro desconhecido no servidor.");
+    }
+
+  } catch (error) {
+    console.error("❌ Erro ao enviar dados:", error);
+    // Propaga o erro para ser tratado no bloco catch do submitBtn
+    throw new Error("Falha na comunicação com o servidor. Verifique o console para detalhes.");
+  }
+}
 
 // ======================================================
 // 🧹 BOTÃO LIMPAR
@@ -847,92 +864,9 @@ clearBtn.addEventListener('click', () => {
   if (confirm("Tem certeza que deseja limpar todas as respostas?")) {
     document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
     resultDiv.style.display = 'none';
+    resultDiv.textContent = '';
   }
 });
-
-// ======================================================
-// 📤 ENVIO PARA PLANILHA (CORRIGIDO + CORS LIBERADO)
-// ======================================================
-async function enviarNotaParaPlanilha(nomeAluno, nota) {
-  const scriptURL = "https://script.google.com/macros/s/AKfycbzc41Y_fkxMOsv_OPk39O-k-GbHV5pxYrZMU1mrFsRgx05YLEc5yiNmhHB8_3KF6pM/exec"; // Substitua pelo seu link publicado
-  const data = { nome: nomeAluno, nota };
-
-  try {
-    const response = await fetch(scriptURL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      mode: "cors",
-      body: JSON.stringify(data)
-    });
-
-    if (!response.ok) {
-      const text = await response.text();
-      throw new Error(`Erro HTTP ${response.status}: ${text}`);
-    }
-
-    const json = await response.json();
-    console.log("📬 Resposta do servidor:", json);
-
-    if (json.status === "success") {
-      alert(`✅ Nota enviada com sucesso!\n${json.message}`);
-    } else {
-      throw new Error(json.error || "Erro desconhecido no servidor.");
-    }
-
-  } catch (error) {
-    console.error("❌ Erro ao enviar nota:", error);
-    alert("⚠️ Erro ao enviar a nota.\n" + error.message);
-  }
-}
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
