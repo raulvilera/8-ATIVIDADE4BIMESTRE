@@ -717,7 +717,7 @@ const clearBtn = document.getElementById('clearBtn');
 const resultDiv = document.getElementById('result');
 
 // ======================================================
-// 🌐 URL DO GOOGLE APPS SCRIPT (NOVO ENDPOINT)
+// 🌐 URL DO GOOGLE APPS SCRIPT (NOVA VERSÃO PUBLICADA)
 // ======================================================
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxAQb1Phb6CLIYuYb0suLVt2pvU38O-dzzyrsQpv8Jzts4buuIav3mIffTr83ukVw/exec";
 
@@ -803,22 +803,37 @@ submitBtn.addEventListener('click', async () => {
 });
 
 // ======================================================
-// 📤 ENVIO PARA PLANILHA — CORRIGIDO PARA CORS
+// 📤 ENVIO PARA PLANILHA — COM RESPOSTA REAL DO SERVIDOR
 // ======================================================
 async function enviarDadosParaPlanilha(data) {
   const formBody = new URLSearchParams(data);
 
   try {
-    await fetch(SCRIPT_URL, {
+    const response = await fetch(SCRIPT_URL, {
       method: "POST",
-      mode: "no-cors", // evita erro de CORS
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: formBody
     });
 
-    alert("✅ Atividade enviada com sucesso! Sua nota foi registrada na planilha.");
+    const resultText = await response.text();
+    console.log("🔍 Resposta do servidor:", resultText);
+
+    let result;
+    try {
+      result = JSON.parse(resultText);
+    } catch (err) {
+      throw new Error("Resposta inesperada do servidor: " + resultText);
+    }
+
+    if (result.status === "success") {
+      alert(`✅ ${result.message}`);
+    } else {
+      throw new Error(result.message || "Erro desconhecido ao registrar a nota.");
+    }
+
   } catch (error) {
     console.error("❌ Erro ao enviar dados:", error);
-    throw new Error("Falha na comunicação com o servidor. Verifique o console para detalhes.");
+    alert("⚠️ Falha ao registrar nota: " + error.message);
   }
 }
 
@@ -827,7 +842,7 @@ async function enviarDadosParaPlanilha(data) {
 // ======================================================
 clearBtn.addEventListener('click', () => {
   if (confirm("Tem certeza que deseja limpar todas as respostas?")) {
-    document.querySelectorAll('input[type=\"radio\"]').forEach(r => r.checked = false);
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
     resultDiv.style.display = 'none';
     resultDiv.textContent = '';
   }
@@ -836,6 +851,7 @@ clearBtn.addEventListener('click', () => {
 
 </body>
 </html>
+
 
 
 
