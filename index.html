@@ -633,7 +633,7 @@ const correctAnswers = {
 };
 
 // ======================================================
-// 👩‍🎓 LISTA DE ALUNOS
+// 👩‍🎓 LISTA DE ALUNOS (8ºA e 8ºB) - manteve-se como você enviou
 // ======================================================
 const students = {
   // --- 8º ANO A ---
@@ -705,12 +705,12 @@ const students = {
 };
 
 // ======================================================
-// 🌐 URL DO APPS SCRIPT (USE O SEU DEPLOY ATUALIZADO!)
+// 🌐 URL DO APPS SCRIPT (substitua pela sua URL se precisar)
 // ======================================================
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx36K-0xX8GRqCY7h7K96sNeCmnkBDZ9yzT1VGEkggxrbtb4xtj72U6tf02M_ki1bs/exec";
 
 // ======================================================
-// 🔽 POPULA NOMES NO SELECT
+// 🔽 ELEMENTOS DO DOM
 // ======================================================
 const studentNameSelect = document.getElementById('studentName');
 const studentNumberInput = document.getElementById('studentNumber');
@@ -719,118 +719,221 @@ const activityDateInput = document.getElementById('activityDate');
 const submitBtn = document.getElementById('submitBtn');
 const clearBtn = document.getElementById('clearBtn');
 const resultDiv = document.getElementById('result');
+// opcional: img para foto do aluno (se existir no seu layout)
+const studentImage = document.getElementById('studentImage') || null;
 
+// ======================================================
+// 🔽 POPULA O SELECT DE NOMES
+// ======================================================
 function carregarNomes() {
-  const sortedNames = Object.keys(students).sort();
+  const sorted = Object.keys(students).sort((a,b) => a.localeCompare(b, 'pt-BR'));
   studentNameSelect.innerHTML = '<option value="">Selecione seu nome</option>';
-  sortedNames.forEach(nome => {
-    const opt = document.createElement("option");
+  for (const nome of sorted) {
+    const opt = document.createElement('option');
     opt.value = nome;
     opt.textContent = nome;
     studentNameSelect.appendChild(opt);
-  });
+  }
 }
 carregarNomes();
 
 // ======================================================
-// 🧾 AUTO-PREENCHER NÚMERO E TURMA
+// 🧾 AUTO-PREENCHER NÚMERO, TURMA e CARREGAR IMAGEM OPCIONAL
 // ======================================================
 studentNameSelect.addEventListener('change', () => {
   const nome = studentNameSelect.value;
   const aluno = students[nome];
   studentNumberInput.value = aluno ? aluno.number : '';
   studentClassInput.value = aluno ? aluno.class : '';
+
+  // Carregar imagem opcional: você pode customizar o path (por número ou por nome)
+  if (studentImage) {
+    loadStudentImage(aluno ? aluno.number : null, nome);
+  }
 });
 
-// ======================================================
-// 🗓️ DATA PADRÃO
-// ======================================================
-activityDateInput.value = new Date().toISOString().split('T')[0];
-
-// ======================================================
-// 🚀 ENVIO DE DADOS PARA PLANILHA
-// ======================================================
-async function enviarDadosParaPlanilha(data) {
-  const formData = new FormData();
-  Object.entries(data).forEach(([k, v]) => formData.append(k, v));
-
-  const response = await fetch(SCRIPT_URL, { method: "POST", body: formData });
-  const text = await response.text();
-  console.log("Resposta do servidor:", text);
-
-  let json;
-  try {
-    json = JSON.parse(text);
-  } catch {
-    throw new Error("Resposta inválida do servidor. Verifique se o Apps Script foi implantado corretamente.");
+// função para carregar imagem (opcional). Ajuste baseUrl conforme onde guarda as fotos.
+function loadStudentImage(number, fullName) {
+  const baseUrl = 'https://seuservidor.com/alunos/'; // <- ajuste para seu servidor (ou remova a função se não usar)
+  if (!number && !fullName) {
+    studentImage.style.display = 'none';
+    return;
   }
 
-  if (json.status !== "success") throw new Error(json.message);
-  return json;
+  // Prioriza número: ex: 002.jpg
+  const tryUrls = [];
+  if (number) {
+    const padded = String(number).padStart(3, '0');
+    tryUrls.push(`${baseUrl}${padded}.jpg`);
+    tryUrls.push(`${baseUrl}${padded}.png`);
+  }
+
+  // fallback por nome (normalizado)
+  if (fullName) {
+    const normalized = fullName.replace(/\s+/g, '_').toLowerCase();
+    tryUrls.push(`${baseUrl}${normalized}.jpg`);
+    tryUrls.push(`${baseUrl}${normalized}.png`);
+  }
+
+  // tenta carregar até encontrar uma url válida
+  (async () => {
+    for (const u of tryUrls) {
+      try {
+        const res = await fetch(u, { method: 'HEAD' });
+        if (res.ok) {
+          studentImage.src = u;
+          studentImage.style.display = '';
+          return;
+        }
+      } catch (e) {
+        // ignora e tenta a próxima
+      }
+    }
+    // nenhuma imagem encontrada
+    studentImage.style.display = 'none';
+  })();
 }
 
 // ======================================================
-// 🎓 BOTÃO ENVIAR
+// 🗓️ VALOR PADRÃO PARA DATA
 // ======================================================
-submitBtn.addEventListener('click', async () => {
-  submitBtn.disabled = true;
-  resultDiv.textContent = '';
-  resultDiv.style.display = 'none';
+if (activityDateInput) {
+  activityDateInput.value = new Date().toISOString().split('T')[0];
+}
 
+// ======================================================
+// 🚀 FUNÇÃO DE ENVIO (USANDO URLSearchParams -> garante e.parameter)
+// ======================================================
+async function enviarDadosParaPlanilha(data) {
+  // Usa URLSearchParams para que o Apps Script receba em e.parameter
+  const params = new URLSearchParams();
+  Object.entries(data).forEach(([k, v]) => params.append(k, v));
+
+  const response = await fetch(SCRIPT_URL, {
+    method: 'POST',
+    body: params,
+    // Não setar manualmente headers Content-Type: o navegador define automaticamente para application/x-www-form-urlencoded
+  });
+
+  const text = await response.text();
+  console.log('Resposta bruta do servidor:', text);
+
+  // Tenta parsear JSON — se o Apps Script retornar HTML (login/erro), isso falhará
   try {
-    const nome = studentNameSelect.value;
-    if (!nome) throw new Error("Selecione seu nome.");
-
-    const aluno = students[nome];
-    if (!aluno) throw new Error("Aluno não encontrado.");
-
-    const questoes = Object.keys(correctAnswers);
-    let score = 0;
-
-    for (const q of questoes) {
-      const resposta = document.querySelector(`input[name='${q}']:checked`);
-      if (!resposta) throw new Error("Responda todas as questões antes de enviar.");
-      if (resposta.value === correctAnswers[q]) score++;
-    }
-
-    resultDiv.textContent = `Calculando nota (${score}/${questoes.length})...`;
-    resultDiv.className = 'result success';
-    resultDiv.style.display = 'block';
-
-    const data = {
-      studentName: nome,
-      studentNumber: aluno.number,
-      studentClass: aluno.class,
-      score: score,
-      timestamp: new Date().toISOString()
-    };
-
-    const result = await enviarDadosParaPlanilha(data);
-    resultDiv.textContent = `✅ ${result.message}`;
+    const json = JSON.parse(text);
+    return json;
   } catch (err) {
-    alert("⚠️ Erro ao enviar a nota.\n" + err.message);
-    resultDiv.textContent = "❌ " + err.message;
-    resultDiv.className = 'result error';
-    resultDiv.style.display = 'block';
-  } finally {
-    submitBtn.disabled = false;
+    // Resposta inesperada (HTML/erro de deploy). Fornece amostra para debug.
+    const preview = text.substring(0, 500);
+    throw new Error('Resposta inválida do servidor. Veja console. Trecho: ' + preview);
   }
-});
+}
 
 // ======================================================
-// 🧹 LIMPAR
+// 🎓 BOTÃO ENVIAR - LÓGICA PRINCIPAL
 // ======================================================
-clearBtn.addEventListener('click', () => {
-  if (confirm("Deseja limpar todas as respostas?")) {
-    document.querySelectorAll("input[type='radio']").forEach(i => (i.checked = false));
+if (submitBtn) {
+  submitBtn.addEventListener('click', async (ev) => {
+    ev.preventDefault();
+    submitBtn.disabled = true;
+    resultDiv.style.display = 'none';
+    resultDiv.textContent = '';
+
+    try {
+      const nome = studentNameSelect.value;
+      if (!nome) throw new Error('Selecione seu nome.');
+
+      const aluno = students[nome];
+      if (!aluno) throw new Error('Dados do aluno não encontrados.');
+
+      // valida respostas
+      const questoes = Object.keys(correctAnswers);
+      let score = 0;
+      for (const q of questoes) {
+        const sel = document.querySelector(`input[name="${q}"]:checked`);
+        if (!sel) throw new Error('Responda todas as questões antes de enviar.');
+        if (sel.value === correctAnswers[q]) score++;
+      }
+
+      // feedback local imediato
+      resultDiv.textContent = `Calculando nota (${score}/${questoes.length})... Enviando para a planilha...`;
+      resultDiv.className = 'result success';
+      resultDiv.style.display = 'block';
+
+      // montagem dos dados (atenção ao formato de turma: manter "8ºANO A" etc.)
+      const payload = {
+        studentName: nome,
+        studentNumber: aluno.number,
+        studentClass: aluno.class,
+        score: String(score),
+        timestamp: new Date().toISOString()
+      };
+
+      // envio
+      const serverResp = await enviarDadosParaPlanilha(payload);
+
+      // checa retorno
+      if (serverResp && serverResp.status === 'success') {
+        resultDiv.textContent = `✅ ${serverResp.message}`;
+        resultDiv.className = 'result success';
+      } else {
+        const msg = serverResp && serverResp.message ? serverResp.message : 'Resposta inesperada do servidor.';
+        throw new Error(msg);
+      }
+    } catch (err) {
+      console.error('Erro ao enviar:', err);
+      alert('⚠️ Erro ao enviar a nota.\n' + (err.message || err));
+      resultDiv.textContent = '❌ ' + (err.message || 'Erro desconhecido');
+      resultDiv.className = 'result error';
+      resultDiv.style.display = 'block';
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+}
+
+// ======================================================
+// 🧹 BOTÃO LIMPAR
+// ======================================================
+if (clearBtn) {
+  clearBtn.addEventListener('click', (ev) => {
+    ev.preventDefault();
+    if (!confirm('Deseja limpar todas as respostas?')) return;
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
     resultDiv.textContent = '';
     resultDiv.style.display = 'none';
+  });
+}
+
+// ======================================================
+// 🔁 FUNÇÃO DE TESTE LOCAL (opcional) - simula clique e envio
+// ======================================================
+async function runLocalTest() {
+  // útil para testar sem interface: apenas para debug
+  const sampleName = Object.keys(students)[0];
+  const aluno = students[sampleName];
+  const samplePayload = {
+    studentName: sampleName,
+    studentNumber: aluno.number,
+    studentClass: aluno.class,
+    score: '10',
+    timestamp: new Date().toISOString()
+  };
+  try {
+    const resp = await enviarDadosParaPlanilha(samplePayload);
+    console.log('Teste local - resposta:', resp);
+  } catch (e) {
+    console.error('Teste local - erro:', e);
   }
-});
+}
+// Descomente para rodar o teste automático (não recomendado em produção):
+// runLocalTest();
+
 </script>
 
 </body>
 </html>
+
 
 
 
