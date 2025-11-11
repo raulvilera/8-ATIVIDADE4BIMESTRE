@@ -625,7 +625,7 @@
     </div>
 <script>
 // ======================================================
-// 🎯 CONFIGURAÇÃO DE RESPOSTAS CORRETAS
+// 🎯 RESPOSTAS CORRETAS
 // ======================================================
 const correctAnswers = {
   q1: 'b', q2: 'a', q3: 'b', q4: 'b', q5: 'b',
@@ -633,79 +633,84 @@ const correctAnswers = {
 };
 
 // ======================================================
-// 👩‍🎓 LISTA DE ALUNOS (8ºA e 8ºB)
+// 👩‍🎓 LISTA DE ALUNOS
 // ======================================================
 const students = {
   // --- 8º ANO A ---
-  "ANA BEATRIZ RODRIGUES OLIVEIRA": { number: "2", class: "8ºA" },
-  "ANA CLARA SOUSA DA COSTA": { number: "3", class: "8ºA" },
-  "ANA VICTORIA RAGACINI DE OLIVEIRA": { number: "4", class: "8ºA" },
-  "ARTHUR DAVI DE SOUZA FERNANDES": { number: "5", class: "8ºA" },
-  "EDUARDA ALVES DE SOUZA": { number: "6", class: "8ºA" },
-  "EMANUEL ALVES OLIVEIRA": { number: "7", class: "8ºA" },
-  "ESTHER CRISTINE SILVA RIBEIRO": { number: "8", class: "8ºA" },
-  "EVELLYN YASMIN TAVARES SILVA": { number: "9", class: "8ºA" },
-  "FELIPE DE SOUZA RODRIGUES": { number: "10", class: "8ºA" },
-  "FERNANDA POLACHINI MAYER GOMES MARQUES": { number: "11", class: "8ºA" },
-  "GEOVANNA VITORIA ROCHA ABDALA": { number: "12", class: "8ºA" },
-  "GUSTAVO AUGUSTO TOMBOLO REIS": { number: "15", class: "8ºA" },
-  "IGOR MARTINS PEREIRA": { number: "17", class: "8ºA" },
-  "IZABELLY VITORIA DE CARVALHO RODRIGUES SETH": { number: "18", class: "8ºA" },
-  "KAROLAYNE DOS SANTOS BISSORNIA": { number: "21", class: "8ºA" },
-  "KAUANNY APARECIDA MALAQUIAS LIMA": { number: "22", class: "8ºA" },
-  "KÉTHILY NAYARA DA SILVA": { number: "23", class: "8ºA" },
-  "LAVINIA PEREIRA DE SOUZA": { number: "25", class: "8ºA" },
-  "LIVIA PEREIRA DE SOUZA": { number: "26", class: "8ºA" },
-  "LOHRAN ROMUALDO MENDES DA SILVA": { number: "27", class: "8ºA" },
-  "LUIS MIGUEL GONCALVES DA SILVA": { number: "28", class: "8ºA" },
-  "MARCELA ROBERTO DE OLIVEIRA": { number: "29", class: "8ºA" },
-  "MATHEUS TURCHETTO": { number: "31", class: "8ºA" },
-  "OMRAN RASEKH": { number: "32", class: "8ºA" },
-  "PRISCILLA VITORIA MENDES DE OLIVEIRA": { number: "33", class: "8ºA" },
-  "SARAH VITORIA ALVES OLIVEIRA": { number: "36", class: "8ºA" },
-  "YURI GABRIEL DE MORAES PONGOLINO": { number: "37", class: "8ºA" },
-  "ZAYN AL ABIDIN RASULI": { number: "38", class: "8ºA" },
-  "ARTHUR COHEN BARRETO": { number: "39", class: "8ºA" },
-  "ISABELLA DOS SANTOS SALDANHA": { number: "40", class: "8ºA" },
-  "MIGUEL MARTINS DE ASSIS": { number: "41", class: "8ºA" },
-  "ALICE CARVALHO": { number: "42", class: "8ºA" },
-  "AMANDA PASSOS DE ALMEIDA": { number: "43", class: "8ºA" },
-  "ANA JULIA MENEZES DA SILVA": { number: "44", class: "8ºA" },
-  "HENRIQUE ROCHA CARVALHAL": { number: "45", class: "8ºA" },
+  "ANA BEATRIZ RODRIGUES OLIVEIRA": { number: "2", class: "8ºANO A" },
+  "ANA CLARA SOUSA DA COSTA": { number: "3", class: "8ºANO A" },
+  "ANA VICTORIA RAGACINI DE OLIVEIRA": { number: "4", class: "8ºANO A" },
+  "ARTHUR DAVI DE SOUZA FERNANDES": { number: "5", class: "8ºANO A" },
+  "EDUARDA ALVES DE SOUZA": { number: "6", class: "8ºANO A" },
+  "EMANUEL ALVES OLIVEIRA": { number: "7", class: "8ºANO A" },
+  "ESTHER CRISTINE SILVA RIBEIRO": { number: "8", class: "8ºANO A" },
+  "EVELLYN YASMIN TAVARES SILVA": { number: "9", class: "8ºANO A" },
+  "FELIPE DE SOUZA RODRIGUES": { number: "10", class: "8ºANO A" },
+  "FERNANDA POLACHINI MAYER GOMES MARQUES": { number: "11", class: "8ºANO A" },
+  "GEOVANNA VITORIA ROCHA ABDALA": { number: "12", class: "8ºANO A" },
+  "GUSTAVO AUGUSTO TOMBOLO REIS": { number: "15", class: "8ºANO A" },
+  "IGOR MARTINS PEREIRA": { number: "17", class: "8ºANO A" },
+  "IZABELLY VITORIA DE CARVALHO RODRIGUES SETH": { number: "18", class: "8ºANO A" },
+  "KAROLAYNE DOS SANTOS BISSORNIA": { number: "21", class: "8ºANO A" },
+  "KAUANNY APARECIDA MALAQUIAS LIMA": { number: "22", class: "8ºANO A" },
+  "KÉTHILY NAYARA DA SILVA": { number: "23", class: "8ºANO A" },
+  "LAVINIA PEREIRA DE SOUZA": { number: "25", class: "8ºANO A" },
+  "LIVIA PEREIRA DE SOUZA": { number: "26", class: "8ºANO A" },
+  "LOHRAN ROMUALDO MENDES DA SILVA": { number: "27", class: "8ºANO A" },
+  "LUIS MIGUEL GONCALVES DA SILVA": { number: "28", class: "8ºANO A" },
+  "MARCELA ROBERTO DE OLIVEIRA": { number: "29", class: "8ºANO A" },
+  "MATHEUS TURCHETTO": { number: "31", class: "8ºANO A" },
+  "OMRAN RASEKH": { number: "32", class: "8ºANO A" },
+  "PRISCILLA VITORIA MENDES DE OLIVEIRA": { number: "33", class: "8ºANO A" },
+  "SARAH VITORIA ALVES OLIVEIRA": { number: "36", class: "8ºANO A" },
+  "YURI GABRIEL DE MORAES PONGOLINO": { number: "37", class: "8ºANO A" },
+  "ZAYN AL ABIDIN RASULI": { number: "38", class: "8ºANO A" },
+  "ARTHUR COHEN BARRETO": { number: "39", class: "8ºANO A" },
+  "ISABELLA DOS SANTOS SALDANHA": { number: "40", class: "8ºANO A" },
+  "MIGUEL MARTINS DE ASSIS": { number: "41", class: "8ºANO A" },
+  "ALICE CARVALHO": { number: "42", class: "8ºANO A" },
+  "AMANDA PASSOS DE ALMEIDA": { number: "43", class: "8ºANO A" },
+  "ANA JULIA MENEZES DA SILVA": { number: "44", class: "8ºANO A" },
+  "HENRIQUE ROCHA CARVALHAL": { number: "45", class: "8ºANO A" },
 
   // --- 8º ANO B ---
-  "ANA CLARA GONCALVES TORRES LOYOLA": { number: "2", class: "8ºB" },
-  "ANNA BEATRIZ SANTIAGO DA SILVA": { number: "3", class: "8ºB" },
-  "ELIAS SILVA DE LIMA": { number: "6", class: "8ºB" },
-  "EVERTON HENRIQUE CARMO RODRIGUES": { number: "7", class: "8ºB" },
-  "GABRIELA VITORIA SEVERA LINS": { number: "9", class: "8ºB" },
-  "JULIO CESAR ALVES DOS SANTOS": { number: "12", class: "8ºB" },
-  "LUAN VENITES BALBINO": { number: "14", class: "8ºB" },
-  "MARIA EDUARDA FELIX DA SILVA": { number: "17", class: "8ºB" },
-  "MONIQUE RIJO COSTA": { number: "18", class: "8ºB" },
-  "MUNIQUE CRISTINA LUCAS": { number: "19", class: "8ºB" },
-  "NICOLAS PENTEADO": { number: "20", class: "8ºB" },
-  "PAULO CELSO DA COSTA JUNIOR": { number: "23", class: "8ºB" },
-  "PEDRO HENRIQUE CARLOS LIMA": { number: "24", class: "8ºB" },
-  "PEDRO HENRIQUE MORAIS AMORIM": { number: "25", class: "8ºB" },
-  "PIETRO RODRIGUES MIRANDA": { number: "27", class: "8ºB" },
-  "RAPHAELLY APARECIDA MARINHO DE OLIVEIRA": { number: "28", class: "8ºB" },
-  "RENAN LEANDRO RODRIGUES VICENTE": { number: "29", class: "8ºB" },
-  "WENDELL RAFAEL DE JESUS LESSA": { number: "33", class: "8ºB" },
-  "WILHAN KENJI ANTONIO": { number: "34", class: "8ºB" },
-  "JENNYFER VITORIA BASILIO GOMES": { number: "40", class: "8ºB" },
-  "THAYNA SEABRA DE OLIVEIRA DO NASCIMENTO": { number: "41", class: "8ºB" },
-  "SOPHIA MENEZES DE ARAUJO": { number: "46", class: "8ºB" },
-  "VITORIA MENEZES BRANDAO": { number: "47", class: "8ºB" },
-  "LORENA ALEXANDRE SANTOS DA SILVA": { number: "49", class: "8ºB" },
-  "MANUELLA DE MORAES SOUZA": { number: "50", class: "8ºB" },
-  "VITORIA JOLIE RODRIGUES RAPOSO": { number: "51", class: "8ºB" },
-  "RAQUEL BARGAS TAVARES DOS SANTOS": { number: "52", class: "8ºB" },
-  "RODOLFO RAFAEL GOLZENLEUCHTER MORENO JUNIOR": { number: "53", class: "8ºB" },
+  "ANA CLARA GONCALVES TORRES LOYOLA": { number: "2", class: "8ºANO B" },
+  "ANNA BEATRIZ SANTIAGO DA SILVA": { number: "3", class: "8ºANO B" },
+  "ELIAS SILVA DE LIMA": { number: "6", class: "8ºANO B" },
+  "EVERTON HENRIQUE CARMO RODRIGUES": { number: "7", class: "8ºANO B" },
+  "GABRIELA VITORIA SEVERA LINS": { number: "9", class: "8ºANO B" },
+  "JULIO CESAR ALVES DOS SANTOS": { number: "12", class: "8ºANO B" },
+  "LUAN VENITES BALBINO": { number: "14", class: "8ºANO B" },
+  "MARIA EDUARDA FELIX DA SILVA": { number: "17", class: "8ºANO B" },
+  "MONIQUE RIJO COSTA": { number: "18", class: "8ºANO B" },
+  "MUNIQUE CRISTINA LUCAS": { number: "19", class: "8ºANO B" },
+  "NICOLAS PENTEADO": { number: "20", class: "8ºANO B" },
+  "PAULO CELSO DA COSTA JUNIOR": { number: "23", class: "8ºANO B" },
+  "PEDRO HENRIQUE CARLOS LIMA": { number: "24", class: "8ºANO B" },
+  "PEDRO HENRIQUE MORAIS AMORIM": { number: "25", class: "8ºANO B" },
+  "PIETRO RODRIGUES MIRANDA": { number: "27", class: "8ºANO B" },
+  "RAPHAELLY APARECIDA MARINHO DE OLIVEIRA": { number: "28", class: "8ºANO B" },
+  "RENAN LEANDRO RODRIGUES VICENTE": { number: "29", class: "8ºANO B" },
+  "WENDELL RAFAEL DE JESUS LESSA": { number: "33", class: "8ºANO B" },
+  "WILHAN KENJI ANTONIO": { number: "34", class: "8ºANO B" },
+  "JENNYFER VITORIA BASILIO GOMES": { number: "40", class: "8ºANO B" },
+  "THAYNA SEABRA DE OLIVEIRA DO NASCIMENTO": { number: "41", class: "8ºANO B" },
+  "SOPHIA MENEZES DE ARAUJO": { number: "46", class: "8ºANO B" },
+  "VITORIA MENEZES BRANDAO": { number: "47", class: "8ºANO B" },
+  "LORENA ALEXANDRE SANTOS DA SILVA": { number: "49", class: "8ºANO B" },
+  "MANUELLA DE MORAES SOUZA": { number: "50", class: "8ºANO B" },
+  "VITORIA JOLIE RODRIGUES RAPOSO": { number: "51", class: "8ºANO B" },
+  "RAQUEL BARGAS TAVARES DOS SANTOS": { number: "52", class: "8ºANO B" },
+  "RODOLFO RAFAEL GOLZENLEUCHTER MORENO JUNIOR": { number: "53", class: "8ºANO B" },
 };
 
 // ======================================================
-// 📋 ELEMENTOS DOM
+// 🌐 URL DO APPS SCRIPT (USE O SEU DEPLOY ATUALIZADO!)
+// ======================================================
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxGNSUr2tVCPEZ1dsUU_O2ALf5D8fqoAC6d4QMJm15zG6vSjpRm0fNZE31z_e0_eQE/exec";
+
+// ======================================================
+// 🔽 POPULA NOMES NO SELECT
 // ======================================================
 const studentNameSelect = document.getElementById('studentName');
 const studentNumberInput = document.getElementById('studentNumber');
@@ -715,15 +720,6 @@ const submitBtn = document.getElementById('submitBtn');
 const clearBtn = document.getElementById('clearBtn');
 const resultDiv = document.getElementById('result');
 
-// ======================================================
-// 🌐 URL DO GOOGLE APPS SCRIPT (NOVA VERSÃO PUBLICADA)
-// ATENÇÃO: Substitua este URL pelo URL de implantação do seu novo script corrigido.
-// ======================================================
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxGNSUr2tVCPEZ1dsUU_O2ALf5D8fqoAC6d4QMJm15zG6vSjpRm0fNZE31z_e0_eQE/exec"; // URL ORIGINAL, SERÁ MANTIDO PARA REFERÊNCIA
-
-// ======================================================
-// 🔽 POPULAR DROPDOWN COM NOMES
-// ======================================================
 function carregarNomes() {
   const sortedNames = Object.keys(students).sort();
   studentNameSelect.innerHTML = '<option value="">Selecione seu nome</option>';
@@ -737,143 +733,98 @@ function carregarNomes() {
 carregarNomes();
 
 // ======================================================
-// 📅 DATA ATUAL COMO PADRÃO
+// 🧾 AUTO-PREENCHER NÚMERO E TURMA
+// ======================================================
+studentNameSelect.addEventListener('change', () => {
+  const nome = studentNameSelect.value;
+  const aluno = students[nome];
+  studentNumberInput.value = aluno ? aluno.number : '';
+  studentClassInput.value = aluno ? aluno.class : '';
+});
+
+// ======================================================
+// 🗓️ DATA PADRÃO
 // ======================================================
 activityDateInput.value = new Date().toISOString().split('T')[0];
 
 // ======================================================
-// 🧾 AUTO-PREENCHER NÚMERO E TURMA
-// ======================================================
-studentNameSelect.addEventListener('change', () => {
-  const nomeSelecionado = studentNameSelect.value;
-  const aluno = students[nomeSelecionado];
-  studentNumberInput.value = aluno ? aluno.number : '';
-  // O valor da turma será enviado exatamente como está no objeto students (ex: "8ºA")
-  studentClassInput.value = aluno ? aluno.class : ''; 
-});
-
-// ======================================================
-// 🚀 FUNÇÃO DE ENVIO DE DADOS (CORRIGIDA E ROBUSTA)
+// 🚀 ENVIO DE DADOS PARA PLANILHA
 // ======================================================
 async function enviarDadosParaPlanilha(data) {
-  // A requisição POST para o Google Apps Script (GAS) via fetch() não sofre com CORS
-  // se o script estiver configurado corretamente para `doPost`.
-  
-  // Usando FormData para simular um envio de formulário, que é o formato esperado pelo GAS (e.parameter)
   const formData = new FormData();
-  for (const key in data) {
-    formData.append(key, data[key]);
-  }
+  Object.entries(data).forEach(([k, v]) => formData.append(k, v));
 
+  const response = await fetch(SCRIPT_URL, { method: "POST", body: formData });
+  const text = await response.text();
+  console.log("Resposta do servidor:", text);
+
+  let json;
   try {
-    // O método POST com FormData é o mais robusto para GAS
-    const response = await fetch(SCRIPT_URL, {
-      method: "POST",
-      body: formData, // Não é necessário setar Content-Type, o fetch faz isso automaticamente com FormData
-    });
-
-    // O GAS retorna um Content-Type de texto/html, mesmo que o conteúdo seja JSON.
-    // É crucial ler como texto e depois tentar o parse.
-    const resultText = await response.text();
-    console.log("🔍 Resposta bruta do servidor:", resultText);
-
-    let result;
-    try {
-      // Tenta parsear a resposta como JSON
-      result = JSON.parse(resultText);
-    } catch (err) {
-      // Se falhar, é um erro inesperado do GAS ou um redirecionamento.
-      throw new Error("Resposta inesperada do servidor. Verifique se o script foi implantado corretamente como 'App da Web' e se o URL está correto. Resposta: " + resultText.substring(0, 100) + "...");
-    }
-
-    if (result.status === "success") {
-      // Sucesso
-      resultDiv.textContent = `✅ Nota registrada com sucesso! ${result.message}`;
-      resultDiv.className = 'result success';
-      resultDiv.style.display = 'block';
-    } else {
-      // Erro reportado pelo Backend
-      throw new Error(result.message || "Erro desconhecido ao registrar a nota.");
-    }
-
-  } catch (error) {
-    console.error("❌ Erro ao enviar dados:", error);
-    // Propaga o erro para ser tratado pelo bloco try/catch do submitBtn
-    throw new Error("Falha na comunicação com o servidor: " + error.message);
+    json = JSON.parse(text);
+  } catch {
+    throw new Error("Resposta inválida do servidor. Verifique se o Apps Script foi implantado corretamente.");
   }
+
+  if (json.status !== "success") throw new Error(json.message);
+  return json;
 }
 
 // ======================================================
-// 🚀 BOTÃO ENVIAR (LÓGICA PRINCIPAL)
+// 🎓 BOTÃO ENVIAR
 // ======================================================
 submitBtn.addEventListener('click', async () => {
   submitBtn.disabled = true;
+  resultDiv.textContent = '';
   resultDiv.style.display = 'none';
-  resultDiv.textContent = ''; // Limpa o resultado anterior
-  
+
   try {
-    const nomeAluno = studentNameSelect.value;
-    const dataAtividade = activityDateInput.value;
-    const numeroAluno = studentNumberInput.value;
-    const turmaAluno = studentClassInput.value;
+    const nome = studentNameSelect.value;
+    if (!nome) throw new Error("Selecione seu nome.");
 
-    if (!nomeAluno) throw new Error("Selecione seu nome na lista.");
-    if (!dataAtividade) throw new Error("Preencha a data da atividade.");
+    const aluno = students[nome];
+    if (!aluno) throw new Error("Aluno não encontrado.");
 
-    let score = 0;
     const questoes = Object.keys(correctAnswers);
-    
+    let score = 0;
+
     for (const q of questoes) {
-      const selected = document.querySelector(`input[name='${q}']:checked`);
-      if (!selected) throw new Error("Responda todas as questões antes de enviar.");
-      
-      // Verifica a resposta e incrementa a pontuação
-      if (selected.value === correctAnswers[q]) {
-        score++;
-      }
+      const resposta = document.querySelector(`input[name='${q}']:checked`);
+      if (!resposta) throw new Error("Responda todas as questões antes de enviar.");
+      if (resposta.value === correctAnswers[q]) score++;
     }
 
-    // Exibe o resultado da correção localmente
-    resultDiv.textContent = `✅ Você acertou ${score} de ${questoes.length} questões. Enviando nota para a planilha...`;
+    resultDiv.textContent = `Calculando nota (${score}/${questoes.length})...`;
     resultDiv.className = 'result success';
     resultDiv.style.display = 'block';
 
-    // Prepara os dados para envio
-    const dataToSend = {
-      // Os nomes das chaves são importantes e devem corresponder ao esperado pelo Backend
-      studentName: nomeAluno,
-      studentNumber: numeroAluno,
-      studentClass: turmaAluno, // Envia a turma exatamente como está no Frontend (ex: "8ºA")
+    const data = {
+      studentName: nome,
+      studentNumber: aluno.number,
+      studentClass: aluno.class,
       score: score,
       timestamp: new Date().toISOString()
     };
 
-    // Envia os dados e espera a confirmação do Backend
-    await enviarDadosParaPlanilha(dataToSend);
-
+    const result = await enviarDadosParaPlanilha(data);
+    resultDiv.textContent = `✅ ${result.message}`;
   } catch (err) {
-    // Tratamento de erro centralizado
-    const errorMessage = err.message.startsWith("Falha na comunicação") ? 
-                         "Falha ao enviar dados. Verifique sua conexão e se o script do Google Apps está ativo." : 
-                         err.message;
-                         
-    resultDiv.textContent = `❌ Erro: ${errorMessage}`;
+    alert("⚠️ Erro ao enviar a nota.\n" + err.message);
+    resultDiv.textContent = "❌ " + err.message;
     resultDiv.className = 'result error';
     resultDiv.style.display = 'block';
-    alert("⚠️ Erro ao enviar a atividade.\n" + errorMessage); // Mantido o alert para visibilidade imediata do erro
   } finally {
     submitBtn.disabled = false;
   }
 });
 
 // ======================================================
-// 🧹 BOTÃO LIMPAR
+// 🧹 LIMPAR
 // ======================================================
 clearBtn.addEventListener('click', () => {
-  if (confirm("Tem certeza que deseja limpar todas as respostas?")) {
-    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
-    resultDiv.style.display = 'none';
+  if (confirm("Deseja limpar todas as respostas?")) {
+    document.querySelectorAll("input[type='radio']").forEach(i => (i.checked = false));
     resultDiv.textContent = '';
+    resultDiv.style.display = 'none';
   }
 });
 </script>
@@ -881,6 +832,7 @@ clearBtn.addEventListener('click', () => {
 </body>
 </html>
 Manus
+
 
 
 
