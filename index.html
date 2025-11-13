@@ -805,14 +805,15 @@ if (activityDateInput) {
 // 🚀 FUNÇÃO DE ENVIO (USANDO URLSearchParams -> garante e.parameter)
 // ======================================================
 async function enviarDadosParaPlanilha(data) {
-  // Usa URLSearchParams para que o Apps Script receba em e.parameter
-  const params = new URLSearchParams();
-  Object.entries(data).forEach(([k, v]) => params.append(k, v));
+  // O Apps Script espera JSON no corpo da requisição para ser lido por e.postData.contents
+  const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby7G5AML_iUOa9lwPBcMEgn9MSmBSXXPbo9xtF6tFlNOgjMb-eEffn-cic3_rbvqII/exec"; // Substitua pelo seu URL de Apps Script
 
-  const response = await fetch("https://script.google.com/macros/s/AKfycby7G5AML_iUOa9lwPBcMEgn9MSmBSXXPbo9xtF6tFlNOgjMb-eEffn-cic3_rbvqII/exec", {
+  const response = await fetch(APP_SCRIPT_URL, {
     method: 'POST',
-    body: params,
-    // Não setar manualmente headers Content-Type: o navegador define automaticamente para application/x-www-form-urlencoded
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
   });
 
   const text = await response.text();
@@ -840,10 +841,11 @@ if (submitBtn) {
     resultDiv.textContent = '';
 
     try {
-      const nome = studentNameSelect.value;
-      if (!nome) throw new Error('Selecione seu nome.');
+      const nomeCompleto = studentNameSelect.value;
+      if (!nomeCompleto) throw new Error('Selecione seu nome.');
 
-      const aluno = students[nome];
+      // O valor do select é o nome completo, que é a chave no objeto students
+      const aluno = students[nomeCompleto];
       if (!aluno) throw new Error('Dados do aluno não encontrados.');
 
       // valida respostas
@@ -860,13 +862,13 @@ if (submitBtn) {
       resultDiv.className = 'result success';
       resultDiv.style.display = 'block';
 
-      // montagem dos dados (atenção ao formato de turma: manter "8ºANO A" etc.)
+      // montagem dos dados no formato esperado pelo Apps Script (pasted_content_2.txt)
+      // Apps Script espera: turma, aluno, nota, atividadeLink
       const payload = {
-        studentName: nome,
-        studentNumber: aluno.number,
-        studentClass: aluno.class,
-        score: String(score),
-        timestamp: new Date().toISOString()
+        turma: aluno.class,              // Ex: "8ºANO A"
+        aluno: nomeCompleto,             // Nome completo do aluno
+        nota: score,                     // O número de acertos será a nota
+        atividadeLink: 'https://raulvilera.github.io/ATIVIDADE8ANOEF/' // Link da atividade (ajustar se necessário)
       };
 
       // envio
@@ -933,24 +935,3 @@ async function runLocalTest() {
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
