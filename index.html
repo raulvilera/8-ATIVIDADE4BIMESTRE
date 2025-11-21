@@ -215,7 +215,7 @@
             font-size: 16px;
             font-weight: bold;
             transition: all 0.3s ease;
-            box-shadow: 6px 6px 12px rgba(0,0,0,0.2),
+            box-shadow: 6px 6px 12px rgba(0,0/0,0.2),
                        -6px -6px 12px rgba(255,255,255,0.7);
             flex: 1;
         }
@@ -322,6 +322,7 @@
         /* ============================================================
            CONFIGURAÇÕES GERAIS
            ============================================================ */
+        // Mantenha a URL original. A correção de CORS está no Apps Script.
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyuQiv2-PQZ7QUYojO8hb5QbrtUTIeyQA0S4_XzXASFkRa5ZJMHfzn94BZoQfy2X9U/exec";
 
         /* ============================================================
@@ -344,7 +345,7 @@
                 { number: "15", name: "GUSTAVO AUGUSTO TOMBOLO REIS" },
                 { number: "17", name: "IGOR MARTINS PEREIRA" },
                 { number: "18", name: "IZABELLY VITORIA DE CARVALHO RODRIGUES SETH" },
-                { number: "21", name: "KAROLAYNE DOS SANTOS BISSORNIA" },
+                { number: "21", "name": "KAROLAYNE DOS SANTOS BISSORNIA" },
                 { number: "22", name: "KAUANNY APARECIDA MALAQUIAS LIMA" },
                 { number: "23", name: "KÉTHILY NAYARA DA SILVA" },
                 { number: "25", name: "LAVINIA PEREIRA DE SOUZA" },
@@ -456,7 +457,7 @@
                     { text: "A energia solar pode ser gerada próximo aos locais de consumo, reduzindo perdas na transmissão e permitindo a eletrificação de áreas remotas não atendidas pela rede elétrica convencional.", correct: true },
                     { text: "Os painéis solares funcionam com a mesma eficiência durante o dia e a noite, garantindo produção constante de energia 24 horas por dia.", correct: false },
                     { text: "A instalação de painéis solares não requer manutenção e tem vida útil ilimitada, tornando-se a opção mais econômica a longo prazo.", correct: false },
-                    { text: "A energia solar é a fonte renovável com menor custo de instalação inicial, sendo acessível para todas as classes sociais sem necessidade de incentivos governamentais.", correct: false }
+                    { text: "A energia solar é uma fonte não renovável, mas seu uso é incentivado devido à sua alta densidade energética.", correct: false }
                 ]
             },
             {
@@ -541,30 +542,41 @@
         }
 
         /* ============================================================
-           ENVIO PARA O APPS SCRIPT (JSON)
+           ENVIO PARA O APPS SCRIPT (CORRIGIDO)
            ============================================================ */
         async function sendToGoogle(dataObj) {
             try {
-                const response = await fetch("https://script.google.com/macros/s/AKfycbyuQiv2-PQZ7QUYojO8hb5QbrtUTIeyQA0S4_XzXASFkRa5ZJMHfzn94BZoQfy2X9U/exec", {
+                // Removendo o cabeçalho 'Content-Type: application/json'
+                // O Google Apps Script lida melhor com o tipo de conteúdo padrão (text/plain)
+                // quando o JSON é enviado no corpo, e a correção de CORS no Apps Script
+                // deve resolver o problema de "Failed to fetch".
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    // Removido: headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(dataObj)
                 });
 
+                // Verifica se a resposta foi bem-sucedida (status 200-299)
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP: ${response.status} ${response.statusText}`);
+                }
+
+                // Tenta ler a resposta como JSON
                 const json = await response.json();
 
                 if (json.status === "success") {
-                    showResult("<strong>Sucesso!</strong> Dados enviados.", "success");
+                    showResult("<strong>Sucesso!</strong> Dados enviados e registrados.", "success");
                     document.getElementById("submitBtn").disabled = true;
                 } else {
                     showResult(
-                        "<strong>Erro no servidor:</strong> " + (json.message || "Resposta inesperada."),
+                        "<strong>Erro no servidor:</strong> " + (json.message || "Resposta inesperada do Apps Script."),
                         "error"
                     );
                 }
             } catch (e) {
+                // Captura erros de rede (Failed to fetch) e erros de processamento
                 showResult(
-                    "<strong>Erro de Conexão:</strong> " + e.message,
+                    "<strong>Erro de Conexão:</strong> " + e.message + ". Verifique se o Apps Script está publicado corretamente (como 'Qualquer pessoa').",
                     "error"
                 );
             }
@@ -592,6 +604,7 @@
 
                 students[turma].forEach(s => {
                     const opt = document.createElement("option");
+                    // O valor deve ser: Nº|Série|Nome
                     opt.value = `${s.number}|${turma}|${s.name}`;
                     opt.textContent = s.name;
                     group.appendChild(opt);
@@ -635,7 +648,12 @@
             });
 
             select.onchange = () => {
-                if (!select.value) return;
+                if (!select.value) {
+                    num.value = "";
+                    grade.value = "";
+                    return;
+                }
+                // O valor é: Nº|Série|Nome. Precisamos do Nº e da Série.
                 const [n, g] = select.value.split("|");
                 num.value = n;
                 grade.value = g;
@@ -664,15 +682,17 @@
                 return;
             }
 
+            // O valor é: Nº|Série|Nome
             const [studentNumber, studentGrade, studentName] = select.value.split("|");
             const data = { studentName, studentNumber, studentGrade };
 
             let correct = 0;
+            let allAnswered = true;
             for (let q of questions) {
                 const selected = document.querySelector(`#q${q.id} .option.selected`);
                 if (!selected) {
-                    showResult("Responda todas as questões.", "error");
-                    return;
+                    allAnswered = false;
+                    break;
                 }
                 const letter = selected.dataset.letter;
                 data[`q${q.id}`] = letter;
@@ -680,13 +700,17 @@
                 if (letter === correctAnswersMap[`q${q.id}`]) correct++;
             }
 
+            if (!allAnswered) {
+                showResult("Responda todas as questões.", "error");
+                return;
+            }
+
             data.finalScore = correct;
 
-            showResult(`Enviando... você acertou ${correct}/${questions.length}.`, "success");
+            showResult(`Calculando nota... você acertou ${correct}/${questions.length}. Enviando dados...`, "success");
 
             await sendToGoogle(data);
         };
     </script>
 </body>
 </html>
-
