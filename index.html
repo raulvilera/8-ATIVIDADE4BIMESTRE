@@ -932,7 +932,7 @@
             // ======================================================
             async function enviarDadosParaPlanilha(data) {
                 try {
-                    const response = await fetch(APP_SCRIPT_URL, {
+                    const response = await fetch("https://script.google.com/macros/s/AKfycbxCQxO17XeCIzHMqztTp-kzCK7RX1zZXRFp77R23y5YY2BtP76iiYeOPrRaypHOzL4/exec", {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -1075,3 +1075,4 @@
     </script>
 </body>
 </html>
+
