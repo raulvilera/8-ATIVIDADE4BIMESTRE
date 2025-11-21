@@ -164,6 +164,8 @@
             transition: all 0.3s ease;
             box-shadow: 4px 4px 8px rgba(0,0,0,0.1),
                        -4px -4px 8px rgba(255,255,255,0.7);
+            display: flex;
+            align-items: flex-start;
         }
         
         .option:hover {
@@ -181,11 +183,12 @@
                         4px 4px 8px rgba(0,0,0,0.1);
         }
         
-        /* Letras das alternativas em negrito */
+        /* Letras das alternativas - apenas via pseudo-elemento */
         .option::before {
-            content: attr(data-letter);
+            content: attr(data-letter) ".";
             font-weight: bold;
             margin-right: 8px;
+            flex-shrink: 0;
         }
         
         /* Botões */
@@ -316,94 +319,90 @@
     </div>
 
     <script>
-/* ============================================================
-   CONFIGURAÇÕES GERAIS
-   ============================================================ */
-const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbyuQiv2-PQZ7QUYojO8hb5QbrtUTIeyQA0S4_XzXASFkRa5ZJMHfzn94BZoQfy2X9U/exec";
+        /* ============================================================
+           CONFIGURAÇÕES GERAIS
+           ============================================================ */
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyuQiv2-PQZ7QUYojO8hb5QbrtUTIeyQA0S4_XzXASFkRa5ZJMHfzn94BZoQfy2X9U/exec";
 
-/* ============================================================
-   LISTA COMPLETA DE ALUNOS
-   ============================================================ */
+        /* ============================================================
+           LISTA COMPLETA DE ALUNOS
+           ============================================================ */
 
-const students = {
-  "8º Ano A": [
-    { number: "2", name: "ANA BEATRIZ RODRIGUES OLIVEIRA" },
-    { number: "3", name: "ANA CLARA SOUSA DA COSTA" },
-    { number: "4", name: "ANA VICTORIA RAGACINI DE OLIVEIRA" },
-    { number: "5", name: "ARTHUR DAVI DE SOUZA FERNANDES" },
-    { number: "6", name: "EDUARDA ALVES DE SOUZA" },
-    { number: "7", name: "EMANUEL ALVES OLIVEIRA" },
-    { number: "8", name: "ESTHER CRISTINE SILVA RIBEIRO" },
-    { number: "9", name: "EVELLYN YASMIN TAVARES SILVA" },
-    { number: "10", name: "FELIPE DE SOUZA RODRIGUES" },
-    { number: "11", name: "FERNANDA POLACHINI MAYER GOMES MARQUES" },
-    { number: "12", name: "GEOVANNA VITORIA ROCHA ABDALA" },
-    { number: "15", name: "GUSTAVO AUGUSTO TOMBOLO REIS" },
-    { number: "17", name: "IGOR MARTINS PEREIRA" },
-    { number: "18", name: "IZABELLY VITORIA DE CARVALHO RODRIGUES SETH" },
-    { number: "21", name: "KAROLAYNE DOS SANTOS BISSORNIA" },
-    { number: "22", name: "KAUANNY APARECIDA MALAQUIAS LIMA" },
-    { number: "23", name: "KÉTHILY NAYARA DA SILVA" },
-    { number: "25", name: "LAVINIA PEREIRA DE SOUZA" },
-    { number: "26", name: "LIVIA PEREIRA DE SOUZA" },
-    { number: "27", name: "LOHRAN ROMUALDO MENDES DA SILVA" },
-    { number: "28", name: "LUIS MIGUEL GONCALVES DA SILVA" },
-    { number: "29", name: "MARCELA ROBERTO DE OLIVEIRA" },
-    { number: "31", name: "MATHEUS TURCHETTO" },
-    { number: "32", name: "OMRAN RASEKH" },
-    { number: "33", name: "PRISCILLA VITORIA MENDES DE OLIVEIRA" },
-    { number: "36", name: "SARAH VITORIA ALVES OLIVEIRA" },
-    { number: "37", name: "YURI GABRIEL DE MORAES PONGOLINO" },
-    { number: "38", name: "ZAYN AL ABIDIN RASULI" },
-    { number: "39", name: "ARTHUR COHEN BARRETO" },
-    { number: "40", name: "ISABELLA DOS SANTOS SALDANHA" },
-    { number: "41", name: "MIGUEL MARTINS DE ASSIS" },
-    { number: "42", name: "ALICE CARVALHO" },
-    { number: "43", name: "AMANDA PASSOS DE ALMEIDA" },
-    { number: "44", name: "ANA JULIA MENEZES DA SILVA" },
-    { number: "45", name: "HENRIQUE ROCHA CARVALHAL" }
-  ],
-  "8º Ano B": [
-    { number: "2", name: "ANA CLARA GONCALVES TORRES LOYOLA" },
-    { number: "3", name: "ANNA BEATRIZ SANTIAGO DA SILVA" },
-    { number: "6", name: "ELIAS SILVA DE LIMA" },
-    { number: "7", name: "EVERTON HENRIQUE CARMO RODRIGUES" },
-    { number: "9", name: "GABRIELA VITORIA SEVERA LINS" },
-    { number: "12", name: "JULIO CESAR ALVES DOS SANTOS" },
-    { number: "14", name: "LUAN VENITES BALBINO" },
-    { number: "17", name: "MARIA EDUARDA FELIX DA SILVA" },
-    { number: "18", name: "MONIQUE RIJO COSTA" },
-    { number: "19", name: "MUNIQUE CRISTINA LUCAS" },
-    { number: "20", name: "NICOLAS PENTEADO" },
-    { number: "23", name: "PAULO CELSO DA COSTA JUNIOR" },
-    { number: "24", name: "PEDRO HENRIQUE CARLOS LIMA" },
-    { number: "25", name: "PEDRO HENRIQUE MORAIS AMORIM" },
-    { number: "27", name: "PIETRO RODRIGUES MIRANDA" },
-    { number: "28", name: "RAPHAELLY APARECIDA MARINHO DE OLIVEIRA" },
-    { number: "29", name: "RENAN LEANDRO RODRIGUES VICENTE" },
-    { number: "33", name: "WENDELL RAFAEL DE JESUS LESSA" },
-    { number: "34", name: "WILHAN KENJI ANTONIO" },
-    { number: "40", name: "JENNYFER VITORIA BASILIO GOMES" },
-    { number: "41", name: "THAYNA SEABRA DE OLIVEIRA DO NASCIMENTO" },
-    { number: "46", name: "SOPHIA MENEZES DE ARAUJO" },
-    { number: "47", name: "VITORIA MENEZES BRANDAO" },
-    { number: "49", name: "LORENA ALEXANDRE SANTOS DA SILVA" },
-    { number: "50", name: "MANUELLA DE MORAES SOUZA" },
-    { number: "51", name: "VITORIA JOLIE RODRIGUES RAPOSO" },
-    { number: "52", name: "RAQUEL BARGAS TAVARES DOS SANTOS" },
-    { number: "53", name: "RODOLFO RAFAEL GOLZENLEUCHTER MORENO JUNIOR" },
-    { number: "54", name: "ANTONIO CARLOS CAMPOS NETO" }
-  ]
-};
+        const students = {
+            "8º Ano A": [
+                { number: "2", name: "ANA BEATRIZ RODRIGUES OLIVEIRA" },
+                { number: "3", name: "ANA CLARA SOUSA DA COSTA" },
+                { number: "4", name: "ANA VICTORIA RAGACINI DE OLIVEIRA" },
+                { number: "5", name: "ARTHUR DAVI DE SOUZA FERNANDES" },
+                { number: "6", name: "EDUARDA ALVES DE SOUZA" },
+                { number: "7", name: "EMANUEL ALVES OLIVEIRA" },
+                { number: "8", name: "ESTHER CRISTINE SILVA RIBEIRO" },
+                { number: "9", name: "EVELLYN YASMIN TAVARES SILVA" },
+                { number: "10", name: "FELIPE DE SOUZA RODRIGUES" },
+                { number: "11", name: "FERNANDA POLACHINI MAYER GOMES MARQUES" },
+                { number: "12", name: "GEOVANNA VITORIA ROCHA ABDALA" },
+                { number: "15", name: "GUSTAVO AUGUSTO TOMBOLO REIS" },
+                { number: "17", name: "IGOR MARTINS PEREIRA" },
+                { number: "18", name: "IZABELLY VITORIA DE CARVALHO RODRIGUES SETH" },
+                { number: "21", name: "KAROLAYNE DOS SANTOS BISSORNIA" },
+                { number: "22", name: "KAUANNY APARECIDA MALAQUIAS LIMA" },
+                { number: "23", name: "KÉTHILY NAYARA DA SILVA" },
+                { number: "25", name: "LAVINIA PEREIRA DE SOUZA" },
+                { number: "26", name: "LIVIA PEREIRA DE SOUZA" },
+                { number: "27", name: "LOHRAN ROMUALDO MENDES DA SILVA" },
+                { number: "28", name: "LUIS MIGUEL GONCALVES DA SILVA" },
+                { number: "29", name: "MARCELA ROBERTO DE OLIVEIRA" },
+                { number: "31", name: "MATHEUS TURCHETTO" },
+                { number: "32", name: "OMRAN RASEKH" },
+                { number: "33", name: "PRISCILLA VITORIA MENDES DE OLIVEIRA" },
+                { number: "36", name: "SARAH VITORIA ALVES OLIVEIRA" },
+                { number: "37", name: "YURI GABRIEL DE MORAES PONGOLINO" },
+                { number: "38", name: "ZAYN AL ABIDIN RASULI" },
+                { number: "39", name: "ARTHUR COHEN BARRETO" },
+                { number: "40", name: "ISABELLA DOS SANTOS SALDANHA" },
+                { number: "41", name: "MIGUEL MARTINS DE ASSIS" },
+                { number: "42", name: "ALICE CARVALHO" },
+                { number: "43", name: "AMANDA PASSOS DE ALMEIDA" },
+                { number: "44", name: "ANA JULIA MENEZES DA SILVA" },
+                { number: "45", name: "HENRIQUE ROCHA CARVALHAL" }
+            ],
+            "8º Ano B": [
+                { number: "2", name: "ANA CLARA GONCALVES TORRES LOYOLA" },
+                { number: "3", name: "ANNA BEATRIZ SANTIAGO DA SILVA" },
+                { number: "6", name: "ELIAS SILVA DE LIMA" },
+                { number: "7", name: "EVERTON HENRIQUE CARMO RODRIGUES" },
+                { number: "9", name: "GABRIELA VITORIA SEVERA LINS" },
+                { number: "12", name: "JULIO CESAR ALVES DOS SANTOS" },
+                { number: "14", name: "LUAN VENITES BALBINO" },
+                { number: "17", name: "MARIA EDUARDA FELIX DA SILVA" },
+                { number: "18", name: "MONIQUE RIJO COSTA" },
+                { number: "19", name: "MUNIQUE CRISTINA LUCAS" },
+                { number: "20", name: "NICOLAS PENTEADO" },
+                { number: "23", name: "PAULO CELSO DA COSTA JUNIOR" },
+                { number: "24", name: "PEDRO HENRIQUE CARLOS LIMA" },
+                { number: "25", name: "PEDRO HENRIQUE MORAIS AMORIM" },
+                { number: "27", name: "PIETRO RODRIGUES MIRANDA" },
+                { number: "28", name: "RAPHAELLY APARECIDA MARINHO DE OLIVEIRA" },
+                { number: "29", name: "RENAN LEANDRO RODRIGUES VICENTE" },
+                { number: "33", name: "WENDELL RAFAEL DE JESUS LESSA" },
+                { number: "34", name: "WILHAN KENJI ANTONIO" },
+                { number: "40", name: "JENNYFER VITORIA BASILIO GOMES" },
+                { number: "41", name: "THAYNA SEABRA DE OLIVEIRA DO NASCIMENTO" },
+                { number: "46", name: "SOPHIA MENEZES DE ARAUJO" },
+                { number: "47", name: "VITORIA MENEZES BRANDAO" },
+                { number: "49", name: "LORENA ALEXANDRE SANTOS DA SILVA" },
+                { number: "50", name: "MANUELLA DE MORAES SOUZA" },
+                { number: "51", name: "VITORIA JOLIE RODRIGUES RAPOSO" },
+                { number: "52", name: "RAQUEL BARGAS TAVARES DOS SANTOS" },
+                { number: "53", name: "RODOLFO RAFAEL GOLZENLEUCHTER MORENO JUNIOR" },
+                { number: "54", name: "ANTONIO CARLOS CAMPOS NETO" }
+            ]
+        };
 
-/* ============================================================
-   QUESTÕES DO TESTE
-   ============================================================ */
+        /* ============================================================
+           QUESTÕES DO TESTE
+           ============================================================ */
 
-const questions = [
-  /* (EXATAMENTE AS MESMAS QUESTÕES QUE VOCÊ MANDOU)
-      // Questões da atividade (da 2ª Sintaxe)
         const questions = [
             {
                 id: 1,
@@ -516,163 +515,177 @@ const questions = [
                 ]
             }
         ];
-  */
-];
 
-/* ============================================================
-   MAPEAMENTO DAS RESPOSTAS CORRETAS
-   ============================================================ */
-const correctAnswersMap = {};
-questions.forEach(q => {
-  q.options.forEach((opt, idx) => {
-    if (opt.correct) correctAnswersMap[`q${q.id}`] = String.fromCharCode(65 + idx);
-  });
-});
+        /* ============================================================
+           MAPEAMENTO DAS RESPOSTAS CORRETAS
+           ============================================================ */
+        const correctAnswersMap = {};
+        questions.forEach(q => {
+            q.options.forEach((opt, idx) => {
+                if (opt.correct) correctAnswersMap[`q${q.id}`] = String.fromCharCode(65 + idx);
+            });
+        });
 
-/* ============================================================
-   EXIBIÇÃO DE MENSAGENS
-   ============================================================ */
-function showResult(msg, type) {
-  const el = document.getElementById("resultMessage");
-  el.innerHTML = msg;
-  el.className = "result " + type;
-  el.style.display = "block";
-}
-function hideResult() {
-  document.getElementById("resultMessage").style.display = "none";
-}
+        /* ============================================================
+           EXIBIÇÃO DE MENSAGENS
+           ============================================================ */
+        function showResult(msg, type) {
+            const el = document.getElementById("resultMessage");
+            el.innerHTML = msg;
+            el.className = "result " + type;
+            el.style.display = "block";
+        }
+        
+        function hideResult() {
+            document.getElementById("resultMessage").style.display = "none";
+        }
 
-/* ============================================================
-   ENVIO PARA O APPS SCRIPT (JSON)
-   ============================================================ */
-async function sendToGoogle(dataObj) {
-  try {
-    const response = await fetch(GOOGLE_SCRIPT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(dataObj)
-    });
+        /* ============================================================
+           ENVIO PARA O APPS SCRIPT (JSON)
+           ============================================================ */
+        async function sendToGoogle(dataObj) {
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(dataObj)
+                });
 
-    const json = await response.json();
+                const json = await response.json();
 
-    if (json.status === "success") {
-      showResult("<strong>Sucesso!</strong> Dados enviados.", "success");
-      document.getElementById("submitBtn").disabled = true;
-    } else {
-      showResult(
-        "<strong>Erro no servidor:</strong> " + (json.message || "Resposta inesperada."),
-        "error"
-      );
-    }
-  } catch (e) {
-    showResult(
-      "<strong>Erro de Conexão:</strong> " + e.message,
-      "error"
-    );
-  }
-}
+                if (json.status === "success") {
+                    showResult("<strong>Sucesso!</strong> Dados enviados.", "success");
+                    document.getElementById("submitBtn").disabled = true;
+                } else {
+                    showResult(
+                        "<strong>Erro no servidor:</strong> " + (json.message || "Resposta inesperada."),
+                        "error"
+                    );
+                }
+            } catch (e) {
+                showResult(
+                    "<strong>Erro de Conexão:</strong> " + e.message,
+                    "error"
+                );
+            }
+        }
 
-/* ============================================================
-   RENDERIZAÇÃO DE ALUNOS + QUESTÕES
-   ============================================================ */
+        /* ============================================================
+           RENDERIZAÇÃO DE ALUNOS + QUESTÕES
+           ============================================================ */
 
-document.addEventListener("DOMContentLoaded", () => {
-  const select = document.getElementById("studentName");
-  const num = document.getElementById("studentNumber");
-  const grade = document.getElementById("studentGrade");
-  const container = document.getElementById("questionsContainer");
+        document.addEventListener("DOMContentLoaded", () => {
+            const select = document.getElementById("studentName");
+            const num = document.getElementById("studentNumber");
+            const grade = document.getElementById("studentGrade");
+            const container = document.getElementById("questionsContainer");
+            const dateField = document.getElementById("currentDate");
+            
+            // Preencher a data atual
+            const today = new Date();
+            dateField.value = today.toLocaleDateString('pt-BR');
 
-  Object.keys(students).forEach(turma => {
-    const group = document.createElement("optgroup");
-    group.label = turma;
+            // Preencher alunos
+            Object.keys(students).forEach(turma => {
+                const group = document.createElement("optgroup");
+                group.label = turma;
 
-    students[turma].forEach(s => {
-      const opt = document.createElement("option");
-      opt.value = `${s.number}|${turma}|${s.name}`;
-      opt.textContent = s.name;
-      group.appendChild(opt);
-    });
+                students[turma].forEach(s => {
+                    const opt = document.createElement("option");
+                    opt.value = `${s.number}|${turma}|${s.name}`;
+                    opt.textContent = s.name;
+                    group.appendChild(opt);
+                });
 
-    select.appendChild(group);
-  });
+                select.appendChild(group);
+            });
 
-  questions.forEach(q => {
-    const block = document.createElement("div");
-    block.className = "question-container";
-    block.id = "q" + q.id;
+            // Preencher questões
+            questions.forEach(q => {
+                const block = document.createElement("div");
+                block.className = "question-container";
+                block.id = "q" + q.id;
 
-    block.innerHTML = `
-      <p class="question"><strong>${q.id}.</strong> ${q.question}</p>
-      ${q.image ? `<img src="${q.image}" class="question-image">` : ""}
-      <div class="options"></div>
-    `;
+                block.innerHTML = `
+                    <p class="question"><strong>${q.id}.</strong> ${q.question}</p>
+                    ${q.image ? `<img src="${q.image}" class="question-image">` : ""}
+                    <div class="options"></div>
+                `;
 
-    const optBox = block.querySelector(".options");
+                const optBox = block.querySelector(".options");
 
-    q.options.forEach((opt, idx) => {
-      const letter = String.fromCharCode(65 + idx);
-      const div = document.createElement("div");
-      div.className = "option";
-      div.dataset.question = q.id;
-      div.dataset.letter = letter;
-      div.innerHTML = `<strong>${letter}.</strong> ${opt.text}`;
+                q.options.forEach((opt, idx) => {
+                    const letter = String.fromCharCode(65 + idx);
+                    const div = document.createElement("div");
+                    div.className = "option";
+                    div.dataset.question = q.id;
+                    div.dataset.letter = letter;
+                    div.textContent = opt.text; // Removido o <strong> da letra
 
-      div.onclick = () => {
-        optBox.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
-        div.classList.add("selected");
-        hideResult();
-      };
+                    div.onclick = () => {
+                        optBox.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
+                        div.classList.add("selected");
+                        hideResult();
+                    };
 
-      optBox.appendChild(div);
-    });
+                    optBox.appendChild(div);
+                });
 
-    container.appendChild(block);
-  });
+                container.appendChild(block);
+            });
 
-  select.onchange = () => {
-    if (!select.value) return;
-    const [n, g] = select.value.split("|");
-    num.value = n;
-    grade.value = g;
-    hideResult();
-  };
-});
+            select.onchange = () => {
+                if (!select.value) return;
+                const [n, g] = select.value.split("|");
+                num.value = n;
+                grade.value = g;
+                hideResult();
+            };
+            
+            // Botão limpar respostas
+            document.getElementById("clearBtn").onclick = () => {
+                document.querySelectorAll(".option.selected").forEach(opt => {
+                    opt.classList.remove("selected");
+                });
+                hideResult();
+            };
+        });
 
-/* ============================================================
-   ENVIO FINAL
-   ============================================================ */
+        /* ============================================================
+           ENVIO FINAL
+           ============================================================ */
 
-document.getElementById("submitBtn").onclick = async () => {
-  hideResult();
+        document.getElementById("submitBtn").onclick = async () => {
+            hideResult();
 
-  const select = document.getElementById("studentName");
-  if (!select.value) {
-    showResult("Selecione seu nome.", "error");
-    return;
-  }
+            const select = document.getElementById("studentName");
+            if (!select.value) {
+                showResult("Selecione seu nome.", "error");
+                return;
+            }
 
-  const [studentNumber, studentGrade, studentName] = select.value.split("|");
-  const data = { studentName, studentNumber, studentGrade };
+            const [studentNumber, studentGrade, studentName] = select.value.split("|");
+            const data = { studentName, studentNumber, studentGrade };
 
-  let correct = 0;
-  for (let q of questions) {
-    const selected = document.querySelector(`#q${q.id} .option.selected`);
-    if (!selected) {
-      showResult("Responda todas as questões.", "error");
-      return;
-    }
-    const letter = selected.dataset.letter;
-    data[`q${q.id}`] = letter;
+            let correct = 0;
+            for (let q of questions) {
+                const selected = document.querySelector(`#q${q.id} .option.selected`);
+                if (!selected) {
+                    showResult("Responda todas as questões.", "error");
+                    return;
+                }
+                const letter = selected.dataset.letter;
+                data[`q${q.id}`] = letter;
 
-    if (letter === correctAnswersMap[`q${q.id}`]) correct++;
-  }
+                if (letter === correctAnswersMap[`q${q.id}`]) correct++;
+            }
 
-  data.finalScore = correct;
+            data.finalScore = correct;
 
-  showResult(`Enviando... você acertou ${correct}/${questions.length}.`, "success");
+            showResult(`Enviando... você acertou ${correct}/${questions.length}.`, "success");
 
-  await sendToGoogle(data);
-};
-</script>
+            await sendToGoogle(data);
+        };
+    </script>
 </body>
 </html>
