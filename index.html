@@ -550,7 +550,7 @@
                 // O Google Apps Script lida melhor com o tipo de conteúdo padrão (text/plain)
                 // quando o JSON é enviado no corpo, e a correção de CORS no Apps Script
                 // deve resolver o problema de "Failed to fetch".
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                const response = await fetch("https://script.google.com/macros/s/AKfycbyCYK1nM86P6COERwpak1P89-fF7QmyYGeeAx9P5ulAobTxyt0IZM-IvD1ycocc7OA/exec", {
                     method: "POST",
                     // Removido: headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(dataObj)
@@ -714,3 +714,4 @@
     </script>
 </body>
 </html>
+
