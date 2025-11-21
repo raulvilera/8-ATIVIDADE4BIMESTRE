@@ -428,10 +428,12 @@
     <div class="container">
         <div class="header">
             <div class="school-name">E.E. PROFª WANDA MASCAGNI DE SÁ</div>
-        <div class="student-info">
-                <div class="info-item">
-                    <label for="student-name">Nome do Aluno:</label>
-                    <select id="student-name" class="name-select"></select>
+            <div class="student-info">
+                <div class="info-group">
+                    <span class="info-label">Nome do Aluno:</span>
+                    <select id="studentName" class="info-input">
+                        <option value="">Selecione seu nome</option>
+                    </select>
                 </div>
                 <div class="info-group">
                     <span class="info-label">Nº:</span>
@@ -750,330 +752,326 @@
         <source src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" type="audio/mpeg">
     </audio>
 
-<script>
-// ======================================================
-// 🎯 RESPOSTAS CORRETAS
-// ======================================================
-const correctAnswers = {
-  q1: 'b', q2: 'b', q3: 'a', q4: 'b', q5: 'a',
-  q6: 'a', q7: 'a', q8: 'a', q9: 'a', q10: 'a'
-};
-
-// ======================================================
-// 👩‍🎓 LISTA DE ALUNOS (8ºA e 8ºB)
-// ======================================================
-const students = {
-  // --- 8º ANO A ---
-  "ANA BEATRIZ RODRIGUES OLIVEIRA": { number: "2", class: "8ºANO A" },
-  "ANA CLARA SOUSA DA COSTA": { number: "3", class: "8ºANO A" },
-  "ANA VICTORIA RAGACINI DE OLIVEIRA": { number: "4", class: "8ºANO A" },
-  "ARTHUR DAVI DE SOUZA FERNANDES": { number: "5", class: "8ºANO A" },
-  "EDUARDA ALVES DE SOUZA": { number: "6", class: "8ºANO A" },
-  "EMANUEL ALVES OLIVEIRA": { number: "7", class: "8ºANO A" },
-  "ESTHER CRISTINE SILVA RIBEIRO": { number: "8", class: "8ºANO A" },
-  "EVELLYN YASMIN TAVARES SILVA": { number: "9", class: "8ºANO A" },
-  "FELIPE DE SOUZA RODRIGUES": { number: "10", class: "8ºANO A" },
-  "FERNANDA POLACHINI MAYER GOMES MARQUES": { number: "11", class: "8ºANO A" },
-  "GEOVANNA VITORIA ROCHA ABDALA": { number: "12", class: "8ºANO A" },
-  "GUSTAVO AUGUSTO TOMBOLO REIS": { number: "15", class: "8ºANO A" },
-  "IGOR MARTINS PEREIRA": { number: "17", class: "8ºANO A" },
-  "IZABELLY VITORIA DE CARVALHO RODRIGUES SETH": { number: "18", class: "8ºANO A" },
-  "KAROLAYNE DOS SANTOS BISSORNIA": { number: "21", class: "8ºANO A" },
-  "KAUANNY APARECIDA MALAQUIAS LIMA": { number: "22", class: "8ºANO A" },
-  "KÉTHILY NAYARA DA SILVA": { number: "23", class: "8ºANO A" },
-  "LAVINIA PEREIRA DE SOUZA": { number: "25", class: "8ºANO A" },
-  "LIVIA PEREIRA DE SOUZA": { number: "26", class: "8ºANO A" },
-  "LOHRAN ROMUALDO MENDES DA SILVA": { number: "27", class: "8ºANO A" },
-  "LUIS MIGUEL GONCALVES DA SILVA": { number: "28", class: "8ºANO A" },
-  "MARCELA ROBERTO DE OLIVEIRA": { number: "29", class: "8ºANO A" },
-  "MATHEUS TURCHETTO": { number: "31", class: "8ºANO A" },
-  "OMRAN RASEKH": { number: "32", class: "8ºANO A" },
-  "PRISCILLA VITORIA MENDES DE OLIVEIRA": { number: "33", class: "8ºANO A" },
-  "SARAH VITORIA ALVES OLIVEIRA": { number: "36", class: "8ºANO A" },
-  "YURI GABRIEL DE MORAES PONGOLINO": { number: "37", class: "8ºANO A" },
-  "ZAYN AL ABIDIN RASULI": { number: "38", class: "8ºANO A" },
-  "ARTHUR COHEN BARRETO": { number: "39", class: "8ºANO A" },
-  "ISABELLA DOS SANTOS SALDANHA": { number: "40", class: "8ºANO A" },
-  "MIGUEL MARTINS DE ASSIS": { number: "41", class: "8ºANO A" },
-  "ALICE CARVALHO": { number: "42", class: "8ºANO A" },
-  "AMANDA PASSOS DE ALMEIDA": { number: "43", class: "8ºANO A" },
-  "ANA JULIA MENEZES DA SILVA": { number: "44", class: "8ºANO A" },
-  "HENRIQUE ROCHA CARVALHAL": { number: "45", class: "8ºANO A" },
-
-  // --- 8º ANO B ---
-  "ANA CLARA GONCALVES TORRES LOYOLA": { number: "2", class: "8ºANO B" },
-  "ANNA BEATRIZ SANTIAGO DA SILVA": { number: "3", class: "8ºANO B" },
-  "ELIAS SILVA DE LIMA": { number: "6", class: "8ºANO B" },
-  "EVERTON HENRIQUE CARMO RODRIGUES": { number: "7", class: "8ºANO B" },
-  "GABRIELA VITORIA SEVERA LINS": { number: "9", class: "8ºANO B" },
-  "JULIO CESAR ALVES DOS SANTOS": { number: "12", class: "8ºANO B" },
-  "LUAN VENITES BALBINO": { number: "14", class: "8ºANO B" },
-  "MARIA EDUARDA FELIX DA SILVA": { number: "17", class: "8ºANO B" },
-  "MONIQUE RIJO COSTA": { number: "18", class: "8ºANO B" },
-  "MUNIQUE CRISTINA LUCAS": { number: "19", class: "8ºANO B" },
-  "NICOLAS PENTEADO": { number: "20", class: "8ºANO B" },
-  "PAULO CELSO DA COSTA JUNIOR": { number: "23", class: "8ºANO B" },
-  "PEDRO HENRIQUE CARLOS LIMA": { number: "24", class: "8ºANO B" },
-  "PEDRO HENRIQUE MORAIS AMORIM": { number: "25", class: "8ºANO B" },
-  "PIETRO RODRIGUES MIRANDA": { number: "27", class: "8ºANO B" },
-  "RAPHAELLY APARECIDA MARINHO DE OLIVEIRA": { number: "28", class: "8ºANO B" },
-  "RENAN LEANDRO RODRIGUES VICENTE": { number: "29", class: "8ºANO B" },
-  "WENDELL RAFAEL DE JESUS LESSA": { number: "33", class: "8ºANO B" },
-  "WILHAN KENJI ANTONIO": { number: "34", class: "8ºANO B" },
-  "JENNYFER VITORIA BASILIO GOMES": { number: "40", class: "8ºANO B" },
-  "THAYNA SEABRA DE OLIVEIRA DO NASCIMENTO": { number: "41", class: "8ºANO B" },
-  "SOPHIA MENEZES DE ARAUJO": { number: "46", class: "8ºANO B" },
-  "VITORIA MENEZES BRANDAO": { number: "47", class: "8ºANO B" },
-  "LORENA ALEXANDRE SANTOS DA SILVA": { number: "49", class: "8ºANO B" },
-  "MANUELLA DE MORAES SOUZA": { number: "50", class: "8ºANO B" },
-  "VITORIA JOLIE RODRIGUES RAPOSO": { number: "51", class: "8ºANO B" },
-  "RAQUEL BARGAS TAVARES DOS SANTOS": { number: "52", class: "8ºANO B" },
-  "RODOLFO RAFAEL GOLZENLEUCHTER MORENO JUNIOR": { number: "53", class: "8ºANO B" }
-};
-
-// ======================================================
-// 🌐 URL DO APPS SCRIPT
-// ======================================================
-const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCQxO17XeCIzHMqztTp-kzCK7RX1zZXRFp77R23y5YY2BtP76iiYeOPrRaypHOzL4/exec";
-
-// ======================================================
-// 🚀 INICIALIZAÇÃO APÓS CARREGAMENTO DO DOM
-// ======================================================
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('DOM carregado, iniciando aplicação...');
-  
-  // ======================================================
-  // 🔽 ELEMENTOS DO DOM
-  // ======================================================
-  const studentNameSelect = document.getElementById('studentName');
-  const studentNumberInput = document.getElementById('studentNumber');
-  const studentClassInput = document.getElementById('studentClass');
-  const activityDateInput = document.getElementById('activityDate');
-  const submitBtn = document.getElementById('submitBtn');
-  const clearBtn = document.getElementById('clearBtn');
-  const resultDiv = document.getElementById('result');
-  const clickSound = document.getElementById('clickSound');
-
-  // ======================================================
-  // 🔽 POPULA O SELECT DE NOMES
-  // ======================================================
-  // A função carregarNomes foi removida e a lógica foi integrada diretamente no DOMContentLoaded
-  // para garantir o carregamento imediato.
-
-  if (studentNameSelect) {
-    try {
-      console.log('Iniciando carregamento de nomes...');
-      
-      // Ordenar nomes alfabeticamente
-      const sortedNames = Object.keys(students).sort((a, b) => 
-        a.localeCompare(b, 'pt-BR', { sensitivity: 'base' })
-      );
-      
-      console.log(`Número de alunos encontrados: ${sortedNames.length}`);
-      
-      // Limpar select e adicionar opção padrão (já existe no HTML, mas garantimos)
-      studentNameSelect.innerHTML = '<option value="">Selecione seu nome</option>';
-      
-      // Adicionar opções
-      sortedNames.forEach(nome => {
-        const option = document.createElement('option');
-        option.value = nome;
-        option.textContent = nome;
-        studentNameSelect.appendChild(option);
-      });
-      
-      console.log('Nomes carregados com sucesso no dropdown.');
-      
-    } catch (error) {
-      console.error('Erro ao carregar nomes:', error);
-    }
-  }
-
-  // ======================================================
-  // 🧾 AUTO-PREENCHER NÚMERO E TURMA
-  // ======================================================
-  studentNameSelect.addEventListener('change', function() {
-    const nomeSelecionado = this.value;
-    const aluno = students[nomeSelecionado];
-    
-    if (aluno) {
-      studentNumberInput.value = aluno.number;
-      studentClassInput.value = aluno.class;
-      console.log(`Aluno selecionado: ${nomeSelecionado}, Nº: ${aluno.number}, Turma: ${aluno.class}`);
-    } else {
-      studentNumberInput.value = '';
-      studentClassInput.value = '';
-    }
-  });
-
-  // ======================================================
-  // 🗓️ VALOR PADRÃO PARA DATA
-  // ======================================================
-  if (activityDateInput) {
-    const hoje = new Date();
-    activityDateInput.value = hoje.toISOString().split('T')[0];
-  }
-
-  // ======================================================
-  // 🔊 SOM AO SELECIONAR ALTERNATIVAS
-  // ======================================================
-  document.querySelectorAll('input[type="radio"]').forEach(radio => {
-    radio.addEventListener('change', () => {
-      // Tocar som de clique
-      if (clickSound) {
-        clickSound.currentTime = 0;
-        clickSound.play().catch(e => console.log("Erro ao reproduzir som: ", e));
-      }
-    });
-  });
-
-  // ======================================================
-  // 🚀 FUNÇÃO DE ENVIO PARA GOOGLE APPS SCRIPT
-  // ======================================================
-  async function enviarDadosParaPlanilha(data) {
-    try {
-      const response = await fetch(APP_SCRIPT_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      const text = await response.text();
-      console.log('Resposta do servidor:', text);
-
-      try {
-        return JSON.parse(text);
-      } catch (err) {
-        throw new Error('Resposta inválida do servidor: ' + text.substring(0, 200));
-      }
-    } catch (error) {
-      console.error('Erro na requisição:', error);
-      throw error;
-    }
-  }
-
-  // ======================================================
-  // 🎓 BOTÃO ENVIAR - LÓGICA PRINCIPAL
-  // ======================================================
-  if (submitBtn) {
-    submitBtn.addEventListener('click', async function(ev) {
-      ev.preventDefault();
-      
-      // Desabilitar botão para evitar múltiplos cliques
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Enviando...';
-      
-      // Esconder resultado anterior
-      resultDiv.style.display = 'none';
-      resultDiv.textContent = '';
-
-      try {
-        // Validar seleção do nome
-        const nomeCompleto = studentNameSelect.value;
-        if (!nomeCompleto) {
-          throw new Error('Por favor, selecione seu nome na lista.');
-        }
-
-        // Validar dados do aluno
-        const aluno = students[nomeCompleto];
-        if (!aluno) {
-          throw new Error('Dados do aluno não encontrados.');
-        }
-
-        // Validar respostas
-        const questions = Object.keys(correctAnswers);
-        let score = 0;
-        const respostas = {};
-        
-        for (const q of questions) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            throw new Error(`Por favor, responda a questão ${q.replace('q', '')}.`);
-          }
-          respostas[q] = selected.value;
-          if (selected.value === correctAnswers[q]) {
-            score++;
-          }
-        }
-
-        // Feedback local
-        resultDiv.textContent = `Calculando nota (${score}/${questions.length})... Enviando para a planilha...`;
-        resultDiv.className = 'result success';
-        resultDiv.style.display = 'block';
-
-        // Preparar dados para envio
-        const payload = {
-          turma: aluno.class,
-          aluno: nomeCompleto,
-          numero: aluno.number,
-          nota: score,
-          respostas: respostas,
-          data: activityDateInput.value,
-          atividadeLink: window.location.href
+    <script>
+        // ======================================================
+        // 🎯 RESPOSTAS CORRETAS
+        // ======================================================
+        const correctAnswers = {
+            q1: 'b', q2: 'b', q3: 'a', q4: 'b', q5: 'a',
+            q6: 'a', q7: 'a', q8: 'a', q9: 'a', q10: 'a'
         };
 
-        console.log('Enviando dados:', payload);
+        // ======================================================
+        // 👩‍🎓 LISTA DE ALUNOS ATUALIZADA COM BASE NO ARQUIVO EXCEL
+        // ======================================================
+        const students = {
+            // --- 8º ANO A ---
+            "ANA BEATRIZ RODRIGUES OLIVEIRA": { number: "2", class: "8ºANO A" },
+            "ANA CLARA SOUSA DA COSTA": { number: "3", class: "8ºANO A" },
+            "ANA VICTORIA RAGACINI DE OLIVEIRA": { number: "4", class: "8ºANO A" },
+            "ARTHUR DAVI DE SOUZA FERNANDES": { number: "5", class: "8ºANO A" },
+            "EDUARDA ALVES DE SOUZA": { number: "6", class: "8ºANO A" },
+            "EMANUEL ALVES OLIVEIRA": { number: "7", class: "8ºANO A" },
+            "ESTHER CRISTINE SILVA RIBEIRO": { number: "8", class: "8ºANO A" },
+            "EVELLYN YASMIN TAVARES SILVA": { number: "9", class: "8ºANO A" },
+            "FELIPE DE SOUZA RODRIGUES": { number: "10", class: "8ºANO A" },
+            "FERNANDA POLACHINI MAYER GOMES MARQUES": { number: "11", class: "8ºANO A" },
+            "GEOVANNA VITORIA ROCHA ABDALA": { number: "12", class: "8ºANO A" },
+            "GUSTAVO AUGUSTO TOMBOLO REIS": { number: "15", class: "8ºANO A" },
+            "IGOR MARTINS PEREIRA": { number: "17", class: "8ºANO A" },
+            "IZABELLY VITORIA DE CARVALHO RODRIGUES SETH": { number: "18", class: "8ºANO A" },
+            "KAROLAYNE DOS SANTOS BISSORNIA": { number: "21", class: "8ºANO A" },
+            "KAUANNY APARECIDA MALAQUIAS LIMA": { number: "22", class: "8ºANO A" },
+            "KÉTHILY NAYARA DA SILVA": { number: "23", class: "8ºANO A" },
+            "LAVINIA PEREIRA DE SOUZA": { number: "25", class: "8ºANO A" },
+            "LIVIA PEREIRA DE SOUZA": { number: "26", class: "8ºANO A" },
+            "LOHRAN ROMUALDO MENDES DA SILVA": { number: "27", class: "8ºANO A" },
+            "LUIS MIGUEL GONCALVES DA SILVA": { number: "28", class: "8ºANO A" },
+            "MARCELA ROBERTO DE OLIVEIRA": { number: "29", class: "8ºANO A" },
+            "MATHEUS TURCHETTO": { number: "31", class: "8ºANO A" },
+            "OMRAN RASEKH": { number: "32", class: "8ºANO A" },
+            "PRISCILLA VITORIA MENDES DE OLIVEIRA": { number: "33", class: "8ºANO A" },
+            "SARAH VITORIA ALVES OLIVEIRA": { number: "36", class: "8ºANO A" },
+            "YURI GABRIEL DE MORAES PONGOLINO": { number: "37", class: "8ºANO A" },
+            "ZAYN AL ABIDIN RASULI": { number: "38", class: "8ºANO A" },
+            "ARTHUR COHEN BARRETO": { number: "39", class: "8ºANO A" },
+            "ISABELLA DOS SANTOS SALDANHA": { number: "40", class: "8ºANO A" },
+            "MIGUEL MARTINS DE ASSIS": { number: "41", class: "8ºANO A" },
+            "ALICE CARVALHO": { number: "42", class: "8ºANO A" },
+            "AMANDA PASSOS DE ALMEIDA": { number: "43", class: "8ºANO A" },
+            "ANA JULIA MENEZES DA SILVA": { number: "44", class: "8ºANO A" },
+            "HENRIQUE ROCHA CARVALHAL": { number: "45", class: "8ºANO A" },
 
-        // Enviar para Google Apps Script
-        const serverResponse = await enviarDadosParaPlanilha(payload);
+            // --- 8º ANO B ---
+            "ANA CLARA GONCALVES TORRES LOYOLA": { number: "2", class: "8ºANO B" },
+            "ANNA BEATRIZ SANTIAGO DA SILVA": { number: "3", class: "8ºANO B" },
+            "ELIAS SILVA DE LIMA": { number: "6", class: "8ºANO B" },
+            "EVERTON HENRIQUE CARMO RODRIGUES": { number: "7", class: "8ºANO B" },
+            "GABRIELA VITORIA SEVERA LINS": { number: "9", class: "8ºANO B" },
+            "JULIO CESAR ALVES DOS SANTOS": { number: "12", class: "8ºANO B" },
+            "LUAN VENITES BALBINO": { number: "14", class: "8ºANO B" },
+            "MARIA EDUARDA FELIX DA SILVA": { number: "17", class: "8ºANO B" },
+            "MONIQUE RIJO COSTA": { number: "18", class: "8ºANO B" },
+            "MUNIQUE CRISTINA LUCAS": { number: "19", class: "8ºANO B" },
+            "NICOLAS PENTEADO": { number: "20", class: "8ºANO B" },
+            "PAULO CELSO DA COSTA JUNIOR": { number: "23", class: "8ºANO B" },
+            "PEDRO HENRIQUE CARLOS LIMA": { number: "24", class: "8ºANO B" },
+            "PEDRO HENRIQUE MORAIS AMORIM": { number: "25", class: "8ºANO B" },
+            "PIETRO RODRIGUES MIRANDA": { number: "27", class: "8ºANO B" },
+            "RAPHAELLY APARECIDA MARINHO DE OLIVEIRA": { number: "28", class: "8ºANO B" },
+            "RENAN LEANDRO RODRIGUES VICENTE": { number: "29", class: "8ºANO B" },
+            "WENDELL RAFAEL DE JESUS LESSA": { number: "33", class: "8ºANO B" },
+            "WILHAN KENJI ANTONIO": { number: "34", class: "8ºANO B" },
+            "JENNYFER VITORIA BASILIO GOMES": { number: "40", class: "8ºANO B" },
+            "THAYNA SEABRA DE OLIVEIRA DO NASCIMENTO": { number: "41", class: "8ºANO B" },
+            "SOPHIA MENEZES DE ARAUJO": { number: "46", class: "8ºANO B" },
+            "VITORIA MENEZES BRANDAO": { number: "47", class: "8ºANO B" },
+            "LORENA ALEXANDRE SANTOS DA SILVA": { number: "49", class: "8ºANO B" },
+            "MANUELLA DE MORAES SOUZA": { number: "50", class: "8ºANO B" },
+            "VITORIA JOLIE RODRIGUES RAPOSO": { number: "51", class: "8ºANO B" },
+            "RAQUEL BARGAS TAVARES DOS SANTOS": { number: "52", class: "8ºANO B" },
+            "RODOLFO RAFAEL GOLZENLEUCHTER MORENO JUNIOR": { number: "53", class: "8ºANO B" },
+            "ANTONIO CARLOS CAMPOS NETO": { number: "54", class: "8ºANO B" }
+        };
 
-        // Processar resposta
-        if (serverResponse && serverResponse.status === 'success') {
-          resultDiv.textContent = `✅ ${serverResponse.message || 'Respostas enviadas com sucesso!'}`;
-          resultDiv.className = 'result success';
-        } else {
-          const errorMsg = serverResponse && serverResponse.message 
-            ? serverResponse.message 
-            : 'Erro desconhecido do servidor.';
-          throw new Error(errorMsg);
-        }
+        // ======================================================
+        // 🌐 URL DO APPS SCRIPT
+        // ======================================================
+        const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCQxO17XeCIzHMqztTp-kzCK7RX1zZXRFp77R23y5YY2BtP76iiYeOPrRaypHOzL4/exec";
 
-      } catch (error) {
-        console.error('Erro ao enviar:', error);
-        resultDiv.textContent = `❌ ${error.message}`;
-        resultDiv.className = 'result error';
-        resultDiv.style.display = 'block';
-        
-        // Mostrar alerta apenas para erros críticos
-        if (error.message.includes('selecione seu nome') || error.message.includes('responda')) {
-          alert(error.message);
-        }
-      } finally {
-        // Reativar botão
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Enviar Respostas';
-      }
-    });
-  }
+        // ======================================================
+        // 🚀 INICIALIZAÇÃO APÓS CARREGAMENTO DO DOM
+        // ======================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM carregado, iniciando aplicação...');
+            
+            // ======================================================
+            // 🔽 ELEMENTOS DO DOM
+            // ======================================================
+            const studentNameSelect = document.getElementById('studentName');
+            const studentNumberInput = document.getElementById('studentNumber');
+            const studentClassInput = document.getElementById('studentClass');
+            const activityDateInput = document.getElementById('activityDate');
+            const submitBtn = document.getElementById('submitBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const resultDiv = document.getElementById('result');
+            const clickSound = document.getElementById('clickSound');
 
-  // ======================================================
-  // 🧹 BOTÃO LIMPAR
-  // ======================================================
-  if (clearBtn) {
-    clearBtn.addEventListener('click', function(ev) {
-      ev.preventDefault();
-      
-      if (confirm('Tem certeza que deseja limpar todas as respostas?')) {
-        // Limpar seleções de rádio
-        document.querySelectorAll('input[type="radio"]').forEach(radio => {
-          radio.checked = false;
+            // ======================================================
+            // 🔽 POPULA O SELECT DE NOMES
+            // ======================================================
+            if (studentNameSelect) {
+                try {
+                    console.log('Iniciando carregamento de nomes...');
+                    
+                    // Ordenar nomes alfabeticamente
+                    const sortedNames = Object.keys(students).sort((a, b) => 
+                        a.localeCompare(b, 'pt-BR', { sensitivity: 'base' })
+                    );
+                    
+                    console.log(`Número de alunos encontrados: ${sortedNames.length}`);
+                    
+                    // Limpar select e adicionar opção padrão (já existe no HTML, mas garantimos)
+                    studentNameSelect.innerHTML = '<option value="">Selecione seu nome</option>';
+                    
+                    // Adicionar opções
+                    sortedNames.forEach(nome => {
+                        const option = document.createElement('option');
+                        option.value = nome;
+                        option.textContent = nome;
+                        studentNameSelect.appendChild(option);
+                    });
+                    
+                    console.log('Nomes carregados com sucesso no dropdown.');
+                    
+                } catch (error) {
+                    console.error('Erro ao carregar nomes:', error);
+                }
+            }
+
+            // ======================================================
+            // 🧾 AUTO-PREENCHER NÚMERO E TURMA
+            // ======================================================
+            studentNameSelect.addEventListener('change', function() {
+                const nomeSelecionado = this.value;
+                const aluno = students[nomeSelecionado];
+                
+                if (aluno) {
+                    studentNumberInput.value = aluno.number;
+                    studentClassInput.value = aluno.class;
+                    console.log(`Aluno selecionado: ${nomeSelecionado}, Nº: ${aluno.number}, Turma: ${aluno.class}`);
+                } else {
+                    studentNumberInput.value = '';
+                    studentClassInput.value = '';
+                }
+            });
+
+            // ======================================================
+            // 🗓️ VALOR PADRÃO PARA DATA
+            // ======================================================
+            if (activityDateInput) {
+                const hoje = new Date();
+                activityDateInput.value = hoje.toISOString().split('T')[0];
+            }
+
+            // ======================================================
+            // 🔊 SOM AO SELECIONAR ALTERNATIVAS
+            // ======================================================
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.addEventListener('change', () => {
+                    // Tocar som de clique
+                    if (clickSound) {
+                        clickSound.currentTime = 0;
+                        clickSound.play().catch(e => console.log("Erro ao reproduzir som: ", e));
+                    }
+                });
+            });
+
+            // ======================================================
+            // 🚀 FUNÇÃO DE ENVIO PARA GOOGLE APPS SCRIPT
+            // ======================================================
+            async function enviarDadosParaPlanilha(data) {
+                try {
+                    const response = await fetch(APP_SCRIPT_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                    });
+
+                    const text = await response.text();
+                    console.log('Resposta do servidor:', text);
+
+                    try {
+                        return JSON.parse(text);
+                    } catch (err) {
+                        throw new Error('Resposta inválida do servidor: ' + text.substring(0, 200));
+                    }
+                } catch (error) {
+                    console.error('Erro na requisição:', error);
+                    throw error;
+                }
+            }
+
+            // ======================================================
+            // 🎓 BOTÃO ENVIAR - LÓGICA PRINCIPAL
+            // ======================================================
+            if (submitBtn) {
+                submitBtn.addEventListener('click', async function(ev) {
+                    ev.preventDefault();
+                    
+                    // Desabilitar botão para evitar múltiplos cliques
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Enviando...';
+                    
+                    // Esconder resultado anterior
+                    resultDiv.style.display = 'none';
+                    resultDiv.textContent = '';
+
+                    try {
+                        // Validar seleção do nome
+                        const nomeCompleto = studentNameSelect.value;
+                        if (!nomeCompleto) {
+                            throw new Error('Por favor, selecione seu nome na lista.');
+                        }
+
+                        // Validar dados do aluno
+                        const aluno = students[nomeCompleto];
+                        if (!aluno) {
+                            throw new Error('Dados do aluno não encontrados.');
+                        }
+
+                        // Validar respostas
+                        const questions = Object.keys(correctAnswers);
+                        let score = 0;
+                        const respostas = {};
+                        
+                        for (const q of questions) {
+                            const selected = document.querySelector(`input[name="${q}"]:checked`);
+                            if (!selected) {
+                                throw new Error(`Por favor, responda a questão ${q.replace('q', '')}.`);
+                            }
+                            respostas[q] = selected.value;
+                            if (selected.value === correctAnswers[q]) {
+                                score++;
+                            }
+                        }
+
+                        // Feedback local
+                        resultDiv.textContent = `Calculando nota (${score}/${questions.length})... Enviando para a planilha...`;
+                        resultDiv.className = 'result success';
+                        resultDiv.style.display = 'block';
+
+                        // Preparar dados para envio
+                        const payload = {
+                            turma: aluno.class,
+                            aluno: nomeCompleto,
+                            numero: aluno.number,
+                            nota: score,
+                            respostas: respostas,
+                            data: activityDateInput.value,
+                            atividadeLink: window.location.href
+                        };
+
+                        console.log('Enviando dados:', payload);
+
+                        // Enviar para Google Apps Script
+                        const serverResponse = await enviarDadosParaPlanilha(payload);
+
+                        // Processar resposta
+                        if (serverResponse && serverResponse.status === 'success') {
+                            resultDiv.textContent = `✅ ${serverResponse.message || 'Respostas enviadas com sucesso!'}`;
+                            resultDiv.className = 'result success';
+                        } else {
+                            const errorMsg = serverResponse && serverResponse.message 
+                                ? serverResponse.message 
+                                : 'Erro desconhecido do servidor.';
+                            throw new Error(errorMsg);
+                        }
+
+                    } catch (error) {
+                        console.error('Erro ao enviar:', error);
+                        resultDiv.textContent = `❌ ${error.message}`;
+                        resultDiv.className = 'result error';
+                        resultDiv.style.display = 'block';
+                        
+                        // Mostrar alerta apenas para erros críticos
+                        if (error.message.includes('selecione seu nome') || error.message.includes('responda')) {
+                            alert(error.message);
+                        }
+                    } finally {
+                        // Reativar botão
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Enviar Respostas';
+                    }
+                });
+            }
+
+            // ======================================================
+            // 🧹 BOTÃO LIMPAR
+            // ======================================================
+            if (clearBtn) {
+                clearBtn.addEventListener('click', function(ev) {
+                    ev.preventDefault();
+                    
+                    if (confirm('Tem certeza que deseja limpar todas as respostas?')) {
+                        // Limpar seleções de rádio
+                        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                            radio.checked = false;
+                        });
+                        
+                        // Limpar resultado
+                        resultDiv.textContent = '';
+                        resultDiv.style.display = 'none';
+                        
+                        console.log('Respostas limpas.');
+                    }
+                });
+            }
+
+            console.log('Aplicação inicializada com sucesso!');
         });
-        
-        // Limpar resultado
-        resultDiv.textContent = '';
-        resultDiv.style.display = 'none';
-        
-        console.log('Respostas limpas.');
-      }
-    });
-  }
-
-  console.log('Aplicação inicializada com sucesso!');
-});
-</script>
-
+    </script>
 </body>
 </html>
-
