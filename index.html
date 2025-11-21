@@ -466,7 +466,7 @@
                         </div>
                         <div class="option">
                             <input type="radio" name="q1" id="q1b" value="b">
-                            <label for="q1b">A energia elétrica se transforma em energia mecânica, sonora e térmica, demonstrando o princípio da conservação da energia, onde a energia total se mantém, apenas mudando de forma.</label>
+                            <label for="q1b">A energia elétrica se transforma em energia mecânica, sonora e térmica, demonstrando o princípio da conservação da energia, donde a energia total se mantém, apenas mudando de forma.</label>
                         </div>
                         <div class="option">
                             <input type="radio" name="q1" id="q1c" value="c">
@@ -695,7 +695,7 @@
                         </div>
                         <div class="option">
                             <input type="radio" name="q9" id="q9b" value="b">
-                            <label for="q9b">A Lei de Ohm é utilizada para determinar a quantidade de carga elétrica que uma bateria pode armazenar, independentemente da tensão e resistência do circuito.</label>
+                            <label for="q9b">A Lei de Ohm é utilizada para determinar a quantidade de carga elétrica que uma bateria can armazenar, independentemente da tensão e resistência do circuito.</label>
                         </div>
                         <div class="option">
                             <input type="radio" name="q9" id="q9c" value="c">
@@ -856,18 +856,18 @@ document.addEventListener('DOMContentLoaded', function() {
   const resultDiv = document.getElementById('result');
   const clickSound = document.getElementById('clickSound');
 
-  // Verificar se os elementos foram encontrados
-  if (!studentNameSelect) {
-    console.error('Elemento studentName não encontrado!');
-    return;
-  }
-
   // ======================================================
-  // 🔽 POPULA O SELECT DE NOMES (CORRIGIDO)
+  // 🔽 POPULA O SELECT DE NOMES (CORREÇÃO DEFINITIVA)
   // ======================================================
   function carregarNomes() {
     try {
       console.log('Iniciando carregamento de nomes...');
+      
+      // Verificar se o elemento existe
+      if (!studentNameSelect) {
+        console.error('Elemento studentNameSelect não encontrado!');
+        return;
+      }
       
       // Ordenar nomes alfabeticamente
       const sortedNames = Object.keys(students).sort((a, b) => 
@@ -894,7 +894,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // Chamar a função para carregar os nomes
+  // Chamar a função para carregar os nomes imediatamente
   carregarNomes();
 
   // ======================================================
@@ -1084,4 +1084,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
-
