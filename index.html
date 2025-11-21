@@ -857,17 +857,14 @@ document.addEventListener('DOMContentLoaded', function() {
   const clickSound = document.getElementById('clickSound');
 
   // ======================================================
-  // 🔽 POPULA O SELECT DE NOMES (CORREÇÃO DEFINITIVA)
+  // 🔽 POPULA O SELECT DE NOMES
   // ======================================================
-  function carregarNomes() {
+  // A função carregarNomes foi removida e a lógica foi integrada diretamente no DOMContentLoaded
+  // para garantir o carregamento imediato.
+
+  if (studentNameSelect) {
     try {
       console.log('Iniciando carregamento de nomes...');
-      
-      // Verificar se o elemento existe
-      if (!studentNameSelect) {
-        console.error('Elemento studentNameSelect não encontrado!');
-        return;
-      }
       
       // Ordenar nomes alfabeticamente
       const sortedNames = Object.keys(students).sort((a, b) => 
@@ -876,7 +873,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       console.log(`Número de alunos encontrados: ${sortedNames.length}`);
       
-      // Limpar select
+      // Limpar select e adicionar opção padrão (já existe no HTML, mas garantimos)
       studentNameSelect.innerHTML = '<option value="">Selecione seu nome</option>';
       
       // Adicionar opções
@@ -893,9 +890,6 @@ document.addEventListener('DOMContentLoaded', function() {
       console.error('Erro ao carregar nomes:', error);
     }
   }
-  
-  // Chamar a função para carregar os nomes imediatamente
-  carregarNomes();
 
   // ======================================================
   // 🧾 AUTO-PREENCHER NÚMERO E TURMA
