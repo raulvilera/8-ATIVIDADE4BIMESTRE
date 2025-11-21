@@ -205,7 +205,9 @@
             align-items: flex-start;
             padding: 12px;
             border-radius: 8px;
-            transition: background-color 0.2s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
         .option:hover {
@@ -224,6 +226,26 @@
             font-size: 15px;
             color: #475569;
             cursor: pointer;
+            z-index: 2;
+            position: relative;
+        }
+        
+        /* Estilo para opção selecionada com o degradê do cabeçalho */
+        .option input:checked + label::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, rgba(30, 58, 138, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+            border-radius: 6px;
+            z-index: -1;
+        }
+        
+        .option input:checked + label {
+            font-weight: 600;
+            color: #1e3a8a;
         }
         
         .buttons {
@@ -465,6 +487,8 @@
                     <div class="question-text">
                         O Brasil possui uma matriz energética diversificada, com significativa participação de fontes renováveis. Em 2023, cerca de 48% da energia consumida no país veio de fontes renováveis, enquanto a média mundial é de aproximadamente 14%. Considerando as características das fontes de energia renováveis e não renováveis, qual alternativa apresenta corretamente uma vantagem das fontes renováveis em relação às não renováveis?
                     </div>
+                    <!-- Exemplo de imagem entre o enunciado e as alternativas -->
+                    <img src="https://via.placeholder.com/800x300?text=Matriz+Energética+Brasileira" alt="Matriz Energética Brasileira" class="question-image">
                     <div class="options">
                         <div class="option">
                             <input type="radio" name="q2" id="q2a" value="a">
@@ -493,6 +517,7 @@
                     <div class="question-text">
                         Em uma montanha-russa, os carrinhos são puxados até o ponto mais alto por um mecanismo motorizado. Ao serem soltos, descem rapidamente, subindo novamente em seguida, sem necessidade de motor durante a maior parte do percurso. Considerando o princípio da conservação da energia, qual alternativa explica corretamente o funcionamento da montanha-russa?
                     </div>
+                    <img src="https://via.placeholder.com/800x400?text=Montanha+Russa" alt="Montanha Russa" class="question-image">
                     <div class="options">
                         <div class="option">
                             <input type="radio" name="q3" id="q3a" value="a">
@@ -549,6 +574,7 @@
                     <div class="question-text">
                         A energia solar fotovoltaica tem se expandido rapidamente no Brasil, com crescimento médio anual superior a 50% nos últimos anos. Esta tecnologia converte diretamente a radiação solar em energia elétrica por meio de painéis constituídos por células fotovoltaicas. Considerando as características dessa fonte de energia, qual alternativa descreve corretamente uma de suas principais vantagens?
                     </div>
+                    <img src="https://via.placeholder.com/800x400?text=Painéis+Solares+Fotovoltaicos" alt="Painéis Solares Fotovoltaicos" class="question-image">
                     <div class="options">
                         <div class="option">
                             <input type="radio" name="q5" id="q5a" value="a">
@@ -633,6 +659,7 @@
                     <div class="question-text">
                         Os raios são descargas elétricas de grande intensidade que ocorrem na atmosfera, principalmente durante tempestades. Estima-se que o Brasil é o país com maior incidência de raios no mundo, com uma média de 70 milhões por ano. Considerando os processos de eletrização envolvidos na formação dos raios, qual alternativa descreve corretamente como ocorre esse fenômeno?
                     </div>
+                    <img src="https://via.placeholder.com/800x400?text=Raios+e+Tempestades" alt="Raios e Tempestades" class="question-image">
                     <div class="options">
                         <div class="option">
                             <input type="radio" name="q8" id="q8a" value="a">
@@ -689,6 +716,7 @@
                     <div class="question-text">
                         No final do século XIX, ocorreu a "Guerra das Correntes" entre Thomas Edison, que defendia a corrente contínua (CC), e Nikola Tesla, que promovia a corrente alternada (CA). A corrente alternada prevaleceu como padrão para distribuição de energia elétrica em larga escala. Considerando as características desses dois tipos de corrente, qual alternativa apresenta corretamente uma vantagem da corrente alternada sobre a contínua para sistemas de distribuição?
                     </div>
+                    <img src="https://via.placeholder.com/800x400?text=Corrente+Alternada+e+Contínua" alt="Corrente Alternada e Contínua" class="question-image">
                     <div class="options">
                         <div class="option">
                             <input type="radio" name="q10" id="q10a" value="a">
@@ -718,6 +746,11 @@
         
         <div id="result" class="result" style="display: none;"></div>
     </div>
+
+    <!-- Elemento de áudio para o som de seleção -->
+    <audio id="clickSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" type="audio/mpeg">
+    </audio>
 
 <script>
 // ======================================================
@@ -803,7 +836,7 @@ const students = {
 // ======================================================
 // 🌐 URL DO APPS SCRIPT (substitua pela sua URL real)
 // ======================================================
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwyc7JGIChmHePBF_lol-IkwwMgeoZBhsfS_SxuN5Ty2Te9wygjTz50thXp51Inv5I/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywvmDwZMWOtdp434BU_IrcnBad3VCj1GlOxdhR69XXVPKNPSWSbSr82oY2A8_sITc/exec";
 
 // ======================================================
 // 🔽 ELEMENTOS DO DOM
@@ -815,6 +848,7 @@ const activityDateInput = document.getElementById('activityDate');
 const submitBtn = document.getElementById('submitBtn');
 const clearBtn = document.getElementById('clearBtn');
 const resultDiv = document.getElementById('result');
+const clickSound = document.getElementById('clickSound');
 
 // ======================================================
 // 🔽 POPULA O SELECT DE NOMES
@@ -849,10 +883,21 @@ if (activityDateInput) {
 }
 
 // ======================================================
+// 🔊 SOM AO SELECIONAR ALTERNATIVAS
+// ======================================================
+document.querySelectorAll('input[type="radio"]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    // Tocar som de clique
+    clickSound.currentTime = 0;
+    clickSound.play().catch(e => console.log("Erro ao reproduzir som: ", e));
+  });
+});
+
+// ======================================================
 // 🚀 FUNÇÃO DE ENVIO PARA GOOGLE APPS SCRIPT
 // ======================================================
 async function enviarDadosParaPlanilha(data) {
-  const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwyc7JGIChmHePBF_lol-IkwwMgeoZBhsfS_SxuN5Ty2Te9wygjTz50thXp51Inv5I/exec";
+  const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywvmDwZMWOtdp434BU_IrcnBad3VCj1GlOxdhR69XXVPKNPSWSbSr82oY2A8_sITc/exec";
 
   const response = await fetch(APP_SCRIPT_URL, {
     method: 'POST',
@@ -952,5 +997,3 @@ if (clearBtn) {
 
 </body>
 </html>
-
-
