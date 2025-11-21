@@ -3,41 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atividade de Ciências - 4º Bimestre</title>
+    <title>Atividade de Ciências - Recuperação 8º Ano</title>
     <style>
-        /* Estilos CSS originais, reescritos para melhor organização e legibilidade */
+        /* Reset e configurações básicas */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background-color: #8A9A5B; /* Verde musgo */
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
             padding: 20px;
         }
         
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
         }
         
+        /* Cabeçalho com degradê azul e vermelho */
         .header {
-            background-color: #1E3A8A; /* Azul escuro */
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            margin-bottom: 10px;
+            background: linear-gradient(90deg, #1e3a8a 0%, #dc2626 100%);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            margin-bottom: 20px;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.1;
         }
         
         .school-name {
             text-align: center;
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 15px;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
             color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
         .student-info {
@@ -54,20 +70,30 @@
         }
         
         .info-label {
-            margin-right: 5px;
-            font-weight: bold;
+            margin-right: 8px;
+            font-weight: 600;
             color: white;
             white-space: nowrap;
+            font-size: 15px;
         }
         
         .info-input {
-            padding: 6px 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: white;
+            padding: 8px 12px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 6px;
+            background-color: rgba(255,255,255,0.15);
+            color: white;
+            font-size: 15px;
+            transition: all 0.3s ease;
         }
         
-        /* Ajustes específicos para cada campo */
+        .info-input:focus {
+            outline: none;
+            background-color: rgba(255,255,255,0.25);
+            border-color: rgba(255,255,255,0.5);
+        }
+        
+        /* Estilização específica para cada campo */
         #studentName {
             width: 350px;
             min-width: 250px;
@@ -87,20 +113,37 @@
         
         .activity-title {
             text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            margin: 15px 0;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 20px 0;
             color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
+        /* Fundo intermediário para as questões */
+        .questions-background {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        /* Container das questões com design moderno */
         .question-container {
-            background-color: #E6F2FF; /* Azul claro */
-            padding: 18px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
-            border: 1px solid #d0d0d0;
+            background-color: #f8fafc;
+            padding: 22px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
             position: relative;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .question-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08), 0 2px 5px rgba(0,0,0,0.05);
         }
         
         .question-container::before {
@@ -110,27 +153,43 @@
             left: 0;
             right: 0;
             bottom: 0;
-            border-radius: 8px;
+            border-radius: 10px;
             box-shadow: inset 0 1px 3px rgba(255,255,255,0.8);
             pointer-events: none;
         }
         
-        .question {
-            margin-bottom: 15px;
+        .question-number {
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .question-number::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #dc2626;
+            border-radius: 50%;
+            margin-right: 10px;
         }
         
         .question-text {
-            font-weight: bold;
-            margin-bottom: 10px;
-            line-height: 1.4;
+            margin-bottom: 18px;
+            line-height: 1.6;
+            font-size: 16px;
+            color: #334155;
         }
         
         .question-image {
             max-width: 100%;
             height: auto;
-            margin: 10px 0;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
             display: block;
             margin-left: auto;
             margin-right: auto;
@@ -141,43 +200,55 @@
         }
         
         .option {
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             display: flex;
             align-items: flex-start;
+            padding: 12px;
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+        }
+        
+        .option:hover {
+            background-color: #f1f5f9;
         }
         
         .option input {
-            margin-right: 10px;
+            margin-right: 12px;
             margin-top: 3px;
             flex-shrink: 0;
+            transform: scale(1.2);
         }
         
         .option label {
-            line-height: 1.4;
+            line-height: 1.5;
+            font-size: 15px;
+            color: #475569;
+            cursor: pointer;
         }
         
         .buttons {
             display: flex;
             justify-content: center;
-            margin-top: 20px;
+            margin-top: 25px;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
         }
         
         button {
-            padding: 10px 25px;
+            padding: 14px 30px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 16px;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2), 
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15), 
                         0 2px 4px rgba(0,0,0,0.1),
                         inset 0 1px 0 rgba(255,255,255,0.2);
             position: relative;
             overflow: hidden;
-            width: 180px;
+            width: 200px;
+            letter-spacing: 0.5px;
         }
         
         button::after {
@@ -187,7 +258,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            border-radius: 8px;
+            border-radius: 10px;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
             opacity: 0;
             transition: opacity 0.2s ease;
@@ -195,7 +266,7 @@
         
         button:active {
             transform: translateY(2px);
-            box-shadow: 0 1px 2px rgba(0,0,0,0.2), 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15), 
                         inset 0 2px 4px rgba(0,0,0,0.3);
         }
         
@@ -204,59 +275,63 @@
         }
         
         #submitBtn {
-            background: linear-gradient(to bottom, #4CAF50, #3d8b40);
+            background: linear-gradient(to bottom, #10b981, #059669);
             color: white;
         }
         
         #submitBtn:hover {
-            background: linear-gradient(to bottom, #45a049, #367c39);
+            background: linear-gradient(to bottom, #34d399, #10b981);
+            box-shadow: 0 8px 15px rgba(16, 185, 129, 0.3);
         }
         
         #clearBtn {
-            background: linear-gradient(to bottom, #f44336, #d32f2f);
+            background: linear-gradient(to bottom, #ef4444, #dc2626);
             color: white;
         }
         
         #clearBtn:hover {
-            background: linear-gradient(to bottom, #e53935, #c62828);
+            background: linear-gradient(to bottom, #f87171, #ef4444);
+            box-shadow: 0 8px 15px rgba(239, 68, 68, 0.3);
         }
         
         .result {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 5px;
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 10px;
             text-align: center;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         
         .success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
         }
         
         .error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
         }
         
         /* Media Queries para responsividade */
         @media (max-width: 768px) {
             body {
-                padding: 10px;
-            }
-            
-            .header {
                 padding: 15px;
             }
             
+            .header {
+                padding: 20px;
+            }
+            
             .school-name {
-                font-size: 18px;
+                font-size: 20px;
             }
             
             .student-info {
-                gap: 10px;
+                gap: 12px;
             }
             
             .info-group {
@@ -268,47 +343,51 @@
             }
             
             .activity-title {
-                font-size: 18px;
+                font-size: 20px;
+            }
+            
+            .questions-background {
+                padding: 20px;
             }
             
             .question-container {
-                padding: 15px;
+                padding: 18px;
             }
             
             .question-text {
-                font-size: 16px;
-            }
-            
-            .option {
-                align-items: flex-start;
-            }
-            
-            .option label {
                 font-size: 15px;
             }
             
+            .option {
+                padding: 10px;
+            }
+            
+            .option label {
+                font-size: 14px;
+            }
+            
             button {
-                padding: 12px 20px;
-                font-size: 16px;
-                width: 160px;
+                padding: 12px 25px;
+                font-size: 15px;
+                width: 170px;
             }
         }
         
         @media (max-width: 480px) {
             .school-name {
-                font-size: 16px;
+                font-size: 18px;
             }
             
             .activity-title {
-                font-size: 16px;
+                font-size: 18px;
             }
             
             .question-text {
-                font-size: 15px;
+                font-size: 14px;
             }
             
             .option label {
-                font-size: 14px;
+                font-size: 13px;
             }
             
             .buttons {
@@ -318,7 +397,7 @@
             
             button {
                 width: 100%;
-                max-width: 200px;
+                max-width: 250px;
             }
         }
     </style>
@@ -330,7 +409,6 @@
             <div class="student-info">
                 <div class="info-group">
                     <span class="info-label">NOME:</span>
-                    <!-- O dropdown será populado via JavaScript para manter a lista de alunos em um só lugar -->
                     <select id="studentName" class="info-input">
                         <option value="">Selecione seu nome</option>
                     </select>
@@ -348,269 +426,286 @@
                     <input type="date" id="activityDate" class="info-input">
                 </div>
             </div>
-            <div class="activity-title">ATIVIDADE DE CIÊNCIAS (4ºBIMESTRE)</div>
+            <div class="activity-title">ATIVIDADE DE CIÊNCIAS (RECUPERAÇÃO 8º ANO)</div>
         </div>
         
-        <!-- Questão 1 -->
-        <div class="question-container">
-            <div class="question">
-                <div class="question-text">1. Analisando a imagem que representa um carrinho em uma montanha-russa, qual das alternativas descreve corretamente a transformação de energia que ocorre durante a descida?</div>
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEidL0w0qpNA4D2Fg-8nTPrBzLH0COD0x8TpHmsGvvv_O3fey4XM-B4KMQ1NxV0MJU-CtR4zvL1twjVFeyEHjNuACm0A3GbpIERTMN8xFwZOYRCtx7INmx78kVX4ur9vaFvZ1FYdhYctzP8U_r1TzXy5_nKkoNjWtEEy5OZ5I-pEBa4t04HUNAOoHFL_zu8w/s388/77466.gif" class="question-image">
-                <div class="options"><br>
-                    <div class="option">
-                        <input type="radio" name="q1" id="q1a" value="a">
-                        <label for="q1a">A energia potencial aumenta à medida que o carrinho desce, enquanto a energia cinética diminui.</label>
+        <div class="questions-background">
+            <!-- Questão 1 - Baseada em Aula 1: Tipos de Energia -->
+            <div class="question-container">
+                <div class="question">
+                    <div class="question-number">Questão 1</div>
+                    <div class="question-text">
+                        Durante uma aula de Ciências, os alunos realizaram um experimento para identificar diferentes formas de energia. Eles observaram que ao ligar um ventilador, a energia elétrica era convertida em energia mecânica (movimento das pás) e energia sonora (ruído do motor). Além disso, após algum tempo de funcionamento, notaram que o motor do ventilador estava aquecido. Considerando os diferentes tipos de energia estudados, qual alternativa descreve corretamente as transformações de energia que ocorrem nesse aparelho?
                     </div>
-                    <div class="option">
-                        <input type="radio" name="q1" id="q1b" value="b">
-                        <label for="q1b">A energia potencial se transforma em energia cinética durante a descida, e vice-versa durante a subida, mantendo a energia total constante.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q1" id="q1c" value="c">
-                        <label for="q1c">Tanto a energia potencial quanto a cinética aumentam durante a descida do carrinho.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q1" id="q1d" value="d">
-                        <label for="q1d">A energia total do sistema diminui à medida que o carrinho percorre o trajeto devido ao atrito.</label>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q1" id="q1a" value="a">
+                            <label for="q1a">A energia elétrica é transformada apenas em energia mecânica, sendo o ruído e o calor considerados perdas energéticas indesejadas.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q1" id="q1b" value="b">
+                            <label for="q1b">A energia elétrica se transforma em energia mecânica, sonora e térmica, demonstrando o princípio da conservação da energia, onde a energia total se mantém, apenas mudando de forma.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q1" id="q1c" value="c">
+                            <label for="q1c">O calor gerado pelo motor representa uma criação de energia térmica que não existia anteriormente no sistema, contrariando o princípio de conservação.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q1" id="q1d" value="d">
+                            <label for="q1d">A energia sonora produzida pelo ventilador é uma forma primária de energia que não deriva da energia elétrica fornecida ao aparelho.</label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Questão 2 -->
-        <div class="question-container">
-            <div class="question">
-                <div class="question-text">2. Analisando a imagem que representa diferentes formas de energia no cotidiano, identifique qual das alternativas abaixo descreve corretamente a transformação de energia que ocorre quando uma pessoa utiliza um aparelho celular:</div>
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgcRUNuoPziqjAKyyKDbZK7EL4paSE4iLNsec98mdtfYAelbVL0ZI-_OyrgHWXkATMu2KtEXFD_zBjtUYW_cjRdJDOPubSI2nuP92fX2K04lBslPBPm2fR53pGbMNrd57bRtrn8VX6Q7E5wdR2bA_qmhbh25ey-NANZrasYwn8pabuw9-XnbZqlhlWnu-jG/s678/Transfroma%C3%A7%C3%A3o.PNG" class="question-image">
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" name="q2" id="q2a" value="a">
-                        <label for="q2a">Energia química da bateria se transforma em energia elétrica, que é convertida em energia luminosa, sonora e térmica.</label>
+            
+            <!-- Questão 2 - Baseada em Aula 2: Fontes de Energia -->
+            <div class="question-container">
+                <div class="question">
+                    <div class="question-number">Questão 2</div>
+                    <div class="question-text">
+                        O Brasil possui uma matriz energética diversificada, com significativa participação de fontes renováveis. Em 2023, cerca de 48% da energia consumida no país veio de fontes renováveis, enquanto a média mundial é de aproximadamente 14%. Considerando as características das fontes de energia renováveis e não renováveis, qual alternativa apresenta corretamente uma vantagem das fontes renováveis em relação às não renováveis?
                     </div>
-                    <div class="option">
-                        <input type="radio" name="q2" id="q2b" value="b">
-                        <label for="q2b">Energia nuclear se transforma diretamente em energia luminosa e sonora.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q2" id="q2c" value="c">
-                        <label for="q2c">Energia mecânica do toque na tela se transforma em energia elétrica.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q2" id="q2d" value="d">
-                        <label for="q2d">Energia térmica do ambiente é convertida em energia elétrica pelo aparelho.</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Questão 3 -->
-        <div class="question-container">
-            <div class="question">
-                <div class="question-text">3. Observando a imagem que mostra diferentes fontes de energia renováveis, qual das alternativas abaixo apresenta corretamente uma característica comum a todas essas fontes?</div>
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh71TM7osOxQBEnTE_MSy-pRZ41ehCP_lXfljwYf6DlrojH65KBNrIZk5YQZicS2NSB5PSwO17ypuLQuNGg421uoDMdAJBM5ebLRUdKDLriOatxn6cCjzR3D9Bq3xiOmCHUF58upwVfbLlP5LvpKAQAc0EQZRaIfgUG2yvTpgRTFwlfZRiP6aqQW9uVKLrn/s719/Capturar.PNG" alt="Diferentes fontes de energia renováveis" class="question-image">
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" name="q3" id="q3a" value="a">
-                        <label for="q3a">São fontes de energia que se esgotam rapidamente com o uso intensivo.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q3" id="q3b" value="b">
-                        <label for="q3b">São fontes que dependem de recursos naturais que se renovam continuamente.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q3" id="q3c" value="c">
-                        <label for="q3c">São fontes de energia que produzem grandes quantidades de poluentes atmosféricos.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q3" id="q3d" value="d">
-                        <label for="q3d">São fontes de energia que apresentam custos de instalação muito baixos.</label>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q2" id="q2a" value="a">
+                            <label for="q2a">As fontes renováveis apresentam custos de instalação sempre inferiores aos das fontes não renováveis, tornando-as mais acessíveis economicamente.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q2" id="q2b" value="b">
+                            <label for="q2b">As fontes renováveis são inesgotáveis em escala humana e causam menor impacto ambiental, contribuindo para a sustentabilidade e reduzindo as emissões de gases de efeito estufa.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q2" id="q2c" value="c">
+                            <label for="q2c">As fontes renováveis não dependem de condições climáticas para seu funcionamento, garantindo produção constante e previsível de energia.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q2" id="q2d" value="d">
+                            <label for="q2d">As fontes renováveis não exigem grandes áreas para instalação, sendo mais adequadas para regiões urbanas densamente povoadas.</label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Questão 4 -->
-        <div class="question-container">
-            <div class="question">
-                <div class="question-text">4. Analisando a imagem que representa o experimento com ímãs e limalhas de ferro, qual das alternativas explica corretamente o fenômeno observado?</div>
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiTuRPTXh4eAMewEJWYXe6-tsXvLGVBdBjBTFQVIKPpaOb0nK7IbfhHRX0JB399acUyro7b8pSksKRAr1jEie7poqZPg89Kb7Bny9Z8scbTmf-JGT_ELlVPbQ16n0a7o4Tc1WbGsHQoSJ9htULelr-JA3_2bStKGCSmtBWSg3sLBaIdD495KlE63RmeptZQ/s673/Capturar.PNG" class="question-image">
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" name="q4" id="q4a" value="a">
-                        <label for="q4a">As limalhas de ferro são atraídas apenas pelos polos norte dos ímãs.</label>
+            
+            <!-- Questão 3 - Baseada em Aula 3: Transformação de Energia -->
+            <div class="question-container">
+                <div class="question">
+                    <div class="question-number">Questão 3</div>
+                    <div class="question-text">
+                        Em uma montanha-russa, os carrinhos são puxados até o ponto mais alto por um mecanismo motorizado. Ao serem soltos, descem rapidamente, subindo novamente em seguida, sem necessidade de motor durante a maior parte do percurso. Considerando o princípio da conservação da energia, qual alternativa explica corretamente o funcionamento da montanha-russa?
                     </div>
-                    <div class="option">
-                        <input type="radio" name="q4" id="q4b" value="b">
-                        <label for="q4b">As limalhas se alinham seguindo as linhas do campo magnético, que saem do polo norte e entram no polo sul.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q4" id="q4c" value="c">
-                        <label for="q4c">As limalhas se concentram apenas nas extremidades dos ímãs, ignorando o espaço entre eles.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q4" id="q4d" value="d">
-                        <label for="q4d">As limalhas formam padrões aleatórios que não representam nenhum fenômeno físico.</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Questão 5 -->
-        <div class="question-container">
-            <div class="question">
-                <div class="question-text">5. Observando a imagem que representa a matriz energética brasileira, qual das alternativas descreve corretamente uma característica importante dessa matriz?</div>
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh4l5CrG1A5B80k6UXLbBaD2TNBXD0aN6td635qJARhivotpOM9oecGhacFBFEFqD7EsKJX2ERCWk_LPNSqADi7_dquRMLtPu22q5InW6sR-mNxraQguqrK7UuUPq7TPlcT0AhRcNmXmh5rcmD_b2ZbJGoUUN-PGiJTohcr18qhS1D3KTRGVw6UBmhc4ZR2/s699/Capturar.PNG" class="question-image">
-                <div class="options"><br>
-                    <div class="option">
-                        <input type="radio" name="q5" id="q5a" value="a">
-                        <label for="q5a">A matriz energética brasileira é composta majoritariamente por fontes não renováveis, especialmente petróleo e carvão.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q5" id="q5b" value="b">
-                        <label for="q5b">O Brasil possui uma das matrizes energéticas mais renováveis do mundo, com destaque para a energia hidrelétrica e biocombustíveis.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q5" id="q5c" value="c">
-                        <label for="q5c">A matriz energética brasileira não inclui fontes renováveis, dependendo exclusivamente de combustíveis fósseis.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q5" id="q5d" value="d">
-                        <label for="q5d">A energia nuclear representa a maior parte da matriz energética brasileira.</label>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q3" id="q3a" value="a">
+                            <label for="q3a">A energia potencial gravitacional acumulada no ponto mais alto é convertida em energia cinética durante a descida, e parte dessa energia cinética é novamente convertida em energia potencial nas subidas subsequentes.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q3" id="q3b" value="b">
+                            <label for="q3b">A energia cinética permanece constante durante todo o percurso, pois a velocidade dos carrinhos não varia significativamente.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q3" id="q3c" value="c">
+                            <label for="q3c">A energia total do sistema aumenta durante as descidas e diminui durante as subidas, demonstrando que a energia pode ser criada e destruída.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q3" id="q3d" value="d">
+                            <label for="q3d">A energia potencial é máxima nos pontos mais baixos do percurso e mínima nos pontos mais altos, permitindo o movimento contínuo dos carrinhos.</label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Questão 6 -->
-        <div class="question-container">
-            <div class="question">
-                <div class="question-text">6. Analisando a imagem que mostra diferentes tipos de energia no cotidiano, qual das alternativas descreve corretamente a transformação de energia que ocorre quando uma pessoa anda de bicicleta?</div>
-                <div style="width: 100%; overflow: hidden; position: relative; padding-bottom: 75%;">
-                    <iframe src="https://phet.colorado.edu/sims/html/energy-forms-and-changes/latest/energy-forms-and-changes_pt_BR.html"
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
-                            allowfullscreen>
-                    </iframe>
-                </div><br>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" name="q6" id="q6a" value="a">
-                        <label for="q6a">Energia nuclear dos alimentos é convertida diretamente em energia mecânica.</label>
+            
+            <!-- Questão 4 - Baseada em Aula 4: Energias Renováveis -->
+            <div class="question-container">
+                <div class="question">
+                    <div class="question-number">Questão 4</div>
+                    <div class="question-text">
+                        O Objetivo de Desenvolvimento Sustentável (ODS) 7 da ONU visa "garantir o acesso a fontes de energia acessíveis, confiáveis, sustentáveis e modernas para todos" até 2030. No Brasil, aproximadamente 2 milhões de pessoas ainda não têm acesso à energia elétrica, especialmente em comunidades remotas. Considerando esse contexto, qual alternativa apresenta corretamente um desafio para a implementação de energias renováveis nessas regiões?
                     </div>
-                    <div class="option">
-                        <input type="radio" name="q6" id="q6b" value="b">
-                        <label for="q6b">Energia química dos alimentos é transformada em energia mecânica (movimento) e energia térmica (calor corporal).</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q6" id="q6c" value="c">
-                        <label for="q6c">Energia elétrica do corpo é convertida em energia cinética.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q6" id="q6d" value="d">
-                        <label for="q6d">Energia potencial gravitacional é transformada em energia sonora.</label>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q4" id="q4a" value="a">
+                            <label for="q4a">As energias renováveis são tecnicamente inviáveis em áreas remotas devido à falta de vento ou radiação solar nessas regiões.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q4" id="q4b" value="b">
+                            <label for="q4b">O alto custo inicial de instalação, a falta de mão de obra especializada e as dificuldades de acesso a algumas localidades são obstáculos para a implementação de energias renováveis em comunidades isoladas.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q4" id="q4c" value="c">
+                            <label for="q4c">As populações de comunidades remotas preferem utilizar combustíveis fósseis por considerarem as energias renováveis menos eficientes.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q4" id="q4d" value="d">
+                            <label for="q4d">As energias renováveis exigem conexão com a rede elétrica nacional para funcionarem, o que impossibilita seu uso em locais isolados.</label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Questão 7 -->
-        <div class="question-container">
-            <div class="question">
-                <div class="question-text">7. Observando a imagem que ilustra diferentes fontes de energia renovável, qual das alternativas apresenta corretamente uma vantagem das energias renováveis em relação às não renováveis?</div>
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgxv6F7cVQZ0lHePlViEzyF6SRw3L7t6fqVzkWL5GEwVNZe3C_4ePYQhHDb021W_J72nnYj7WwKZtlNHVbtXnxpgIsIcPdjxotCzu2z-VuMOL0v5VL0FPfOMzNkBZeODVE-Ukf-DcU56I4O8VPnBuUSyqWXXrrWeSNE-RbKKYVSmlrtIRuCIN_Y3oCIgzM3/s555/Renov%C3%A1veis.JPG" class="question-image">
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" name="q7" id="q7a" value="a">
-                        <label for="q7a">As energias renováveis são mais poluentes que as não renováveis.</label>
+            
+            <!-- Questão 5 - Baseada em Aula 5: Energias Renováveis -->
+            <div class="question-container">
+                <div class="question">
+                    <div class="question-number">Questão 5</div>
+                    <div class="question-text">
+                        A energia solar fotovoltaica tem se expandido rapidamente no Brasil, com crescimento médio anual superior a 50% nos últimos anos. Esta tecnologia converte diretamente a radiação solar em energia elétrica por meio de painéis constituídos por células fotovoltaicas. Considerando as características dessa fonte de energia, qual alternativa descreve corretamente uma de suas principais vantagens?
                     </div>
-                    <div class="option">
-                        <input type="radio" name="q7" id="q7b" value="b">
-                        <label for="q7b">As energias renováveis são fontes inesgotáveis que não se esgotam com o uso.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q7" id="q7c" value="c">
-                        <label for="q7c">As energias renováveis têm custos de instalação sempre mais baixos que as não renováveis.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q7" id="q7d" value="d">
-                        <label for="q7d">As energias renováveis não dependem de condições climáticas para funcionar.</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Questão 8 -->
-        <div class="question-container">
-            <div class="question">
-                <div class="question-text">8. Analisando a imagem que mostra a interação entre dois ímãs, qual das alternativas descreve corretamente o que acontece quando aproximamos os polos iguais de dois ímãs?</div>
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiXxavVFIUgBJYUSDWCxUS54CreJL2KXxcYE-KrK8XIZVbwwbpqqGVj-9QCMLFDzhKzeMH9GW-mEpID6J2t2wsXbfco8mHEVMiXnj5dc8JGbUn7GYqF05lVTjytKiEUfvqBLoPOGtJtv9N3U5t44VGF1IP2f5jPONAB71pHC605r09S6YMiCOpdyqNJxyGX/s675/Capturar.PNG" class="question-image">
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" name="q8" id="q8a" value="a">
-                        <label for="q8a">Ocorre atração entre os ímãs, independentemente dos polos que estão se aproximando.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q8" id="q8b" value="b">
-                        <label for="q8b">Ocorre repulsão entre os ímãs quando polos iguais (norte-norte ou sul-sul) se aproximam.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q8" id="q8c" value="c">
-                        <label for="q8c">Os ímãs não interagem quando polos iguais se aproximam.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q8" id="q8d" value="d">
-                        <label for="q8d">Os ímãs se fundem formando um único ímã mais forte.</label>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q5" id="q5a" value="a">
+                            <label for="q5a">A energia solar pode ser gerada próximo aos locais de consumo, reduzindo perdas na transmissão e permitindo a eletrificação de áreas remotas não atendidas pela rede elétrica convencional.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q5" id="q5b" value="b">
+                            <label for="q5b">Os painéis solares funcionam com a mesma eficiência durante o dia e a noite, garantindo produção constante de energia 24 horas por dia.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q5" id="q5c" value="c">
+                            <label for="q5c">A instalação de painéis solares não requer manutenção e tem vida útil ilimitada, tornando-se a opção mais econômica a longo prazo.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q5" id="q5d" value="d">
+                            <label for="q5d">A energia solar é a fonte renovável com menor custo de instalação inicial, sendo acessível para todas as classes sociais sem necessidade de incentivos governamentais.</label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Questão 9 -->
-        <div class="question-container">
-            <div class="question">
-                <div class="question-text">9. Analisando a imagem que representa o Objetivo de Desenvolvimento Sustentável (ODS) 7 da ONU, qual é o principal objetivo desse ODS?</div>
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhnbenupAPkZfqg4vus898djR3OewvfkYc_eq5Tc-A2cFFtRSurOUKo1gF1K3dxZJmqdXwtDV_f6K7XVdlY_Bh809aYnSpc5R1gc1y3KkFhXWOoRT5UeUFBT0WI1Tp1mRaHQjdDsht2DJaXZLyJxQuOuzWoxNtW3NzFzBZkkGa7qCwAGIHWH8IZBsNRbiPL/s645/Capturar.JPG" class="question-image">
-                <div class="options"><br>
-                    <div class="option">
-                        <input type="radio" name="q9" id="q9a" value="a">
-                        <label for="q9a">Garantir o acesso a fontes de energia não renováveis para todos os países.</label>
+            
+            <!-- Questão 6 - Baseada em Aula 6: Magnetismo -->
+            <div class="question-container">
+                <div class="question">
+                    <div class="question-number">Questão 6</div>
+                    <div class="question-text">
+                        Os ímãs estão presentes em diversos dispositivos do nosso cotidiano, como motores elétricos, alto-falantes, discos rígidos e até mesmo em fechaduras de portas. As propriedades magnéticas desses materiais são explicadas pelo alinhamento de domínios magnéticos em sua estrutura. Considerando as características dos materiais magnéticos, qual alternativa está correta?
                     </div>
-                    <div class="option">
-                        <input type="radio" name="q9" id="q9b" value="b">
-                        <label for="q9b">Garantir o acesso universal a energia acessível, confiável, sustentável e moderna para todos.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q9" id="q9c" value="c">
-                        <label for="q9c">Reduzir o consumo global de energia para preservar os recursos naturais.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q9" id="q9d" value="d">
-                        <label for="q9d">Aumentar a produção de energia nuclear em todo o mundo.</label>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q6" id="q6a" value="a">
+                            <label for="q6a">Materiais ferromagnéticos como ferro, níquel e cobalto são fortemente atraídos por ímãs devido ao alinhamento de seus domínios magnéticos quando submetidos a um campo magnético externo.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q6" id="q6b" value="b">
+                            <label for="q6b">Todos os metais são igualmente atraídos por ímãs, independentemente de sua composição química ou estrutura atômica.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q6" id="q6c" value="c">
+                            <label for="q6c">Ao cortar um ímã ao meio, obtemos duas partes independentes: uma com apenas polo norte e outra com apenas polo sul.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q6" id="q6d" value="d">
+                            <label for="q6d">Os polos magnéticos de mesmo nome (norte-norte ou sul-sul) se atraem, enquanto polos de nomes diferentes se repelem.</label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Questão 10 -->
-        <div class="question-container">
-            <div class="question">
-                <div class="question-text">10. Analisando a imagem que mostra diferentes aplicações do magnetismo no cotidiano, qual das alternativas apresenta corretamente uma aplicação dos ímãs na tecnologia moderna?</div>
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiEWR0BiAZMx3qxAgmdKYjlvtnOS6z9Y8cyO8VzKCwvzvnDfocrDeq0hR5PKElQDolGeGqVit8TU5oLk0QNl9UIKkwDxQaH2njCjd84jnFHaQQpzX_Mm7Une2UEtknxkuA04KuIK1RvBXT9MH1dgqAPW4fgAdEUsXkffTRSGqtFsiUECrAvDgGkmd5_m3Vv/s621/Capturar.PNG" class="question-image">
-                <div class="options"><br>
-                    <div class="option">
-                        <input type="radio" name="q10" id="q10a" value="a">
-                        <label for="q10a">Os ímãs são usados apenas em brinquedos infantis e decoração.</label>
+            
+            <!-- Questão 7 - Baseada em Aula 7: Cargas Elétricas -->
+            <div class="question-container">
+                <div class="question">
+                    <div class="question-number">Questão 7</div>
+                    <div class="question-text">
+                        Em dias secos, é comum sentirmos pequenos choques ao tocarmos em maçanetas metálicas ou outras pessoas. Esse fenômeno está relacionado ao acúmulo de cargas elétricas em nossos corpos, conhecido como eletricidade estática. Considerando os processos de eletrização, qual alternativa explica corretamente como ocorre esse acúmulo de cargas?
                     </div>
-                    <div class="option">
-                        <input type="radio" name="q10" id="q10b" value="b">
-                        <label for="q10b">Os ímãs são utilizados em motores elétricos, geradores, discos rígidos e equipamentos médicos.</label>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q7" id="q7a" value="a">
+                            <label for="q7a">O atrito entre diferentes materiais (como solados de sapato e carpete) causa transferência de elétrons entre eles, deixando um dos materiais com excesso de elétrons (carga negativa) e o outro com falta de elétrons (carga positiva).</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q7" id="q7b" value="b">
+                            <label for="q7b">Nosso corpo naturalmente produz elétrons em excesso que se acumulam na superfície da pele, especialmente em dias secos.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q7" id="q7c" value="c">
+                            <label for="q7c">A umidade do ar em dias secos facilita a condução de elétrons para o solo, impedindo o acúmulo de cargas em nosso corpo.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q7" id="q7d" value="d">
+                            <label for="q7d">Os choques elétricos são causados pela transferência de prótons entre nosso corpo e objetos metálicos, já que os prótons têm maior mobilidade que os elétrons.</label>
+                        </div>
                     </div>
-                    <div class="option">
-                        <input type="radio" name="q10" id="q10c" value="c">
-                        <label for="q10c">Os ímãs não têm aplicações práticas na tecnologia moderna.</label>
+                </div>
+            </div>
+            
+            <!-- Questão 8 - Baseada em Aula 8: Eletrização -->
+            <div class="question-container">
+                <div class="question">
+                    <div class="question-number">Questão 8</div>
+                    <div class="question-text">
+                        Os raios são descargas elétricas de grande intensidade que ocorrem na atmosfera, principalmente durante tempestades. Estima-se que o Brasil é o país com maior incidência de raios no mundo, com uma média de 70 milhões por ano. Considerando os processos de eletrização envolvidos na formação dos raios, qual alternativa descreve corretamente como ocorre esse fenômeno?
                     </div>
-                    <div class="option">
-                        <input type="radio" name="q10" id="q10d" value="d">
-                        <label for="q10d">Os ímãs são utilizados apenas em bússolas para navegação.</label>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q8" id="q8a" value="a">
+                            <label for="q8a">O atrito entre partículas de gelo, água e granizo no interior das nuvens de tempestade gera separação de cargas, com cargas positivas concentrando-se na parte superior e cargas negativas na parte inferior da nuvem.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q8" id="q8b" value="b">
+                            <label for="q8b">Os raios são causados pelo contato direto entre nuvens carregadas e o solo, sem que haja necessidade de diferença de potencial elétrico significativa.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q8" id="q8c" value="c">
+                            <label for="q8c">A eletrização por indução é o único processo envolvido na formação dos raios, sendo responsável pela criação de cargas elétricas a partir do nada.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q8" id="q8d" value="d">
+                            <label for="q8d">Os raios ocorrem quando o campo magnético terrestre interage com partículas carregadas provenientes do Sol, criando faíscas elétricas na atmosfera.</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Questão 9 - Baseada em Aula 9: Corrente Elétrica -->
+            <div class="question-container">
+                <div class="question">
+                    <div class="question-number">Questão 9</div>
+                    <div class="question-text">
+                        A Primeira Lei de Ohm, formulada pelo físico alemão Georg Simon Ohm em 1827, estabelece a relação entre tensão elétrica (V), corrente elétrica (I) e resistência elétrica (R) em um circuito. Esta lei é fundamental para o dimensionamento seguro de instalações elétricas. Considerando a aplicação prática dessa lei, qual alternativa apresenta uma situação correta de sua utilização?
+                    </div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q9" id="q9a" value="a">
+                            <label for="q9a">Ao projetar a instalação elétrica de um chuveiro, um engenheiro utiliza a Lei de Ohm (I = V/R) para calcular a corrente elétrica que circulará pelo circuito e selecionar a espessura adequada dos fios, evitando superaquecimento e riscos de incêndio.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q9" id="q9b" value="b">
+                            <label for="q9b">A Lei de Ohm é utilizada para determinar a quantidade de carga elétrica que uma bateria pode armazenar, independentemente da tensão e resistência do circuito.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q9" id="q9c" value="c">
+                            <label for="q9c">Segundo a Lei de Ohm, a resistência elétrica de um material diminui à medida que sua temperatura aumenta, explicando porque os fios elétricos ficam mais condutores quando aquecidos.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q9" id="q9d" value="d">
+                            <label for="q9d">A Lei de Ohm estabelece que a tensão elétrica em um circuito é inversamente proporcional à corrente, o que significa que quanto maior a tensão, menor será a corrente para uma mesma resistência.</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Questão 10 - Baseada em Aula 10: Corrente Alternada e Contínua -->
+            <div class="question-container">
+                <div class="question">
+                    <div class="question-number">Questão 10</div>
+                    <div class="question-text">
+                        No final do século XIX, ocorreu a "Guerra das Correntes" entre Thomas Edison, que defendia a corrente contínua (CC), e Nikola Tesla, que promovia a corrente alternada (CA). A corrente alternada prevaleceu como padrão para distribuição de energia elétrica em larga escala. Considerando as características desses dois tipos de corrente, qual alternativa apresenta corretamente uma vantagem da corrente alternada sobre a contínua para sistemas de distribuição?
+                    </div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q10" id="q10a" value="a">
+                            <label for="q10a">A corrente alternada permite facilmente a transformação de tensão usando transformadores, possibilitando a transmissão em alta tensão (com menores perdas) e depois a redução para tensões seguras de utilização.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q10" id="q10b" value="b">
+                            <label for="q10b">A corrente alternada é mais eficiente para ser armazenada em baterias, o que facilita o fornecimento contínuo de energia mesmo durante interrupções na geração.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q10" id="q10c" value="c">
+                            <label for="q10c">A corrente alternada não sofre perdas durante a transmissão em longas distâncias, mantendo a mesma tensão do ponto de geração até o consumo.</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q10" id="q10d" value="d">
+                            <label for="q10d">A corrente alternada é mais segura para os usuários, pois causa menos danos em caso de choque elétrico comparada à corrente contínua de mesma tensão.</label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -623,17 +718,18 @@
         
         <div id="result" class="result" style="display: none;"></div>
     </div>
+
 <script>
 // ======================================================
 // 🎯 RESPOSTAS CORRETAS
 // ======================================================
 const correctAnswers = {
-  q1: 'b', q2: 'a', q3: 'b', q4: 'b', q5: 'b',
-  q6: 'b', q7: 'b', q8: 'b', q9: 'b', q10: 'b'
+  q1: 'b', q2: 'b', q3: 'a', q4: 'b', q5: 'a',
+  q6: 'a', q7: 'a', q8: 'a', q9: 'a', q10: 'a'
 };
 
 // ======================================================
-// 👩‍🎓 LISTA DE ALUNOS (8ºA e 8ºB) - manteve-se como você enviou
+// 👩‍🎓 LISTA DE ALUNOS (8ºA e 8ºB)
 // ======================================================
 const students = {
   // --- 8º ANO A ---
@@ -705,7 +801,7 @@ const students = {
 };
 
 // ======================================================
-// 🌐 URL DO APPS SCRIPT (substitua pela sua URL se precisar)
+// 🌐 URL DO APPS SCRIPT (substitua pela sua URL real)
 // ======================================================
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywvmDwZMWOtdp434BU_IrcnBad3VCj1GlOxdhR69XXVPKNPSWSbSr82oY2A8_sITc/exec";
 
@@ -719,8 +815,6 @@ const activityDateInput = document.getElementById('activityDate');
 const submitBtn = document.getElementById('submitBtn');
 const clearBtn = document.getElementById('clearBtn');
 const resultDiv = document.getElementById('result');
-// opcional: img para foto do aluno (se existir no seu layout)
-const studentImage = document.getElementById('studentImage') || null;
 
 // ======================================================
 // 🔽 POPULA O SELECT DE NOMES
@@ -738,61 +832,14 @@ function carregarNomes() {
 carregarNomes();
 
 // ======================================================
-// 🧾 AUTO-PREENCHER NÚMERO, TURMA e CARREGAR IMAGEM OPCIONAL
+// 🧾 AUTO-PREENCHER NÚMERO E TURMA
 // ======================================================
 studentNameSelect.addEventListener('change', () => {
   const nome = studentNameSelect.value;
   const aluno = students[nome];
   studentNumberInput.value = aluno ? aluno.number : '';
   studentClassInput.value = aluno ? aluno.class : '';
-
-  // Carregar imagem opcional: você pode customizar o path (por número ou por nome)
-  if (studentImage) {
-    loadStudentImage(aluno ? aluno.number : null, nome);
-  }
 });
-
-// função para carregar imagem (opcional). Ajuste baseUrl conforme onde guarda as fotos.
-function loadStudentImage(number, fullName) {
-  const baseUrl = 'https://seuservidor.com/alunos/'; // <- ajuste para seu servidor (ou remova a função se não usar)
-  if (!number && !fullName) {
-    studentImage.style.display = 'none';
-    return;
-  }
-
-  // Prioriza número: ex: 002.jpg
-  const tryUrls = [];
-  if (number) {
-    const padded = String(number).padStart(3, '0');
-    tryUrls.push(`${baseUrl}${padded}.jpg`);
-    tryUrls.push(`${baseUrl}${padded}.png`);
-  }
-
-  // fallback por nome (normalizado)
-  if (fullName) {
-    const normalized = fullName.replace(/\s+/g, '_').toLowerCase();
-    tryUrls.push(`${baseUrl}${normalized}.jpg`);
-    tryUrls.push(`${baseUrl}${normalized}.png`);
-  }
-
-  // tenta carregar até encontrar uma url válida
-  (async () => {
-    for (const u of tryUrls) {
-      try {
-        const res = await fetch(u, { method: 'HEAD' });
-        if (res.ok) {
-          studentImage.src = u;
-          studentImage.style.display = '';
-          return;
-        }
-      } catch (e) {
-        // ignora e tenta a próxima
-      }
-    }
-    // nenhuma imagem encontrada
-    studentImage.style.display = 'none';
-  })();
-}
 
 // ======================================================
 // 🗓️ VALOR PADRÃO PARA DATA
@@ -802,11 +849,10 @@ if (activityDateInput) {
 }
 
 // ======================================================
-// 🚀 FUNÇÃO DE ENVIO (USANDO URLSearchParams -> garante e.parameter)
+// 🚀 FUNÇÃO DE ENVIO PARA GOOGLE APPS SCRIPT
 // ======================================================
 async function enviarDadosParaPlanilha(data) {
-  // O Apps Script espera JSON no corpo da requisição para ser lido por e.postData.contents
-  const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywvmDwZMWOtdp434BU_IrcnBad3VCj1GlOxdhR69XXVPKNPSWSbSr82oY2A8_sITc/exec"; // Substitua pelo seu URL de Apps Script
+  const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywvmDwZMWOtdp434BU_IrcnBad3VCj1GlOxdhR69XXVPKNPSWSbSr82oY2A8_sITc/exec";
 
   const response = await fetch(APP_SCRIPT_URL, {
     method: 'POST',
@@ -819,12 +865,10 @@ async function enviarDadosParaPlanilha(data) {
   const text = await response.text();
   console.log('Resposta bruta do servidor:', text);
 
-  // Tenta parsear JSON — se o Apps Script retornar HTML (login/erro), isso falhará
   try {
     const json = JSON.parse(text);
     return json;
   } catch (err) {
-    // Resposta inesperada (HTML/erro de deploy). Fornece amostra para debug.
     const preview = text.substring(0, 500);
     throw new Error('Resposta inválida do servidor. Veja console. Trecho: ' + preview);
   }
@@ -844,7 +888,6 @@ if (submitBtn) {
       const nomeCompleto = studentNameSelect.value;
       if (!nomeCompleto) throw new Error('Selecione seu nome.');
 
-      // O valor do select é o nome completo, que é a chave no objeto students
       const aluno = students[nomeCompleto];
       if (!aluno) throw new Error('Dados do aluno não encontrados.');
 
@@ -862,13 +905,12 @@ if (submitBtn) {
       resultDiv.className = 'result success';
       resultDiv.style.display = 'block';
 
-      // montagem dos dados no formato esperado pelo Apps Script (pasted_content_2.txt)
-      // Apps Script espera: turma, aluno, nota, atividadeLink
+      // montagem dos dados no formato esperado pelo Apps Script
       const payload = {
         turma: aluno.class,              // Ex: "8ºANO A"
         aluno: nomeCompleto,             // Nome completo do aluno
         nota: score,                     // O número de acertos será a nota
-        atividadeLink: 'https://raulvilera.github.io/ATIVIDADE8ANOEF/' // Link da atividade (ajustar se necessário)
+        atividadeLink: 'https://raulvilera.github.io/ATIVIDADE8ANOEF/' // Link da atividade
       };
 
       // envio
@@ -906,33 +948,7 @@ if (clearBtn) {
     resultDiv.style.display = 'none';
   });
 }
-
-// ======================================================
-// 🔁 FUNÇÃO DE TESTE LOCAL (opcional) - simula clique e envio
-// ======================================================
-async function runLocalTest() {
-  // útil para testar sem interface: apenas para debug
-  const sampleName = Object.keys(students)[0];
-  const aluno = students[sampleName];
-  const samplePayload = {
-    studentName: sampleName,
-    studentNumber: aluno.number,
-    studentClass: aluno.class,
-    score: '10',
-    timestamp: new Date().toISOString()
-  };
-  try {
-    const resp = await enviarDadosParaPlanilha(samplePayload);
-    console.log('Teste local - resposta:', resp);
-  } catch (e) {
-    console.error('Teste local - erro:', e);
-  }
-}
-// Descomente para rodar o teste automático (não recomendado em produção):
-// runLocalTest();
-
 </script>
 
 </body>
 </html>
-
