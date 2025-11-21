@@ -331,7 +331,7 @@
  *
  * OBS: NÃO use a Execution API URL nem /dev.
  */
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzweoW70s6FMnRkIOppyF4i0Cd3nRNldhcC57J9aD2Qb4n86xK7IzmERWQIIZQ_iXE/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyuQiv2-PQZ7QUYojO8hb5QbrtUTIeyQA0S4_XzXASFkRa5ZJMHfzn94BZoQfy2X9U/exec";
 
 /* ================================
    LISTA DE ALUNOS (já normalizada)
@@ -559,7 +559,7 @@ function hideResult(){
 
 async function sendToGoogleSheets(formData){
   // Verificação básica da URL
-  if(!GOOGLE_SCRIPT_URL || !GOOGLE_SCRIPT_URL.includes('script.google.com')) {
+  if(!GOOGLE_SCRIPT_URL || !GOOGLE_SCRIPT_URL.includes('https://script.google.com/macros/s/AKfycbyuQiv2-PQZ7QUYojO8hb5QbrtUTIeyQA0S4_XzXASFkRa5ZJMHfzn94BZoQfy2X9U/exec')) {
     showResult('<strong>Erro:</strong> URL do Apps Script inválida. Verifique a constante GOOGLE_SCRIPT_URL no código.', 'error');
     return;
   }
@@ -754,6 +754,7 @@ document.addEventListener('DOMContentLoaded', function(){
   </script>
 </body>
 </html>
+
 
 
 
