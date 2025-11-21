@@ -667,7 +667,7 @@
                         </div>
                         <div class="option">
                             <input type="radio" name="q8" id="q8b" value="b">
-                            <label for="q8b">Os raios são causados pelo contato direto entre nuvens carregadas e o solo, sem que haja necessidade de diferença de potencial elétrico significativa.</label>
+                            <label for="q8b">Os raios são causados pelo contato directo entre nuvens carregadas e o solo, sem que haja necessidade de diferença de potencial elétrico significativa.</label>
                         </div>
                         <div class="option">
                             <input type="radio" name="q8" id="q8c" value="c">
@@ -695,7 +695,7 @@
                         </div>
                         <div class="option">
                             <input type="radio" name="q9" id="q9b" value="b">
-                            <label for="q9b">A Lei de Ohm é utilizada para determinar a quantidade de carga elétrica que uma bateria can armazenar, independentemente da tensão e resistência do circuito.</label>
+                            <label for="q9b">A Lei de Ohm é utilizada para determinar a quantidade de carga elétrica que uma bateria pode armazenar, independentemente da tensão e resistência do circuito.</label>
                         </div>
                         <div class="option">
                             <input type="radio" name="q9" id="q9c" value="c">
@@ -858,74 +858,86 @@
             const clickSound = document.getElementById('clickSound');
 
             // ======================================================
-            // 🔽 POPULA O SELECT DE NOMES
+            // 🔽 POPULA O SELECT DE NOMES - FUNÇÃO CORRIGIDA
             // ======================================================
-            if (studentNameSelect) {
-                try {
-                    console.log('Iniciando carregamento de nomes...');
-                    
-                    // Ordenar nomes alfabeticamente
-                    const sortedNames = Object.keys(students).sort((a, b) => 
-                        a.localeCompare(b, 'pt-BR', { sensitivity: 'base' })
-                    );
-                    
-                    console.log(`Número de alunos encontrados: ${sortedNames.length}`);
-                    
-                    // Limpar select e adicionar opção padrão (já existe no HTML, mas garantimos)
-                    studentNameSelect.innerHTML = '<option value="">Selecione seu nome</option>';
-                    
-                    // Adicionar opções
-                    sortedNames.forEach(nome => {
-                        const option = document.createElement('option');
-                        option.value = nome;
-                        option.textContent = nome;
-                        studentNameSelect.appendChild(option);
-                    });
-                    
-                    console.log('Nomes carregados com sucesso no dropdown.');
-                    
-                } catch (error) {
-                    console.error('Erro ao carregar nomes:', error);
+            function loadStudentNames() {
+                if (studentNameSelect) {
+                    try {
+                        console.log('Iniciando carregamento de nomes...');
+                        
+                        // Ordenar nomes alfabeticamente
+                        const sortedNames = Object.keys(students).sort((a, b) => 
+                            a.localeCompare(b, 'pt-BR', { sensitivity: 'base' })
+                        );
+                        
+                        console.log(`Número de alunos encontrados: ${sortedNames.length}`);
+                        
+                        // Limpar select e adicionar opção padrão
+                        studentNameSelect.innerHTML = '<option value="">Selecione seu nome</option>';
+                        
+                        // Adicionar opções
+                        sortedNames.forEach(nome => {
+                            const option = document.createElement('option');
+                            option.value = nome;
+                            option.textContent = nome;
+                            studentNameSelect.appendChild(option);
+                        });
+                        
+                        console.log('Nomes carregados com sucesso no dropdown.');
+                        
+                    } catch (error) {
+                        console.error('Erro ao carregar nomes:', error);
+                    }
+                } else {
+                    console.error('Elemento studentNameSelect não encontrado!');
                 }
             }
 
             // ======================================================
             // 🧾 AUTO-PREENCHER NÚMERO E TURMA
             // ======================================================
-            studentNameSelect.addEventListener('change', function() {
-                const nomeSelecionado = this.value;
-                const aluno = students[nomeSelecionado];
-                
-                if (aluno) {
-                    studentNumberInput.value = aluno.number;
-                    studentClassInput.value = aluno.class;
-                    console.log(`Aluno selecionado: ${nomeSelecionado}, Nº: ${aluno.number}, Turma: ${aluno.class}`);
-                } else {
-                    studentNumberInput.value = '';
-                    studentClassInput.value = '';
+            function setupStudentNameChangeListener() {
+                if (studentNameSelect) {
+                    studentNameSelect.addEventListener('change', function() {
+                        const nomeSelecionado = this.value;
+                        const aluno = students[nomeSelecionado];
+                        
+                        if (aluno) {
+                            studentNumberInput.value = aluno.number;
+                            studentClassInput.value = aluno.class;
+                            console.log(`Aluno selecionado: ${nomeSelecionado}, Nº: ${aluno.number}, Turma: ${aluno.class}`);
+                        } else {
+                            studentNumberInput.value = '';
+                            studentClassInput.value = '';
+                        }
+                    });
                 }
-            });
+            }
 
             // ======================================================
             // 🗓️ VALOR PADRÃO PARA DATA
             // ======================================================
-            if (activityDateInput) {
-                const hoje = new Date();
-                activityDateInput.value = hoje.toISOString().split('T')[0];
+            function setupDefaultDate() {
+                if (activityDateInput) {
+                    const hoje = new Date();
+                    activityDateInput.value = hoje.toISOString().split('T')[0];
+                }
             }
 
             // ======================================================
             // 🔊 SOM AO SELECIONAR ALTERNATIVAS
             // ======================================================
-            document.querySelectorAll('input[type="radio"]').forEach(radio => {
-                radio.addEventListener('change', () => {
-                    // Tocar som de clique
-                    if (clickSound) {
-                        clickSound.currentTime = 0;
-                        clickSound.play().catch(e => console.log("Erro ao reproduzir som: ", e));
-                    }
+            function setupRadioButtonSound() {
+                document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.addEventListener('change', () => {
+                        // Tocar som de clique
+                        if (clickSound) {
+                            clickSound.currentTime = 0;
+                            clickSound.play().catch(e => console.log("Erro ao reproduzir som: ", e));
+                        }
+                    });
                 });
-            });
+            }
 
             // ======================================================
             // 🚀 FUNÇÃO DE ENVIO PARA GOOGLE APPS SCRIPT
@@ -957,122 +969,135 @@
             // ======================================================
             // 🎓 BOTÃO ENVIAR - LÓGICA PRINCIPAL
             // ======================================================
-            if (submitBtn) {
-                submitBtn.addEventListener('click', async function(ev) {
-                    ev.preventDefault();
-                    
-                    // Desabilitar botão para evitar múltiplos cliques
-                    submitBtn.disabled = true;
-                    submitBtn.textContent = 'Enviando...';
-                    
-                    // Esconder resultado anterior
-                    resultDiv.style.display = 'none';
-                    resultDiv.textContent = '';
-
-                    try {
-                        // Validar seleção do nome
-                        const nomeCompleto = studentNameSelect.value;
-                        if (!nomeCompleto) {
-                            throw new Error('Por favor, selecione seu nome na lista.');
-                        }
-
-                        // Validar dados do aluno
-                        const aluno = students[nomeCompleto];
-                        if (!aluno) {
-                            throw new Error('Dados do aluno não encontrados.');
-                        }
-
-                        // Validar respostas
-                        const questions = Object.keys(correctAnswers);
-                        let score = 0;
-                        const respostas = {};
+            function setupSubmitButton() {
+                if (submitBtn) {
+                    submitBtn.addEventListener('click', async function(ev) {
+                        ev.preventDefault();
                         
-                        for (const q of questions) {
-                            const selected = document.querySelector(`input[name="${q}"]:checked`);
-                            if (!selected) {
-                                throw new Error(`Por favor, responda a questão ${q.replace('q', '')}.`);
+                        // Desabilitar botão para evitar múltiplos cliques
+                        submitBtn.disabled = true;
+                        submitBtn.textContent = 'Enviando...';
+                        
+                        // Esconder resultado anterior
+                        resultDiv.style.display = 'none';
+                        resultDiv.textContent = '';
+
+                        try {
+                            // Validar seleção do nome
+                            const nomeCompleto = studentNameSelect.value;
+                            if (!nomeCompleto) {
+                                throw new Error('Por favor, selecione seu nome na lista.');
                             }
-                            respostas[q] = selected.value;
-                            if (selected.value === correctAnswers[q]) {
-                                score++;
+
+                            // Validar dados do aluno
+                            const aluno = students[nomeCompleto];
+                            if (!aluno) {
+                                throw new Error('Dados do aluno não encontrados.');
                             }
-                        }
 
-                        // Feedback local
-                        resultDiv.textContent = `Calculando nota (${score}/${questions.length})... Enviando para a planilha...`;
-                        resultDiv.className = 'result success';
-                        resultDiv.style.display = 'block';
+                            // Validar respostas
+                            const questions = Object.keys(correctAnswers);
+                            let score = 0;
+                            const respostas = {};
+                            
+                            for (const q of questions) {
+                                const selected = document.querySelector(`input[name="${q}"]:checked`);
+                                if (!selected) {
+                                    throw new Error(`Por favor, responda a questão ${q.replace('q', '')}.`);
+                                }
+                                respostas[q] = selected.value;
+                                if (selected.value === correctAnswers[q]) {
+                                    score++;
+                                }
+                            }
 
-                        // Preparar dados para envio
-                        const payload = {
-                            turma: aluno.class,
-                            aluno: nomeCompleto,
-                            numero: aluno.number,
-                            nota: score,
-                            respostas: respostas,
-                            data: activityDateInput.value,
-                            atividadeLink: window.location.href
-                        };
-
-                        console.log('Enviando dados:', payload);
-
-                        // Enviar para Google Apps Script
-                        const serverResponse = await enviarDadosParaPlanilha(payload);
-
-                        // Processar resposta
-                        if (serverResponse && serverResponse.status === 'success') {
-                            resultDiv.textContent = `✅ ${serverResponse.message || 'Respostas enviadas com sucesso!'}`;
+                            // Feedback local
+                            resultDiv.textContent = `Calculando nota (${score}/${questions.length})... Enviando para a planilha...`;
                             resultDiv.className = 'result success';
-                        } else {
-                            const errorMsg = serverResponse && serverResponse.message 
-                                ? serverResponse.message 
-                                : 'Erro desconhecido do servidor.';
-                            throw new Error(errorMsg);
-                        }
+                            resultDiv.style.display = 'block';
 
-                    } catch (error) {
-                        console.error('Erro ao enviar:', error);
-                        resultDiv.textContent = `❌ ${error.message}`;
-                        resultDiv.className = 'result error';
-                        resultDiv.style.display = 'block';
-                        
-                        // Mostrar alerta apenas para erros críticos
-                        if (error.message.includes('selecione seu nome') || error.message.includes('responda')) {
-                            alert(error.message);
+                            // Preparar dados para envio
+                            const payload = {
+                                turma: aluno.class,
+                                aluno: nomeCompleto,
+                                numero: aluno.number,
+                                nota: score,
+                                respostas: respostas,
+                                data: activityDateInput.value,
+                                atividadeLink: window.location.href
+                            };
+
+                            console.log('Enviando dados:', payload);
+
+                            // Enviar para Google Apps Script
+                            const serverResponse = await enviarDadosParaPlanilha(payload);
+
+                            // Processar resposta
+                            if (serverResponse && serverResponse.status === 'success') {
+                                resultDiv.textContent = `✅ ${serverResponse.message || 'Respostas enviadas com sucesso!'}`;
+                                resultDiv.className = 'result success';
+                            } else {
+                                const errorMsg = serverResponse && serverResponse.message 
+                                    ? serverResponse.message 
+                                    : 'Erro desconhecido do servidor.';
+                                throw new Error(errorMsg);
+                            }
+
+                        } catch (error) {
+                            console.error('Erro ao enviar:', error);
+                            resultDiv.textContent = `❌ ${error.message}`;
+                            resultDiv.className = 'result error';
+                            resultDiv.style.display = 'block';
+                            
+                            // Mostrar alerta apenas para erros críticos
+                            if (error.message.includes('selecione seu nome') || error.message.includes('responda')) {
+                                alert(error.message);
+                            }
+                        } finally {
+                            // Reativar botão
+                            submitBtn.disabled = false;
+                            submitBtn.textContent = 'Enviar Respostas';
                         }
-                    } finally {
-                        // Reativar botão
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = 'Enviar Respostas';
-                    }
-                });
+                    });
+                }
             }
 
             // ======================================================
             // 🧹 BOTÃO LIMPAR
             // ======================================================
-            if (clearBtn) {
-                clearBtn.addEventListener('click', function(ev) {
-                    ev.preventDefault();
-                    
-                    if (confirm('Tem certeza que deseja limpar todas as respostas?')) {
-                        // Limpar seleções de rádio
-                        document.querySelectorAll('input[type="radio"]').forEach(radio => {
-                            radio.checked = false;
-                        });
+            function setupClearButton() {
+                if (clearBtn) {
+                    clearBtn.addEventListener('click', function(ev) {
+                        ev.preventDefault();
                         
-                        // Limpar resultado
-                        resultDiv.textContent = '';
-                        resultDiv.style.display = 'none';
-                        
-                        console.log('Respostas limpas.');
-                    }
-                });
+                        if (confirm('Tem certeza que deseja limpar todas as respostas?')) {
+                            // Limpar seleções de rádio
+                            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                                radio.checked = false;
+                            });
+                            
+                            // Limpar resultado
+                            resultDiv.textContent = '';
+                            resultDiv.style.display = 'none';
+                            
+                            console.log('Respostas limpas.');
+                        }
+                    });
+                }
             }
+
+            // ======================================================
+            // 🚀 INICIALIZAR TODAS AS FUNCIONALIDADES
+            // ======================================================
+            loadStudentNames();
+            setupStudentNameChangeListener();
+            setupDefaultDate();
+            setupRadioButtonSound();
+            setupSubmitButton();
+            setupClearButton();
 
             console.log('Aplicação inicializada com sucesso!');
         });
     </script>
 </body>
 </html>
-
