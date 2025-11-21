@@ -667,7 +667,7 @@
                         </div>
                         <div class="option">
                             <input type="radio" name="q8" id="q8b" value="b">
-                            <label for="q8b">Os raios são causados pelo contato direto entre nuvens carregadas e o solo, sem que haja necessidade de diferença de potencial elétrico significativa.</label>
+                            <label for="q8b">Os raios são causados pelo contato directo entre nuvens carregadas e o solo, sem que haja necessidade de diferença de potencial elétrico significativa.</label>
                         </div>
                         <div class="option">
                             <input type="radio" name="q8" id="q8c" value="c">
@@ -830,169 +830,183 @@ const students = {
   "MANUELLA DE MORAES SOUZA": { number: "50", class: "8ºANO B" },
   "VITORIA JOLIE RODRIGUES RAPOSO": { number: "51", class: "8ºANO B" },
   "RAQUEL BARGAS TAVARES DOS SANTOS": { number: "52", class: "8ºANO B" },
-  "RODOLFO RAFAEL GOLZENLEUCHTER MORENO JUNIOR": { number: "53", class: "8ºANO B" },
+  "RODOLFO RAFAEL GOLZENLEUCHTER MORENO JUNIOR": { number: "53", class: "8ºANO B" }
 };
 
 // ======================================================
 // 🌐 URL DO APPS SCRIPT (substitua pela sua URL real)
 // ======================================================
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywvmDwZMWOtdp434BU_IrcnBad3VCj1GlOxdhR69XXVPKNPSWSbSr82oY2A8_sITc/exec";
+const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywvmDwZMWOtdp434BU_IrcnBad3VCj1GlOxdhR69XXVPKNPSWSbSr82oY2A8_sITc/exec";
 
 // ======================================================
-// 🔽 ELEMENTOS DO DOM
+// 🚀 INICIALIZAÇÃO APÓS CARREGAMENTO DO DOM
 // ======================================================
-const studentNameSelect = document.getElementById('studentName');
-const studentNumberInput = document.getElementById('studentNumber');
-const studentClassInput = document.getElementById('studentClass');
-const activityDateInput = document.getElementById('activityDate');
-const submitBtn = document.getElementById('submitBtn');
-const clearBtn = document.getElementById('clearBtn');
-const resultDiv = document.getElementById('result');
-const clickSound = document.getElementById('clickSound');
+document.addEventListener('DOMContentLoaded', function() {
+  // ======================================================
+  // 🔽 ELEMENTOS DO DOM
+  // ======================================================
+  const studentNameSelect = document.getElementById('studentName');
+  const studentNumberInput = document.getElementById('studentNumber');
+  const studentClassInput = document.getElementById('studentClass');
+  const activityDateInput = document.getElementById('activityDate');
+  const submitBtn = document.getElementById('submitBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const resultDiv = document.getElementById('result');
+  const clickSound = document.getElementById('clickSound');
 
-// ======================================================
-// 🔽 POPULA O SELECT DE NOMES
-// ======================================================
-function carregarNomes() {
-  const sorted = Object.keys(students).sort((a,b) => a.localeCompare(b, 'pt-BR'));
-  studentNameSelect.innerHTML = '<option value="">Selecione seu nome</option>';
-  for (const nome of sorted) {
-    const opt = document.createElement('option');
-    opt.value = nome;
-    opt.textContent = nome;
-    studentNameSelect.appendChild(opt);
+  // ======================================================
+  // 🔽 POPULA O SELECT DE NOMES (CORRIGIDO)
+  // ======================================================
+  function carregarNomes() {
+    try {
+      console.log('Iniciando carregamento de nomes...');
+      const sorted = Object.keys(students).sort((a, b) => a.localeCompare(b, 'pt-BR'));
+      console.log(`Número de alunos: ${sorted.length}`);
+      
+      studentNameSelect.innerHTML = '<option value="">Selecione seu nome</option>';
+      
+      for (const nome of sorted) {
+        const opt = document.createElement('option');
+        opt.value = nome;
+        opt.textContent = nome;
+        studentNameSelect.appendChild(opt);
+      }
+      
+      console.log('Nomes carregados com sucesso.');
+    } catch (error) {
+      console.error('Erro ao carregar nomes:', error);
+    }
   }
-}
-carregarNomes();
+  
+  carregarNomes();
 
-// ======================================================
-// 🧾 AUTO-PREENCHER NÚMERO E TURMA
-// ======================================================
-studentNameSelect.addEventListener('change', () => {
-  const nome = studentNameSelect.value;
-  const aluno = students[nome];
-  studentNumberInput.value = aluno ? aluno.number : '';
-  studentClassInput.value = aluno ? aluno.class : '';
-});
-
-// ======================================================
-// 🗓️ VALOR PADRÃO PARA DATA
-// ======================================================
-if (activityDateInput) {
-  activityDateInput.value = new Date().toISOString().split('T')[0];
-}
-
-// ======================================================
-// 🔊 SOM AO SELECIONAR ALTERNATIVAS
-// ======================================================
-document.querySelectorAll('input[type="radio"]').forEach(radio => {
-  radio.addEventListener('change', () => {
-    // Tocar som de clique
-    clickSound.currentTime = 0;
-    clickSound.play().catch(e => console.log("Erro ao reproduzir som: ", e));
-  });
-});
-
-// ======================================================
-// 🚀 FUNÇÃO DE ENVIO PARA GOOGLE APPS SCRIPT
-// ======================================================
-async function enviarDadosParaPlanilha(data) {
-  const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywvmDwZMWOtdp434BU_IrcnBad3VCj1GlOxdhR69XXVPKNPSWSbSr82oY2A8_sITc/exec";
-
-  const response = await fetch(APP_SCRIPT_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
+  // ======================================================
+  // 🧾 AUTO-PREENCHER NÚMERO E TURMA
+  // ======================================================
+  studentNameSelect.addEventListener('change', () => {
+    const nome = studentNameSelect.value;
+    const aluno = students[nome];
+    studentNumberInput.value = aluno ? aluno.number : '';
+    studentClassInput.value = aluno ? aluno.class : '';
   });
 
-  const text = await response.text();
-  console.log('Resposta bruta do servidor:', text);
-
-  try {
-    const json = JSON.parse(text);
-    return json;
-  } catch (err) {
-    const preview = text.substring(0, 500);
-    throw new Error('Resposta inválida do servidor. Veja console. Trecho: ' + preview);
+  // ======================================================
+  // 🗓️ VALOR PADRÃO PARA DATA
+  // ======================================================
+  if (activityDateInput) {
+    activityDateInput.value = new Date().toISOString().split('T')[0];
   }
-}
 
-// ======================================================
-// 🎓 BOTÃO ENVIAR - LÓGICA PRINCIPAL
-// ======================================================
-if (submitBtn) {
-  submitBtn.addEventListener('click', async (ev) => {
-    ev.preventDefault();
-    submitBtn.disabled = true;
-    resultDiv.style.display = 'none';
-    resultDiv.textContent = '';
+  // ======================================================
+  // 🔊 SOM AO SELECIONAR ALTERNATIVAS
+  // ======================================================
+  document.querySelectorAll('input[type="radio"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      // Tocar som de clique
+      clickSound.currentTime = 0;
+      clickSound.play().catch(e => console.log("Erro ao reproduzir som: ", e));
+    });
+  });
+
+  // ======================================================
+  // 🚀 FUNÇÃO DE ENVIO PARA GOOGLE APPS SCRIPT
+  // ======================================================
+  async function enviarDadosParaPlanilha(data) {
+    const response = await fetch(APP_SCRIPT_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    const text = await response.text();
+    console.log('Resposta bruta do servidor:', text);
 
     try {
-      const nomeCompleto = studentNameSelect.value;
-      if (!nomeCompleto) throw new Error('Selecione seu nome.');
-
-      const aluno = students[nomeCompleto];
-      if (!aluno) throw new Error('Dados do aluno não encontrados.');
-
-      // valida respostas
-      const questoes = Object.keys(correctAnswers);
-      let score = 0;
-      for (const q of questoes) {
-        const sel = document.querySelector(`input[name="${q}"]:checked`);
-        if (!sel) throw new Error('Responda todas as questões antes de enviar.');
-        if (sel.value === correctAnswers[q]) score++;
-      }
-
-      // feedback local imediato
-      resultDiv.textContent = `Calculando nota (${score}/${questoes.length})... Enviando para a planilha...`;
-      resultDiv.className = 'result success';
-      resultDiv.style.display = 'block';
-
-      // montagem dos dados no formato esperado pelo Apps Script
-      const payload = {
-        turma: aluno.class,              // Ex: "8ºANO A"
-        aluno: nomeCompleto,             // Nome completo do aluno
-        nota: score,                     // O número de acertos será a nota
-        atividadeLink: 'https://raulvilera.github.io/ATIVIDADE8ANOEF/' // Link da atividade
-      };
-
-      // envio
-      const serverResp = await enviarDadosParaPlanilha(payload);
-
-      // checa retorno
-      if (serverResp && serverResp.status === 'success') {
-        resultDiv.textContent = `✅ ${serverResp.message}`;
-        resultDiv.className = 'result success';
-      } else {
-        const msg = serverResp && serverResp.message ? serverResp.message : 'Resposta inesperada do servidor.';
-        throw new Error(msg);
-      }
+      const json = JSON.parse(text);
+      return json;
     } catch (err) {
-      console.error('Erro ao enviar:', err);
-      alert('⚠️ Erro ao enviar a nota.\n' + (err.message || err));
-      resultDiv.textContent = '❌ ' + (err.message || 'Erro desconhecido');
-      resultDiv.className = 'result error';
-      resultDiv.style.display = 'block';
-    } finally {
-      submitBtn.disabled = false;
+      const preview = text.substring(0, 500);
+      throw new Error('Resposta inválida do servidor. Veja console. Trecho: ' + preview);
     }
-  });
-}
+  }
 
-// ======================================================
-// 🧹 BOTÃO LIMPAR
-// ======================================================
-if (clearBtn) {
-  clearBtn.addEventListener('click', (ev) => {
-    ev.preventDefault();
-    if (!confirm('Deseja limpar todas as respostas?')) return;
-    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
-    resultDiv.textContent = '';
-    resultDiv.style.display = 'none';
-  });
-}
+  // ======================================================
+  // 🎓 BOTÃO ENVIAR - LÓGICA PRINCIPAL
+  // ======================================================
+  if (submitBtn) {
+    submitBtn.addEventListener('click', async (ev) => {
+      ev.preventDefault();
+      submitBtn.disabled = true;
+      resultDiv.style.display = 'none';
+      resultDiv.textContent = '';
+
+      try {
+        const nomeCompleto = studentNameSelect.value;
+        if (!nomeCompleto) throw new Error('Selecione seu nome.');
+
+        const aluno = students[nomeCompleto];
+        if (!aluno) throw new Error('Dados do aluno não encontrados.');
+
+        // valida respostas
+        const questoes = Object.keys(correctAnswers);
+        let score = 0;
+        for (const q of questoes) {
+          const sel = document.querySelector(`input[name="${q}"]:checked`);
+          if (!sel) throw new Error('Responda todas as questões antes de enviar.');
+          if (sel.value === correctAnswers[q]) score++;
+        }
+
+        // feedback local imediato
+        resultDiv.textContent = `Calculando nota (${score}/${questoes.length})... Enviando para a planilha...`;
+        resultDiv.className = 'result success';
+        resultDiv.style.display = 'block';
+
+        // montagem dos dados no formato esperado pelo Apps Script
+        const payload = {
+          turma: aluno.class,              // Ex: "8ºANO A"
+          aluno: nomeCompleto,             // Nome completo do aluno
+          nota: score,                     // O número de acertos será a nota
+          atividadeLink: 'https://raulvilera.github.io/ATIVIDADE8ANOEF/' // Link da atividade
+        };
+
+        // envio
+        const serverResp = await enviarDadosParaPlanilha(payload);
+
+        // checa retorno
+        if (serverResp && serverResp.status === 'success') {
+          resultDiv.textContent = `✅ ${serverResp.message}`;
+          resultDiv.className = 'result success';
+        } else {
+          const msg = serverResp && serverResp.message ? serverResp.message : 'Resposta inesperada do servidor.';
+          throw new Error(msg);
+        }
+      } catch (err) {
+        console.error('Erro ao enviar:', err);
+        alert('⚠️ Erro ao enviar a nota.\n' + (err.message || err));
+        resultDiv.textContent = '❌ ' + (err.message || 'Erro desconhecido');
+        resultDiv.className = 'result error';
+        resultDiv.style.display = 'block';
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  }
+
+  // ======================================================
+  // 🧹 BOTÃO LIMPAR
+  // ======================================================
+  if (clearBtn) {
+    clearBtn.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      if (!confirm('Deseja limpar todas as respostas?')) return;
+      document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+      resultDiv.textContent = '';
+      resultDiv.style.display = 'none';
+    });
+  }
+});
 </script>
 
 </body>
