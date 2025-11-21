@@ -545,7 +545,7 @@
            ============================================================ */
         async function sendToGoogle(dataObj) {
             try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                const response = await fetch("https://script.google.com/macros/s/AKfycbyuQiv2-PQZ7QUYojO8hb5QbrtUTIeyQA0S4_XzXASFkRa5ZJMHfzn94BZoQfy2X9U/exec", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(dataObj)
@@ -689,3 +689,4 @@
     </script>
 </body>
 </html>
+
