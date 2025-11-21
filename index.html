@@ -538,7 +538,7 @@ function showResult(message, type) {
  * @param {FormData} formData - Objeto FormData contendo todos os dados do formulário.
  */
 async function sendToGoogleSheets(formData) {
-    if (GOOGLE_SCRIPT_URL === "https://script.google.com/macros/s/AKfycbw6K85g6q1tz6fhWBT-3ryIyvNv5SOVyg9AVPw1apdP1bzPC0SHPehCnWtw6M0LKfc/exec") {
+    if (GOOGLE_SCRIPT_URL === "https://script.google.com/macros/s/AKfycbwQFYoM1Js4ybCrzq_qoREphpelbxQCyQ4h1VYY_E5e4gqd1ncofmqbcy-oUuCqA3w/exec") {
         showResult(`<strong>Erro:</strong> Por favor, substitua "ESTA_URL_DO_SEU_APPS_SCRIPT" pela URL de implantação do seu Apps Script.`, 'error');
         return;
     }
@@ -729,4 +729,5 @@ document.addEventListener('DOMContentLoaded', function() {
     </script>
 </body>
 </html>
+
 
