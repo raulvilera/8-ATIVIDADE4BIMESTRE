@@ -323,7 +323,7 @@
            CONFIGURAÇÕES GERAIS
            ============================================================ */
         // Mantenha a URL original. A correção de CORS está no Apps Script.
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwYuitck3wyTb1PZkBqDrwkCcZx0idLTw9957DKw9iIB9AmTcZS5LE3YdCrb8Bk2BA/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx7Nnm9OrWIVGCtBda0-VI5ukgep2iee5ZTKGl923PpV2ACnY_jGccFR9iX1s0Yy-w/exec";
 
         /* ============================================================
            LISTA COMPLETA DE ALUNOS
@@ -550,7 +550,7 @@
                 // O Google Apps Script lida melhor com o tipo de conteúdo padrão (text/plain)
                 // quando o JSON é enviado no corpo, e a correção de CORS no Apps Script
                 // deve resolver o problema de "Failed to fetch".
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                const response = await fetch("https://script.google.com/macros/s/AKfycbx7Nnm9OrWIVGCtBda0-VI5ukgep2iee5ZTKGl923PpV2ACnY_jGccFR9iX1s0Yy-w/exec", {
                     method: "POST",
                     // Removido: headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(dataObj)
@@ -714,5 +714,6 @@
     </script>
 </body>
 </html>
+
 
 
