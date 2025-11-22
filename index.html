@@ -183,6 +183,7 @@
                         4px 4px 8px rgba(0,0,0,0.1);
         }
         
+        /* Letras das alternativas - apenas via pseudo-elemento */
         .option::before {
             content: attr(data-letter) ".";
             font-weight: bold;
@@ -214,14 +215,9 @@
             font-size: 16px;
             font-weight: bold;
             transition: all 0.3s ease;
-            box-shadow: 6px 6px 12px rgba(0,0,0,0.2),
+            box-shadow: 6px 6px 12px rgba(0,0/0,0.2),
                        -6px -6px 12px rgba(255,255,255,0.7);
             flex: 1;
-        }
-
-        button:disabled {
-            cursor: not-allowed;
-            opacity: 0.6;
         }
         
         #submitBtn {
@@ -229,14 +225,14 @@
             color: white;
         }
         
-        #submitBtn:hover:not(:disabled) {
+        #submitBtn:hover {
             background: linear-gradient(145deg, #0056b3, #004085);
             transform: translateY(-2px);
             box-shadow: 8px 8px 16px rgba(0,0,0,0.25),
                        -8px -8px 16px rgba(255,255,255,0.7);
         }
         
-        #submitBtn:active:not(:disabled) {
+        #submitBtn:active {
             transform: translateY(1px);
             box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2);
         }
@@ -267,7 +263,6 @@
             box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
             position: relative;
             z-index: 2;
-            text-align: center;
         }
         
         .success {
@@ -324,277 +319,398 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            /* ============================================================
-               CONFIGURAÇÕES GERAIS
-               ============================================================ */
-            // ATENÇÃO: SUBSTITUA ESTA URL PELA URL DE IMPLANTAÇÃO DO SEU APPS SCRIPT
-            const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0w4uU8Rn-LLfKT3zsvAA-4n9W2RNoEnG9R32XheqsJnOraALAwfIxPNtbqdHyj44/exec";
+        /* ============================================================
+           CONFIGURAÇÕES GERAIS
+           ============================================================ */
+        // Mantenha a URL original. A correção de CORS está no Apps Script.
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxgL2NahZ2Wj5ObQ_m8Q2OlKRvPVeEXqbtPjKnKMn1-_lKGnV8dlR-puy4UoVqYHd4/exec";
 
-            /* ============================================================
-               LISTA COMPLETA DE ALUNOS
-               ============================================================ */
-            const students = {
-                "8º Ano A": [
-                    { number: "2", name: "ANA BEATRIZ RODRIGUES OLIVEIRA" }, { number: "3", name: "ANA CLARA SOUSA DA COSTA" }, { number: "4", name: "ANA VICTORIA RAGACINI DE OLIVEIRA" }, { number: "5", name: "ARTHUR DAVI DE SOUZA FERNANDES" }, { number: "6", name: "EDUARDA ALVES DE SOUZA" }, { number: "7", name: "EMANUEL ALVES OLIVEIRA" }, { number: "8", name: "ESTHER CRISTINE SILVA RIBEIRO" }, { number: "9", name: "EVELLYN YASMIN TAVARES SILVA" }, { number: "10", name: "FELIPE DE SOUZA RODRIGUES" }, { number: "11", name: "FERNANDA POLACHINI MAYER GOMES MARQUES" }, { number: "12", name: "GEOVANNA VITORIA ROCHA ABDALA" }, { number: "15", name: "GUSTAVO AUGUSTO TOMBOLO REIS" }, { number: "17", name: "IGOR MARTINS PEREIRA" }, { number: "18", name: "IZABELLY VITORIA DE CARVALHO RODRIGUES SETH" }, { number: "21", "name": "KAROLAYNE DOS SANTOS BISSORNIA" }, { number: "22", name: "KAUANNY APARECIDA MALAQUIAS LIMA" }, { number: "23", name: "KÉTHILY NAYARA DA SILVA" }, { number: "25", name: "LAVINIA PEREIRA DE SOUZA" }, { number: "26", name: "LIVIA PEREIRA DE SOUZA" }, { number: "27", name: "LOHRAN ROMUALDO MENDES DA SILVA" }, { number: "28", name: "LUIS MIGUEL GONCALVES DA SILVA" }, { number: "29", name: "MARCELA ROBERTO DE OLIVEIRA" }, { number: "31", name: "MATHEUS TURCHETTO" }, { number: "32", name: "OMRAN RASEKH" }, { number: "33", name: "PRISCILLA VITORIA MENDES DE OLIVEIRA" }, { number: "36", name: "SARAH VITORIA ALVES OLIVEIRA" }, { number: "37", name: "YURI GABRIEL DE MORAES PONGOLINO" }, { number: "38", name: "ZAYN AL ABIDIN RASULI" }, { number: "39", name: "ARTHUR COHEN BARRETO" }, { number: "40", name: "ISABELLA DOS SANTOS SALDANHA" }, { number: "41", name: "MIGUEL MARTINS DE ASSIS" }, { number: "42", name: "ALICE CARVALHO" }, { number: "43", name: "AMANDA PASSOS DE ALMEIDA" }, { number: "44", name: "ANA JULIA MENEZES DA SILVA" }, { number: "45", name: "HENRIQUE ROCHA CARVALHAL" }
-                ],
-                "8º Ano B": [
-                    { number: "2", name: "ANA CLARA GONCALVES TORRES LOYOLA" }, { number: "3", name: "ANNA BEATRIZ SANTIAGO DA SILVA" }, { number: "6", name: "ELIAS SILVA DE LIMA" }, { number: "7", name: "EVERTON HENRIQUE CARMO RODRIGUES" }, { number: "9", name: "GABRIELA VITORIA SEVERA LINS" }, { number: "12", name: "JULIO CESAR ALVES DOS SANTOS" }, { number: "14", name: "LUAN VENITES BALBINO" }, { number: "17", name: "MARIA EDUARDA FELIX DA SILVA" }, { number: "18", name: "MONIQUE RIJO COSTA" }, { number: "19", name: "MUNIQUE CRISTINA LUCAS" }, { number: "20", name: "NICOLAS PENTEADO" }, { number: "23", name: "PAULO CELSO DA COSTA JUNIOR" }, { number: "24", name: "PEDRO HENRIQUE CARLOS LIMA" }, { number: "25", name: "PEDRO HENRIQUE MORAIS AMORIM" }, { number: "27", name: "PIETRO RODRIGUES MIRANDA" }, { number: "28", name: "RAPHAELLY APARECIDA MARINHO DE OLIVEIRA" }, { number: "29", name: "RENAN LEANDRO RODRIGUES VICENTE" }, { number: "33", name: "WENDELL RAFAEL DE JESUS LESSA" }, { number: "34", name: "WILHAN KENJI ANTONIO" }, { number: "40", name: "JENNYFER VITORIA BASILIO GOMES" }, { number: "41", name: "THAYNA SEABRA DE OLIVEIRA DO NASCIMENTO" }, { number: "46", name: "SOPHIA MENEZES DE ARAUJO" }, { number: "47", name: "VITORIA MENEZES BRANDAO" }, { number: "49", name: "LORENA ALEXANDRE SANTOS DA SILVA" }, { number: "50", name: "MANUELLA DE MORAES SOUZA" }, { number: "51", name: "VITORIA JOLIE RODRIGUES RAPOSO" }, { number: "52", name: "RAQUEL BARGAS TAVARES DOS SANTOS" }, { number: "53", name: "RODOLFO RAFAEL GOLZENLEUCHTER MORENO JUNIOR" }, { number: "54", name: "ANTONIO CARLOS CAMPOS NETO" }
+        /* ============================================================
+           LISTA COMPLETA DE ALUNOS
+           ============================================================ */
+
+        const students = {
+            "8º Ano A": [
+                { number: "2", name: "ANA BEATRIZ RODRIGUES OLIVEIRA" },
+                { number: "3", name: "ANA CLARA SOUSA DA COSTA" },
+                { number: "4", name: "ANA VICTORIA RAGACINI DE OLIVEIRA" },
+                { number: "5", name: "ARTHUR DAVI DE SOUZA FERNANDES" },
+                { number: "6", name: "EDUARDA ALVES DE SOUZA" },
+                { number: "7", name: "EMANUEL ALVES OLIVEIRA" },
+                { number: "8", name: "ESTHER CRISTINE SILVA RIBEIRO" },
+                { number: "9", name: "EVELLYN YASMIN TAVARES SILVA" },
+                { number: "10", name: "FELIPE DE SOUZA RODRIGUES" },
+                { number: "11", name: "FERNANDA POLACHINI MAYER GOMES MARQUES" },
+                { number: "12", name: "GEOVANNA VITORIA ROCHA ABDALA" },
+                { number: "15", name: "GUSTAVO AUGUSTO TOMBOLO REIS" },
+                { number: "17", name: "IGOR MARTINS PEREIRA" },
+                { number: "18", name: "IZABELLY VITORIA DE CARVALHO RODRIGUES SETH" },
+                { number: "21", "name": "KAROLAYNE DOS SANTOS BISSORNIA" },
+                { number: "22", name: "KAUANNY APARECIDA MALAQUIAS LIMA" },
+                { number: "23", name: "KÉTHILY NAYARA DA SILVA" },
+                { number: "25", name: "LAVINIA PEREIRA DE SOUZA" },
+                { number: "26", name: "LIVIA PEREIRA DE SOUZA" },
+                { number: "27", name: "LOHRAN ROMUALDO MENDES DA SILVA" },
+                { number: "28", name: "LUIS MIGUEL GONCALVES DA SILVA" },
+                { number: "29", name: "MARCELA ROBERTO DE OLIVEIRA" },
+                { number: "31", name: "MATHEUS TURCHETTO" },
+                { number: "32", name: "OMRAN RASEKH" },
+                { number: "33", name: "PRISCILLA VITORIA MENDES DE OLIVEIRA" },
+                { number: "36", name: "SARAH VITORIA ALVES OLIVEIRA" },
+                { number: "37", name: "YURI GABRIEL DE MORAES PONGOLINO" },
+                { number: "38", name: "ZAYN AL ABIDIN RASULI" },
+                { number: "39", name: "ARTHUR COHEN BARRETO" },
+                { number: "40", name: "ISABELLA DOS SANTOS SALDANHA" },
+                { number: "41", name: "MIGUEL MARTINS DE ASSIS" },
+                { number: "42", name: "ALICE CARVALHO" },
+                { number: "43", name: "AMANDA PASSOS DE ALMEIDA" },
+                { number: "44", name: "ANA JULIA MENEZES DA SILVA" },
+                { number: "45", name: "HENRIQUE ROCHA CARVALHAL" }
+            ],
+            "8º Ano B": [
+                { number: "2", name: "ANA CLARA GONCALVES TORRES LOYOLA" },
+                { number: "3", name: "ANNA BEATRIZ SANTIAGO DA SILVA" },
+                { number: "6", name: "ELIAS SILVA DE LIMA" },
+                { number: "7", name: "EVERTON HENRIQUE CARMO RODRIGUES" },
+                { number: "9", name: "GABRIELA VITORIA SEVERA LINS" },
+                { number: "12", name: "JULIO CESAR ALVES DOS SANTOS" },
+                { number: "14", name: "LUAN VENITES BALBINO" },
+                { number: "17", name: "MARIA EDUARDA FELIX DA SILVA" },
+                { number: "18", name: "MONIQUE RIJO COSTA" },
+                { number: "19", name: "MUNIQUE CRISTINA LUCAS" },
+                { number: "20", name: "NICOLAS PENTEADO" },
+                { number: "23", name: "PAULO CELSO DA COSTA JUNIOR" },
+                { number: "24", name: "PEDRO HENRIQUE CARLOS LIMA" },
+                { number: "25", name: "PEDRO HENRIQUE MORAIS AMORIM" },
+                { number: "27", name: "PIETRO RODRIGUES MIRANDA" },
+                { number: "28", name: "RAPHAELLY APARECIDA MARINHO DE OLIVEIRA" },
+                { number: "29", name: "RENAN LEANDRO RODRIGUES VICENTE" },
+                { number: "33", name: "WENDELL RAFAEL DE JESUS LESSA" },
+                { number: "34", name: "WILHAN KENJI ANTONIO" },
+                { number: "40", name: "JENNYFER VITORIA BASILIO GOMES" },
+                { number: "41", name: "THAYNA SEABRA DE OLIVEIRA DO NASCIMENTO" },
+                { number: "46", name: "SOPHIA MENEZES DE ARAUJO" },
+                { number: "47", name: "VITORIA MENEZES BRANDAO" },
+                { number: "49", name: "LORENA ALEXANDRE SANTOS DA SILVA" },
+                { number: "50", name: "MANUELLA DE MORAES SOUZA" },
+                { number: "51", name: "VITORIA JOLIE RODRIGUES RAPOSO" },
+                { number: "52", name: "RAQUEL BARGAS TAVARES DOS SANTOS" },
+                { number: "53", name: "RODOLFO RAFAEL GOLZENLEUCHTER MORENO JUNIOR" },
+                { number: "54", name: "ANTONIO CARLOS CAMPOS NETO" }
+            ]
+        };
+
+        /* ============================================================
+           QUESTÕES DO TESTE
+           ============================================================ */
+
+        const questions = [
+            {
+                id: 1,
+                question: "Durante uma aula de Ciências, os alunos realizaram um experimento para identificar diferentes formas de energia. Eles observaram que ao ligar um ventilador, a energia elétrica era convertida em energia mecânica (movimento das pás) e energia sonora (ruído do motor). Além disso, após algum tempo de funcionamento, notaram que o motor do ventilador estava aquecido. Considerando os diferentes tipos de energia estudados, qual alternativa descreve corretamente as transformações de energia que ocorrem nesse aparelho?",
+                image: "",
+                options: [
+                    { text: "A energia elétrica é transformada apenas em energia mecânica, sendo o ruído e o calor considerados perdas energéticas indesejadas.", correct: false },
+                    { text: "A energia elétrica se transforma em energia mecânica, sonora e térmica, demonstrando o princípio da conservação da energia, donde a energia total se mantém, apenas mudando de forma.", correct: true },
+                    { text: "O calor gerado pelo motor representa uma criação de energia térmica que não existia anteriormente no sistema, contrariando o princípio de conservação.", correct: false },
+                    { text: "A energia sonora produzida pelo ventilador é uma forma primária de energia que não deriva da energia elétrica fornecida ao aparelho.", correct: false }
                 ]
-            };
+            },
+            {
+                id: 2,
+                question: "O Brasil possui uma matriz energética diversificada, com significativa participação de fontes renováveis. Em 2023, cerca de 48% da energia consumida no país veio de fontes renováveis, enquanto a média mundial é de aproximadamente 14%. Considerando as características das fontes de energia renováveis e não renováveis, qual alternativa apresenta corretamente uma vantagem das fontes renováveis em relação às não renováveis?",
+                image: "https://via.placeholder.com/800x300?text=Matriz+Energética+Brasileira",
+                options: [
+                    { text: "As fontes renováveis apresentam custos de instalação sempre inferiores aos das fontes não renováveis, tornando-as mais acessíveis economicamente.", correct: false },
+                    { text: "As fontes renováveis são inesgotáveis em escala humana e causam menor impacto ambiental, contribuindo para a sustentabilidade e reduzindo as emissões de gases de efeito estufa.", correct: true },
+                    { text: "As fontes renováveis não dependem de condições climáticas para seu funcionamento, garantindo produção constante e previsível de energia.", correct: false },
+                    { text: "As fontes renováveis não exigem grandes áreas para instalação, sendo mais adequadas para regiões urbanas densamente povoadas.", correct: false }
+                ]
+            },
+            {
+                id: 3,
+                question: "Em uma montanha-russa, os carrinhos são puxados até o ponto mais alto por um mecanismo motorizado. Ao serem soltos, descem rapidamente, subindo novamente em seguida, sem necessidade de motor durante a maior parte do percurso. Considerando o princípio da conservação da energia, qual alternativa explica corretamente o funcionamento da montanha-russa?",
+                image: "https://via.placeholder.com/800x400?text=Montanha+Russa",
+                options: [
+                    { text: "A energia potencial gravitacional acumulada no ponto mais alto é convertida em energia cinética durante a descida, e parte dessa energia cinética é novamente convertida em energia potencial nas subidas subsequentes.", correct: true },
+                    { text: "A energia cinética permanece constante durante todo o percurso, pois a velocidade dos carrinhos não varia significativamente.", correct: false },
+                    { text: "A energia total do sistema aumenta durante as descidas e diminui durante as subidas, demonstrando que a energia pode ser criada e destruída.", correct: false },
+                    { text: "A energia potencial é máxima nos pontos mais baixos do percurso e mínima nos pontos mais altos, permitindo o movimento contínuo dos carrinhos.", correct: false }
+                ]
+            },
+            {
+                id: 4,
+                question: "O Objetivo de Desenvolvimento Sustentável (ODS) 7 da ONU visa 'garantir o acesso a fontes de energia acessíveis, confiáveis, sustentáveis e modernas para todos' até 2030. No Brasil, aproximadamente 2 milhões de pessoas ainda não têm acesso à energia elétrica, especialmente em comunidades remotas. Considerando esse contexto, qual alternativa apresenta corretamente um desafio para a implementação de energias renováveis nessas regiões?",
+                image: "",
+                options: [
+                    { text: "As energias renováveis são tecnicamente inviáveis em áreas remotas devido à falta de vento ou radiação solar nessas regiões.", correct: false },
+                    { text: "O alto custo inicial de instalação, a falta de mão de obra especializada e as dificuldades de acesso a algumas localidades são obstáculos para a implementação de energias renováveis em comunidades isoladas.", correct: true },
+                    { text: "As populações de comunidades remotas preferem utilizar combustíveis fósseis por considerarem as energias renováveis menos eficientes.", correct: false },
+                    { text: "As energias renováveis exigem conexão com a rede elétrica nacional para funcionarem, o que impossibilita seu uso em locais isolados.", correct: false }
+                ]
+            },
+            {
+                id: 5,
+                question: "A energia solar fotovoltaica tem se expandido rapidamente no Brasil, com crescimento médio anual superior a 50% nos últimos anos. Esta tecnologia converte diretamente a radiação solar em energia elétrica por meio de painéis constituídos por células fotovoltaicas. Considerando as características dessa fonte de energia, qual alternativa descreve corretamente uma de suas principais vantagens?",
+                image: "https://via.placeholder.com/800x400?text=Painéis+Solares+Fotovoltaicos",
+                options: [
+                    { text: "A energia solar pode ser gerada próximo aos locais de consumo, reduzindo perdas na transmissão e permitindo a eletrificação de áreas remotas não atendidas pela rede elétrica convencional.", correct: true },
+                    { text: "Os painéis solares funcionam com a mesma eficiência durante o dia e a noite, garantindo produção constante de energia 24 horas por dia.", correct: false },
+                    { text: "A instalação de painéis solares não requer manutenção e tem vida útil ilimitada, tornando-se a opção mais econômica a longo prazo.", correct: false },
+                    { text: "A energia solar é uma fonte não renovável, mas seu uso é incentivado devido à sua alta densidade energética.", correct: false }
+                ]
+            },
+            {
+                id: 6,
+                question: "Os ímãs estão presentes em diversos dispositivos do nosso cotidiano, como motores elétricos, alto-falantes, discos rígidos e até mesmo em fechaduras de portas. As propriedades magnéticas desses materiais são explicadas pelo alinhamento de domínios magnéticos em sua estrutura. Considerando as características dos materiais magnéticos, qual alternativa está correta?",
+                image: "",
+                options: [
+                    { text: "Materiais ferromagnéticos como ferro, níquel e cobalto são fortemente atraídos por ímãs devido ao alinhamento de seus domínios magnéticos quando submetidos a um campo magnético externo.", correct: true },
+                    { text: "Todos os metais são igualmente atraídos por ímãs, independentemente de sua composição química ou estrutura atômica.", correct: false },
+                    { text: "Ao cortar um ímã ao meio, obtemos duas partes independentes: uma com apenas polo norte e outra com apenas polo sul.", correct: false },
+                    { text: "Os polos magnéticos de mesmo nome (norte-norte ou sul-sul) se atraem, enquanto polos de nomes diferentes se repelem.", correct: false }
+                ]
+            },
+            {
+                id: 7,
+                question: "Em dias secos, é comum sentirmos pequenos choques ao tocarmos em maçanetas metálicas ou outras pessoas. Esse fenômeno está relacionado ao acúmulo de cargas elétricas em nossos corpos, conhecido como eletricidade estática. Considerando os processos de eletrização, qual alternativa explica corretamente como ocorre esse acúmulo de cargas?",
+                image: "",
+                options: [
+                    { text: "O atrito entre diferentes materiais (como solados de sapato e carpete) causa transferência de elétrons entre eles, deixando um dos materiais com excesso de elétrons (carga negativa) e o outro com falta de elétrons (carga positiva).", correct: true },
+                    { text: "Nosso corpo naturalmente produz elétrons em excesso que se acumulam na superfície da pele, especialmente em dias secos.", correct: false },
+                    { text: "A umidade do ar em dias secos facilita a condução de elétrons para o solo, impedindo o acúmulo de cargas em nosso corpo.", correct: false },
+                    { text: "Os choques elétricos são causados pela transferência de prótons entre nosso corpo e objetos metálicos, já que os prótons têm maior mobilidade que os elétrons.", correct: false }
+                ]
+            },
+            {
+                id: 8,
+                question: "Os raios são descargas elétricas de grande intensidade que ocorrem na atmosfera, principalmente durante tempestades. Estima-se que o Brasil é o país com maior incidência de raios no mundo, com uma média de 70 milhões por ano. Considerando os processos de eletrização envolvidos na formação dos raios, qual alternativa descreve corretamente como ocorre esse fenômeno?",
+                image: "https://via.placeholder.com/800x400?text=Raios+e+Tempestades",
+                options: [
+                    { text: "O atrito entre partículas de gelo, água e granizo no interior das nuvens de tempestade gera separação de cargas, com cargas positivas concentrando-se na parte superior e cargas negativas na parte inferior da nuvem.", correct: true },
+                    { text: "Os raios são causados pelo contato directo entre nuvens carregadas e o solo, sem que haja necessidade de diferença de potencial elétrico significativa.", correct: false },
+                    { text: "A eletrização por indução é o único processo envolvido na formação dos raios, sendo responsável pela criação de cargas elétricas a partir do nada.", correct: false },
+                    { text: "Os raios ocorrem quando o campo magnético terrestre interage com partículas carregadas provenientes do Sol, criando faíscas elétricas na atmosfera.", correct: false }
+                ]
+            },
+            {
+                id: 9,
+                question: "A Primeira Lei de Ohm, formulada pelo físico alemão Georg Simon Ohm em 1827, estabelece a relação entre tensão elétrica (V), corrente elétrica (I) e resistência elétrica (R) em um circuito. Esta lei é fundamental para o dimensionamento seguro de instalações elétricas. Considerando a aplicação prática dessa lei, qual alternativa apresenta uma situação correta de sua utilização?",
+                image: "",
+                options: [
+                    { text: "Ao projetar a instalação elétrica de um chuveiro, um engenheiro utiliza a Lei de Ohm (I = V/R) para calcular a corrente elétrica que circulará pelo circuito e selecionar a espessura adequada dos fios, evitando superaquecimento e riscos de incêndio.", correct: true },
+                    { text: "A Lei de Ohm é utilizada para determinar a quantidade de carga elétrica que uma bateria pode armazenar, independentemente da tensão e resistência do circuito.", correct: false },
+                    { text: "Segundo a Lei de Ohm, a resistência elétrica de um material diminui à medida que sua temperatura aumenta, explicando porque os fios elétricos ficam mais condutores quando aquecidos.", correct: false },
+                    { text: "A Lei de Ohm estabelece que a tensão elétrica em um circuito é inversamente proporcional à corrente, o que significa que quanto maior a tensão, menor será a corrente para uma mesma resistência.", correct: false }
+                ]
+            },
+            {
+                id: 10,
+                question: "No final do século XIX, ocorreu a 'Guerra das Correntes' entre Thomas Edison, que defendia a corrente contínua (CC), e Nikola Tesla, que promovia a corrente alternada (CA). A corrente alternada prevaleceu como padrão para distribuição de energia elétrica em larga escala. Considerando as características desses dois tipos de corrente, qual alternativa apresenta corretamente uma vantagem da corrente alternada sobre a contínua para sistemas de distribuição?",
+                image: "https://via.placeholder.com/800x400?text=Corrente+Alternada+e+Contínua",
+                options: [
+                    { text: "A corrente alternada permite facilmente a transformação de tensão usando transformadores, possibilitando a transmissão em alta tensão (com menores perdas) e depois a redução para tensões seguras de utilização.", correct: true },
+                    { text: "A corrente alternada é mais eficiente para ser armazenada em baterias, o que facilita o fornecimento contínuo de energia mesmo durante interrupções na geração.", correct: false },
+                    { text: "A corrente alternada não sofre perdas durante a transmissão em longas distâncias, mantendo a mesma tensão do ponto de geração até o consumo.", correct: false },
+                    { text: "A corrente alternada é mais segura para os usuários, pois causa menos danos em caso de choque elétrico comparada à corrente contínua de mesma tensão.", correct: false }
+                ]
+            }
+        ];
 
-            /* ============================================================
-               QUESTÕES DO TESTE
-               ============================================================ */
-            const questions = [
-                { id: 1, question: "Durante uma aula de Ciências, os alunos realizaram um experimento para identificar diferentes formas de energia. Eles observaram que ao ligar um ventilador, a energia elétrica era convertida em energia mecânica (movimento das pás) e energia sonora (ruído do motor). Além disso, após algum tempo de funcionamento, notaram que o motor do ventilador estava aquecido. Considerando os diferentes tipos de energia estudados, qual alternativa descreve corretamente as transformações de energia que ocorrem nesse aparelho?", image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgy9Mwn8aPWz42wdeXslRn3POEYYz3k1sq0hGvlo_mFDJCRIHRylP6xk4d3k3xU88EY7yTW1wCJ5FZFJYIdQRimab1fJ9H936R4N_c6uRpgguSsOhmbNPOXi-_X4jQggZt-WUgTFxvmeFI3ulln_moyvRa8ZzyQDhVqfedbqJsfFZnLUylF-bOjCi38FUx4/s450/ChatGPT%20Image%2021%20de%20nov.%20de%202025,%2019_28_02.png", options: [{ text: "A energia elétrica é transformada apenas em energia mecânica, sendo o ruído e o calor considerados perdas energéticas indesejadas.", correct: false }, { text: "A energia elétrica se transforma em energia mecânica, sonora e térmica, demonstrando o princípio da conservação da energia, donde a energia total se mantém, apenas mudando de forma.", correct: true }, { text: "O calor gerado pelo motor representa uma criação de energia térmica que não existia anteriormente no sistema, contrariando o princípio de conservação.", correct: false }, { text: "A energia sonora produzida pelo ventilador é uma forma primária de energia que não deriva da energia elétrica fornecida ao aparelho.", correct: false }] },
-                { id: 2, question: "O Brasil possui uma matriz energética diversificada, com significativa participação de fontes renováveis. Em 2023, cerca de 48% da energia consumida no país veio de fontes renováveis, enquanto a média mundial é de aproximadamente 14%. Considerando as características das fontes de energia renováveis e não renováveis, qual alternativa apresenta corretamente uma vantagem das fontes renováveis em relação às não renováveis?", image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEik6earnY-dVxl6vIuWRF4cXZn_iWf44RHrznBwvjJUmuP_uB6FW0QJ-fy9n04j3WUVlKhWFI-uJNarFJ33Za5CtM1DKCsCximzI64Uthpetk7o1XpBY0zcdW6u-54g22ZnzXqEyhkLF8RL1dCpCfb7urpLG_C1hwur0TSbbGkj86yT_MG3k6oveRGAg4Vu/s450/Capturar.JPG", options: [{ text: "As fontes renováveis apresentam custos de instalação sempre inferiores aos das fontes não renováveis, tornando-as mais acessíveis economicamente.", correct: false }, { text: "As fontes renováveis são inesgotáveis em escala humana e causam menor impacto ambiental, contribuindo para a sustentabilidade e reduzindo as emissões de gases de efeito estufa.", correct: true }, { text: "As fontes renováveis não dependem de condições climáticas para seu funcionamento, garantindo produção constante e previsível de energia.", correct: false }, { text: "As fontes renováveis não exigem grandes áreas para instalação, sendo mais adequadas para regiões urbanas densamente povoadas.", correct: false }] },
-                { id: 3, question: "Em uma montanha-russa, os carrinhos são puxados até o ponto mais alto por um mecanismo motorizado. Ao serem soltos, descem rapidamente, subindo novamente em seguida, sem necessidade de motor durante a maior parte do percurso. Considerando o princípio da conservação da energia, qual alternativa explica corretamente o funcionamento da montanha-russa?", image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYAJkqusBlaY1Tkjt5op7135woDvNe7laN4qJx52Jh5UNVk7eoJOnIEwS6NvWLQPa7xd4Yb9Z5m39dPegpQabyEn5KEHBhbURja1TQIY305KlvaPlnAiz2tIx4asQvkd6HGQDtmHxET153h4yH_7jVC8rhG2gtr9O6s7nXw_HjaQQR3npi7yPR1IIR3WMo/s450/Capturar.JPG", options: [{ text: "A energia potencial gravitacional acumulada no ponto mais alto é convertida em energia cinética durante a descida, e parte dessa energia cinética é novamente convertida em energia potencial nas subidas subsequentes.", correct: true }, { text: "A energia cinética permanece constante durante todo o percurso, pois a velocidade dos carrinhos não varia significativamente.", correct: false }, { text: "A energia total do sistema aumenta durante as descidas e diminui durante as subidas, demonstrando que a energia pode ser criada e destruída.", correct: false }, { text: "A energia potencial é máxima nos pontos mais baixos do percurso e mínima nos pontos mais altos, permitindo o movimento contínuo dos carrinhos.", correct: false }] },
-                { id: 4, question: "O Objetivo de Desenvolvimento Sustentável (ODS) 7 da ONU visa 'garantir o acesso a fontes de energia acessíveis, confiáveis, sustentáveis e modernas para todos' até 2030. No Brasil, aproximadamente 2 milhões de pessoas ainda não têm acesso à energia elétrica, especialmente em comunidades remotas. Considerando esse contexto, qual alternativa apresenta corretamente um desafio para a implementação de energias renováveis nessas regiões?", image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgbcQR4REmb-snjFeTenlDo_JnvwWruHmjRhdFOqxIM-Ck-WPL0J1KMfCyGJw38N3x_ul_7pD3s3ftX-vc0fuN7Kq0l9qaKOIHas85qd7iv4llziEvk7ZPaMrrhEliEHlNT7TsssVCnT9pv5UsG_SfnKEqiwj4IAVD7sIGvJTVQozJ2z1Zv_tzHk7B8K2Kf/s398/Capturar.JPG", options: [{ text: "As energias renováveis são tecnicamente inviáveis em áreas remotas devido à falta de vento ou radiação solar nessas regiões.", correct: false }, { text: "O alto custo inicial de instalação, a falta de mão de obra especializada e as dificuldades de acesso a algumas localidades são obstáculos para a implementação de energias renováveis em comunidades isoladas.", correct: true }, { text: "As populações de comunidades remotas preferem utilizar combustíveis fósseis por considerarem as energias renováveis menos eficientes.", correct: false }, { text: "As energias renováveis exigem conexão com a rede elétrica nacional para funcionarem, o que impossibilita seu uso em locais isolados.", correct: false }] },
-                { id: 5, question: "A energia solar fotovoltaica tem se expandido rapidamente no Brasil, com crescimento médio anual superior a 50% nos últimos anos. Esta tecnologia converte diretamente a radiação solar em energia elétrica por meio de painéis constituídos por células fotovoltaicas. Considerando as características dessa fonte de energia, qual alternativa descreve corretamente uma de suas principais vantagens?", image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjBDi1ZWIOdVnTDManFFpMrQz0FK7Uh4tqi3Ke_gfAvPMhPFw4K0u4WFapjf7YSkQH8u6K4cXMpTDRyl-XGHrFkSKNr5l8FdWPvALX-NneRQgBlS1E62NdN8SlEpd2U5RYTmGj78J28LjMk0e7AsyGnRW5G48kn3Slt_YIzDmqgtlNQ8bhZihqNDNZKRR-V/s450/Capturar.JPG", options: [{ text: "A energia solar pode ser gerada próximo aos locais de consumo, reduzindo perdas na transmissão e permitindo a eletrificação de áreas remotas não atendidas pela rede elétrica convencional.", correct: true }, { text: "Os painéis solares funcionam com a mesma eficiência durante o dia e a noite, garantindo produção constante de energia 24 horas por dia.", correct: false }, { text: "A instalação de painéis solares não requer manutenção e tem vida útil ilimitada, tornando-se a opção mais econômica a longo prazo.", correct: false }, { text: "A energia solar é uma fonte não renovável, mas seu uso é incentivado devido à sua alta densidade energética.", correct: false }] },
-                { id: 6, question: "Os ímãs estão presentes em diversos dispositivos do nosso cotidiano, como motores elétricos, alto-falantes, discos rígidos e até mesmo em fechaduras de portas. As propriedades magnéticas desses materiais são explicadas pelo alinhamento de domínios magnéticos em sua estrutura. Considerando as características dos materiais magnéticos, qual alternativa está correta?", image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjTpBJaDAOrnOGQK_EPFQYWGGcrB99TjLlzBziC0MaCUYClJQxBJTEY3koFb37mo5KFhMrJKSzBA84J8kDt1omeN45cy8Y2SbWYhlBiVzrwfekXCbreTsPd8ujD-jo1s1M4Pg3E1TPrT0Jz7S6HhMR-yT4LlNrPQqmYYguPQtcEyKA7Nv8MUYK63ZJlGGVd/s450/ChatGPT%20Image%2021%20de%20nov.%20de%202025,%2020_06_31.png", options: [{ text: "Materiais ferromagnéticos como ferro, níquel e cobalto são fortemente atraídos por ímãs devido ao alinhamento de seus domínios magnéticos quando submetidos a um campo magnético externo.", correct: true }, { text: "Todos os metais são igualmente atraídos por ímãs, independentemente de sua composição química ou estrutura atômica.", correct: false }, { text: "Ao cortar um ímã ao meio, obtemos duas partes independentes: uma com apenas polo norte e outra com apenas polo sul.", correct: false }, { text: "Os polos magnéticos de mesmo nome (norte-norte ou sul-sul) se atraem, enquanto polos de nomes diferentes se repelem.", correct: false }] },
-                { id: 7, question: "Em dias secos, é comum sentirmos pequenos choques ao tocarmos em maçanetas metálicas ou outras pessoas. Esse fenômeno está relacionado ao acúmulo de cargas elétricas em nossos corpos, conhecido como eletricidade estática. Considerando os processos de eletrização, qual alternativa explica corretamente como ocorre esse acúmulo de cargas?", image: "", options: [{ text: "O atrito entre diferentes materiais (como solados de sapato e carpete) causa transferência de elétrons entre eles, deixando um dos materiais com excesso de elétrons (carga negativa) e o outro com falta de elétrons (carga positiva).", correct: true }, { text: "Nosso corpo naturalmente produz elétrons em excesso que se acumulam na superfície da pele, especialmente em dias secos.", correct: false }, { text: "A umidade do ar em dias secos facilita a condução de elétrons para o solo, impedindo o acúmulo de cargas em nosso corpo.", correct: false }, { text: "Os choques elétricos são causados pela transferência de prótons entre nosso corpo e objetos metálicos, já que os prótons têm maior mobilidade que os elétrons.", correct: false }] },
-                { id: 8, question: "Os raios são descargas elétricas de grande intensidade que ocorrem na atmosfera, principalmente durante tempestades. Estima-se que o Brasil é o país com maior incidência de raios no mundo, com uma média de 70 milhões por ano. Considerando os processos de eletrização envolvidos na formação dos raios, qual alternativa descreve corretamente como ocorre esse fenômeno?", image: "https://via.placeholder.com/800x400?text=Raios+e+Tempestades", options: [{ text: "O atrito entre partículas de gelo, água e granizo no interior das nuvens de tempestade gera separação de cargas, com cargas positivas concentrando-se na parte superior e cargas negativas na inferior da nuvem.", correct: true }, { text: "Os raios são causados pelo contato directo entre nuvens carregadas e o solo, sem que haja necessidade de diferença de potencial elétrico significativa.", correct: false }, { text: "A eletrização por indução é o principal mecanismo, onde a nuvem atua como um corpo neutro que é aproximado de um corpo carregado (o solo).", correct: false }, { text: "O raio é uma descarga de prótons que se movem da nuvem para o solo, buscando o equilíbrio de cargas.", correct: false }] },
-                { id: 9, question: "O eletromagnetismo é o ramo da física que estuda a relação entre eletricidade e magnetismo. Um dos princípios fundamentais é que um campo magnético pode ser gerado por uma corrente elétrica. Qual dispositivo utiliza esse princípio para converter energia elétrica em energia mecânica (movimento)?", image: "https://via.placeholder.com/800x400?text=Eletromagnetismo", options: [{ text: "Gerador elétrico", correct: false }, { text: "Transformador", correct: false }, { text: "Motor elétrico", correct: true }, { text: "Pilha galvânica", correct: false }] },
-                { id: 10, question: "A Lei de Ohm é fundamental para o estudo de circuitos elétricos e estabelece a relação entre tensão (U), corrente (I) e resistência (R). Qual é a fórmula matemática que representa a Lei de Ohm?", image: "https://via.placeholder.com/800x400?text=Lei+de+Ohm", options: [{ text: "P = U * I (Potência é igual a Tensão vezes Corrente)", correct: false }, { text: "U = R / I (Tensão é igual a Resistência dividida pela Corrente)", correct: false }, { text: "U = R * I (Tensão é igual a Resistência vezes Corrente)", correct: true }, { text: "I = U * R (Corrente é igual a Tensão vezes Resistência)", correct: false }] }
-            ];
+        /* ============================================================
+           MAPEAMENTO DAS RESPOSTAS CORRETAS
+           ============================================================ */
+        const correctAnswersMap = {};
+        questions.forEach(q => {
+            q.options.forEach((opt, idx) => {
+                if (opt.correct) correctAnswersMap[`q${q.id}`] = String.fromCharCode(65 + idx);
+            });
+        });
 
-            /* ============================================================
-               FUNÇÕES DE INICIALIZAÇÃO E RENDERIZAÇÃO
-               ============================================================ */
+        /* ============================================================
+           EXIBIÇÃO DE MENSAGENS
+           ============================================================ */
+        function showResult(msg, type) {
+            const el = document.getElementById("resultMessage");
+            el.innerHTML = msg;
+            el.className = "result " + type;
+            el.style.display = "block";
+        }
+        
+        function hideResult() {
+            document.getElementById("resultMessage").style.display = "none";
+        }
 
-            const studentSelect = document.getElementById('studentName');
-            const studentNumberInput = document.getElementById('studentNumber');
-            const studentGradeInput = document.getElementById('studentGrade');
-            const currentDateInput = document.getElementById('currentDate');
-            const questionsContainer = document.getElementById('questionsContainer');
-            const submitBtn = document.getElementById('submitBtn');
-            const clearBtn = document.getElementById('clearBtn');
-            const resultMessage = document.getElementById('resultMessage');
+        /* ============================================================
+           ENVIO PARA O APPS SCRIPT (CORRIGIDO)
+           ============================================================ */
+        async function sendToGoogle(dataObj) {
+            try {
+                // Removendo o cabeçalho 'Content-Type: application/json'
+                // O Google Apps Script lida melhor com o tipo de conteúdo padrão (text/plain)
+                // quando o JSON é enviado no corpo, e a correção de CORS no Apps Script
+                // deve resolver o problema de "Failed to fetch".
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: "POST",
+                    // Removido: headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(dataObj)
+                });
 
-            // 1. Preenche o campo de data
+                // Verifica se a resposta foi bem-sucedida (status 200-299)
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP: ${response.status} ${response.statusText}`);
+                }
+
+                // Tenta ler a resposta como JSON
+                const json = await response.json();
+
+                if (json.status === "success") {
+                    showResult("<strong>Sucesso!</strong> Dados enviados e registrados.", "success");
+                    document.getElementById("submitBtn").disabled = true;
+                } else {
+                    showResult(
+                        "<strong>Erro no servidor:</strong> " + (json.message || "Resposta inesperada do Apps Script."),
+                        "error"
+                    );
+                }
+            } catch (e) {
+                // Captura erros de rede (Failed to fetch) e erros de processamento
+                showResult(
+                    "<strong>Erro de Conexão:</strong> " + e.message + ". Verifique se o Apps Script está publicado corretamente (como 'Qualquer pessoa').",
+                    "error"
+                );
+            }
+        }
+
+        /* ============================================================
+           RENDERIZAÇÃO DE ALUNOS + QUESTÕES
+           ============================================================ */
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const select = document.getElementById("studentName");
+            const num = document.getElementById("studentNumber");
+            const grade = document.getElementById("studentGrade");
+            const container = document.getElementById("questionsContainer");
+            const dateField = document.getElementById("currentDate");
+            
+            // Preencher a data atual
             const today = new Date();
-            const formattedDate = today.toLocaleDateString('pt-BR');
-            currentDateInput.value = formattedDate;
+            dateField.value = today.toLocaleDateString('pt-BR');
 
-            // 2. Preenche o dropdown de alunos
-            function populateStudents() {
-                // Adiciona as opções de série como <optgroup>
-                for (const grade in students) {
-                    const optgroup = document.createElement('optgroup');
-                    optgroup.label = grade;
-                    
-                    // Adiciona os alunos dentro de cada <optgroup>
-                    students[grade].forEach(student => {
-                        const option = document.createElement('option');
-                        option.value = `${student.name}|${student.number}|${grade}`;
-                        option.textContent = student.name;
-                        optgroup.appendChild(option);
-                    });
-                    studentSelect.appendChild(optgroup);
-                }
-            }
+            // Preencher alunos
+            Object.keys(students).forEach(turma => {
+                const group = document.createElement("optgroup");
+                group.label = turma;
 
-            // 3. Renderiza as questões
-            function renderQuestions() {
-                questionsContainer.innerHTML = '';
-                const letters = ['A', 'B', 'C', 'D'];
-
-                questions.forEach((q, qIndex) => {
-                    const qElement = document.createElement('div');
-                    qElement.className = 'question-container';
-                    qElement.setAttribute('data-question-id', q.id);
-                    
-                    let html = `<div class="question">Q${q.id}. ${q.question}</div>`;
-                    
-                    if (q.image && q.image.trim() !== "" && q.image.indexOf("via.placeholder") === -1) {
-                        html += `<img src="${q.image}" alt="Imagem da Questão ${q.id}" class="question-image">`;
-                    }
-
-                    html += `<div class="options" data-question-index="${qIndex}">`;
-                    
-                    q.options.forEach((opt, oIndex) => {
-                        const letter = letters[oIndex];
-                        html += `
-                            <div class="option" data-letter="${letter}" data-value="${letter}" data-correct="${opt.correct}">
-                                ${opt.text}
-                            </div>
-                        `;
-                    });
-                    
-                    html += `</div>`;
-                    qElement.innerHTML = html;
-                    questionsContainer.appendChild(qElement);
-                });
-            }
-
-            // 4. Adiciona listeners de eventos
-            function addEventListeners() {
-                // Listener para seleção de aluno
-                studentSelect.addEventListener('change', (event) => {
-                    const selectedValue = event.target.value;
-                    if (selectedValue) {
-                        const [name, number, grade] = selectedValue.split('|');
-                        studentNumberInput.value = number;
-                        studentGradeInput.value = grade;
-                    } else {
-                        studentNumberInput.value = '';
-                        studentGradeInput.value = '';
-                    }
-                    hideMessage();
+                students[turma].forEach(s => {
+                    const opt = document.createElement("option");
+                    // O valor deve ser: Nº|Série|Nome
+                    opt.value = `${s.number}|${turma}|${s.name}`;
+                    opt.textContent = s.name;
+                    group.appendChild(opt);
                 });
 
-                // Listener para seleção de opção
-                questionsContainer.addEventListener('click', (event) => {
-                    const optionElement = event.target.closest('.option');
-                    if (optionElement) {
-                        const optionsContainer = optionElement.closest('.options');
-                        
-                        // Remove a seleção de todas as opções desta questão
-                        optionsContainer.querySelectorAll('.option').forEach(opt => {
-                            opt.classList.remove('selected');
-                        });
-                        
-                        // Adiciona a seleção à opção clicada
-                        optionElement.classList.add('selected');
-                        hideMessage();
-                    }
+                select.appendChild(group);
+            });
+
+            // Preencher questões
+            questions.forEach(q => {
+                const block = document.createElement("div");
+                block.className = "question-container";
+                block.id = "q" + q.id;
+
+                block.innerHTML = `
+                    <p class="question"><strong>${q.id}.</strong> ${q.question}</p>
+                    ${q.image ? `<img src="${q.image}" class="question-image">` : ""}
+                    <div class="options"></div>
+                `;
+
+                const optBox = block.querySelector(".options");
+
+                q.options.forEach((opt, idx) => {
+                    const letter = String.fromCharCode(65 + idx);
+                    const div = document.createElement("div");
+                    div.className = "option";
+                    div.dataset.question = q.id;
+                    div.dataset.letter = letter;
+                    div.textContent = opt.text; // Removido o <strong> da letra
+
+                    div.onclick = () => {
+                        optBox.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
+                        div.classList.add("selected");
+                        hideResult();
+                    };
+
+                    optBox.appendChild(div);
                 });
 
-                // Listener para o botão de envio
-                submitBtn.addEventListener('click', handleSubmit);
+                container.appendChild(block);
+            });
 
-                // Listener para o botão de limpar
-                clearBtn.addEventListener('click', clearResponses);
-            }
-
-            /* ============================================================
-               FUNÇÕES DE VALIDAÇÃO E ENVIO
-               ============================================================ */
-
-            function showMessage(type, message) {
-                resultMessage.className = `result ${type}`;
-                resultMessage.textContent = message;
-                resultMessage.style.display = 'block';
-            }
-
-            function hideMessage() {
-                resultMessage.style.display = 'none';
-            }
-
-            function clearResponses() {
-                // Limpa as seleções de resposta
-                questionsContainer.querySelectorAll('.option.selected').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
-                
-                // Limpa a seleção do aluno
-                studentSelect.value = "";
-                studentNumberInput.value = "";
-                studentGradeInput.value = "";
-                
-                hideMessage();
-                submitBtn.disabled = false;
-                showMessage('info', 'Respostas e seleção de aluno limpas. Você pode recomeçar.');
-            }
-
-            function validateForm(answers) {
-                if (!studentSelect.value) {
-                    showMessage('error', 'Por favor, selecione seu nome na lista antes de enviar.');
-                    return false;
-                }
-
-                if (answers.length !== questions.length) {
-                    showMessage('error', `Você respondeu ${answers.length} de ${questions.length} questões. Por favor, responda todas as questões.`);
-                    return false;
-                }
-                return true;
-            }
-
-            async function handleSubmit() {
-                submitBtn.disabled = true;
-                showMessage('info', 'Enviando respostas, por favor aguarde...');
-
-                const [name, number, grade] = studentSelect.value.split('|');
-                
-                // 1. Coleta as respostas
-                const answers = questions.map((q, index) => {
-                    const selectedOption = questionsContainer.querySelector(`.question-container[data-question-id="${q.id}"] .option.selected`);
-                    
-                    if (selectedOption) {
-                        const selectedLetter = selectedOption.getAttribute('data-value');
-                        const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
-                        
-                        return {
-                            questionId: q.id,
-                            answer: selectedLetter,
-                            isCorrect: isCorrect
-                        };
-                    }
-                    return null; // Retorna null se a questão não foi respondida
-                }).filter(a => a !== null); // Filtra as questões não respondidas
-
-                // 2. Validação
-                if (!validateForm(answers)) {
-                    submitBtn.disabled = false;
+            select.onchange = () => {
+                if (!select.value) {
+                    num.value = "";
+                    grade.value = "";
                     return;
                 }
+                // O valor é: Nº|Série|Nome. Precisamos do Nº e da Série.
+                const [n, g] = select.value.split("|");
+                num.value = n;
+                grade.value = g;
+                hideResult();
+            };
+            
+            // Botão limpar respostas
+            document.getElementById("clearBtn").onclick = () => {
+                document.querySelectorAll(".option.selected").forEach(opt => {
+                    opt.classList.remove("selected");
+                });
+                hideResult();
+            };
+        });
 
-                // 3. Prepara os dados para o Apps Script
-                const score = answers.filter(a => a.isCorrect).length;
-                const totalQuestions = questions.length;
-                const percentage = ((score / totalQuestions) * 100).toFixed(2);
+        /* ============================================================
+           ENVIO FINAL
+           ============================================================ */
 
-                const dataObj = {
-                    timestamp: new Date().toLocaleString('pt-BR'),
-                    name: name,
-                    number: number,
-                    grade: grade,
-                    score: score,
-                    total: totalQuestions,
-                    percentage: percentage,
-                    answers: answers.map(a => `Q${a.questionId}:${a.answer}`).join('; ')
-                };
+        document.getElementById("submitBtn").onclick = async () => {
+            hideResult();
 
-                // 4. Envia para o Apps Script
-                try {
-                    // CORREÇÃO CRUCIAL: Removendo o cabeçalho "Content-Type" para evitar o erro "Failed to fetch"
-                    const response = await fetch(GOOGLE_SCRIPT_URL, {
-                        method: "POST",
-                        // headers: { "Content-Type": "application/json" }, // LINHA REMOVIDA/COMENTADA
-                        body: JSON.stringify(dataObj)
-                    });
-
-                    // O Apps Script retorna um JSON com { result: 'success', message: '...' }
-                    const result = await response.json();
-
-                    if (response.ok && result.result === 'success') {
-                        showMessage('success', `Respostas enviadas com sucesso! Sua pontuação: ${score}/${totalQuestions} (${percentage}%).`);
-                        // Desabilita o botão para evitar reenvio
-                        submitBtn.disabled = true; 
-                    } else {
-                        // Trata erros retornados pelo Apps Script
-                        showMessage('error', `Erro ao registrar: ${result.message || 'Resposta inesperada do servidor.'}`);
-                        submitBtn.disabled = false;
-                    }
-
-                } catch (error) {
-                    // Trata erros de rede (como o "Failed to fetch" original)
-                    console.error("Erro de Conexão:", error);
-                    showMessage('error', `Erro de Conexão: Não foi possível se comunicar com o servidor. Verifique sua conexão e se o Apps Script está publicado corretamente (como 'Qualquer pessoa'). Detalhe: ${error.message}`);
-                    submitBtn.disabled = false;
-                }
+            const select = document.getElementById("studentName");
+            if (!select.value) {
+                showResult("Selecione seu nome.", "error");
+                return;
             }
 
-            // Inicia a aplicação
-            populateStudents();
-            renderQuestions();
-            addEventListeners();
-        });
+            // O valor é: Nº|Série|Nome
+            const [studentNumber, studentGrade, studentName] = select.value.split("|");
+            const data = { studentName, studentNumber, studentGrade };
+
+            let correct = 0;
+            let allAnswered = true;
+            for (let q of questions) {
+                const selected = document.querySelector(`#q${q.id} .option.selected`);
+                if (!selected) {
+                    allAnswered = false;
+                    break;
+                }
+                const letter = selected.dataset.letter;
+                data[`q${q.id}`] = letter;
+
+                if (letter === correctAnswersMap[`q${q.id}`]) correct++;
+            }
+
+            if (!allAnswered) {
+                showResult("Responda todas as questões.", "error");
+                return;
+            }
+
+            data.finalScore = correct;
+
+            showResult(`Calculando nota... você acertou ${correct}/${questions.length}. Enviando dados...`, "success");
+
+            await sendToGoogle(data);
+        };
     </script>
 </body>
 </html>
-
-
-
-
