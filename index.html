@@ -215,7 +215,7 @@
             font-size: 16px;
             font-weight: bold;
             transition: all 0.3s ease;
-            box-shadow: 6px 6px 12px rgba(0,0/0,0.2),
+            box-shadow: 6px 6px 12px rgba(0,0,0,0.2),
                        -6px -6px 12px rgba(255,255,255,0.7);
             flex: 1;
         }
@@ -322,7 +322,7 @@
         /* ============================================================
            CONFIGURAÇÕES GERAIS
            ============================================================ */
-        // Mantenha a URL original. A correção de CORS está no Apps Script.
+        // ATENÇÃO: SUBSTITUA ESTA URL PELA URL DE IMPLANTAÇÃO DO SEU GOOGLE APPS SCRIPT
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxXmv6G9g6PNEYA054jVdHGnH3oDenQRt-GFHnz5Mg0nshXjxEwCW-BXOWq4CuNKzg/exec";
 
         /* ============================================================
@@ -485,7 +485,7 @@
             {
                 id: 8,
                 question: "Os raios são descargas elétricas de grande intensidade que ocorrem na atmosfera, principalmente durante tempestades. Estima-se que o Brasil é o país com maior incidência de raios no mundo, com uma média de 70 milhões por ano. Considerando os processos de eletrização envolvidos na formação dos raios, qual alternativa descreve corretamente como ocorre esse fenômeno?",
-                image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiREg3FGbtLeNkDMseGtDyJxMQ3kuhPVM_coInqh0W0WylA0ZYL0_A9RQ3PIj63gSvNaEqFzzSkQ5gXVaI_vSrlMPkXO_j8JEWdNy6vY3Vep3rOxPr_8-ZaG_Yi6eZgQXNEgNMud-5cPxV4a3gAX2mrhugnkYsI4orjgiGbnaRzfKy-_4ucocKeBuxQHWrZ/s450/Capturar.JPG",
+                image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiREg3FGbtLeNkDMseGtDyJxMQ3kuhPVM_coInqh0W0WylA0ZYL0_A9RQ3PIj63gSvNaEqFzzSkQ5gXVaI_vSrlMPkXO_j8JEWdNy6vY3Vep3rOxPr_8-ZaG_Yi6eZgQXNEgNMud-5cPxV4a3gAX2mrhugnkYsI4orjgiGbnaRzfKy-_4ucococKeBuxQHWrZ/s450/Capturar.JPG",
                 options: [
                     { text: "O atrito entre partículas de gelo, água e granizo no interior das nuvens de tempestade gera separação de cargas, com cargas positivas concentrando-se na parte superior e cargas negativas na parte inferior da nuvem.", correct: true },
                     { text: "Os raios são causados pelo contato directo entre nuvens carregadas e o solo, sem que haja necessidade de diferença de potencial elétrico significativa.", correct: false },
@@ -546,22 +546,19 @@
            ============================================================ */
         async function sendToGoogle(dataObj) {
             try {
-                // Removendo o cabeçalho 'Content-Type: application/json'
-                // O Google Apps Script lida melhor com o tipo de conteúdo padrão (text/plain)
-                // quando o JSON é enviado no corpo, e a correção de CORS no Apps Script
-                // deve resolver o problema de "Failed to fetch".
-                const response = await fetch("https://script.google.com/macros/s/AKfycbyS2xMfD52G1lEx8wdVbKm2bSBDiravzRTlRGxXlj1u_AsviDx2hkpksbGVzIhqwFo/exec", {
+                // ATENÇÃO: SUBSTITUA ESTA URL PELA URL DE IMPLANTAÇÃO DO SEU GOOGLE APPS SCRIPT
+                const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxXmv6G9g6PNEYA054jVdHGnH3oDenQRt-GFHnz5Mg0nshXjxEwCW-BXOWq4CuNKzg/exec"; 
+
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
-                    // Removido: headers: { "Content-Type": "application/json" },
+                    // O Apps Script reescrito (Backend) está preparado para ler o JSON do corpo.
                     body: JSON.stringify(dataObj)
                 });
 
-                // Verifica se a resposta foi bem-sucedida (status 200-299)
                 if (!response.ok) {
                     throw new Error(`Erro HTTP: ${response.status} ${response.statusText}`);
                 }
 
-                // Tenta ler a resposta como JSON
                 const json = await response.json();
 
                 if (json.status === "success") {
@@ -574,7 +571,6 @@
                     );
                 }
             } catch (e) {
-                // Captura erros de rede (Failed to fetch) e erros de processamento
                 showResult(
                     "<strong>Erro de Conexão:</strong> " + e.message + ". Verifique se o Apps Script está publicado corretamente (como 'Qualquer pessoa').",
                     "error"
@@ -633,7 +629,7 @@
                     div.className = "option";
                     div.dataset.question = q.id;
                     div.dataset.letter = letter;
-                    div.textContent = opt.text; // Removido o <strong> da letra
+                    div.textContent = opt.text;
 
                     div.onclick = () => {
                         optBox.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
@@ -670,7 +666,7 @@
         });
 
         /* ============================================================
-           ENVIO FINAL
+           ENVIO FINAL (CORRIGIDO)
            ============================================================ */
 
         document.getElementById("submitBtn").onclick = async () => {
@@ -684,10 +680,18 @@
 
             // O valor é: Nº|Série|Nome
             const [studentNumber, studentGrade, studentName] = select.value.split("|");
-            const data = { studentName, studentNumber, studentGrade };
+            
+            // Inicializa o objeto de dados que será enviado
+            const data = { 
+                studentName: studentName, 
+                studentNumber: studentNumber, 
+                studentGrade: studentGrade 
+            };
 
             let correct = 0;
             let allAnswered = true;
+            const totalQuestions = questions.length;
+            
             for (let q of questions) {
                 const selected = document.querySelector(`#q${q.id} .option.selected`);
                 if (!selected) {
@@ -706,18 +710,14 @@
             }
 
             data.finalScore = correct;
+            
+            // CORREÇÃO CRUCIAL: Calcula e adiciona a porcentagem
+            data.percentage = (correct / totalQuestions) * 100;
 
-            showResult(`Calculando nota... você acertou ${correct}/${questions.length}. Enviando dados...`, "success");
+            showResult(`Calculando nota... você acertou ${correct}/${totalQuestions}. Enviando dados...`, "success");
 
             await sendToGoogle(data);
         };
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
