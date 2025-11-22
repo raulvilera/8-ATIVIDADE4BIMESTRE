@@ -323,7 +323,7 @@
            CONFIGURAÇÕES GERAIS
            ============================================================ */
         // ATENÇÃO: SUBSTITUA ESTA URL PELA URL DE IMPLANTAÇÃO DO SEU GOOGLE APPS SCRIPT
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyIK94d8t1tV0lXcR9wA3zwAuCaz9eI5M__OG0cUXZAhb5qiTpzE-waPeF9TFM5eJ0/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxJIco6iKXqnkvMkoTqrO2LuOAA16aM6hNXEqLnR3Gse3DWqbxlfuyJ3tEpCK0U56s/exec";
 
         /* ============================================================
            LISTA COMPLETA DE ALUNOS
@@ -547,9 +547,9 @@
         async function sendToGoogle(dataObj) {
             try {
                 // ATENÇÃO: SUBSTITUA ESTA URL PELA URL DE IMPLANTAÇÃO DO SEU GOOGLE APPS SCRIPT
-                const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyIK94d8t1tV0lXcR9wA3zwAuCaz9eI5M__OG0cUXZAhb5qiTpzE-waPeF9TFM5eJ0/exec"; 
+                const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxJIco6iKXqnkvMkoTqrO2LuOAA16aM6hNXEqLnR3Gse3DWqbxlfuyJ3tEpCK0U56s/exec"; 
 
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                const response = await fetch("https://script.google.com/macros/s/AKfycbxJIco6iKXqnkvMkoTqrO2LuOAA16aM6hNXEqLnR3Gse3DWqbxlfuyJ3tEpCK0U56s/exec", {
                     method: "POST",
                     // O Apps Script reescrito (Backend) está preparado para ler o JSON do corpo.
                     body: JSON.stringify(dataObj)
@@ -721,6 +721,7 @@
     </script>
 </body>
 </html>
+
 
 
 
